@@ -1,5 +1,6 @@
 package fila;
 
+/** Contrato: FIFO; front/dequeue vazios lançam NoSuchElementException. */
 public class Fila<T> {
 
     public void enqueue(T elemento) {
@@ -25,5 +26,10 @@ public class Fila<T> {
     public int size() {
         // TODO: informar a quantidade de elementos da fila.
         throw new UnsupportedOperationException("TODO: implementar por Cássio");
+    }
+
+    public void listar() {
+        // TODO: exibir um elemento por linha, na ordem FIFO, sem alterar a fila.
+        throw new UnsupportedOperationException("TODO: implementar Fila.listar por Cássio");
     }
 }

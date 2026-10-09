@@ -1,5 +1,7 @@
 package avl;
 
+import apoio.Validacao;
+
 public class Funcionario {
 
     private final String cpf;
@@ -7,9 +9,9 @@ public class Funcionario {
     private final String cargo;
 
     public Funcionario(String cpf, String nome, String cargo) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.cargo = cargo;
+        this.cpf = Validacao.cpf(cpf);
+        this.nome = Validacao.texto(nome, "Nome");
+        this.cargo = Validacao.texto(cargo, "Cargo");
     }
 
     public String getCpf() {

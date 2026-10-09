@@ -1,13 +1,15 @@
 package bubblesort;
 
+import apoio.Validacao;
+
 public class ProdutoPreco {
 
     private final String nome;
     private final double preco;
 
     public ProdutoPreco(String nome, double preco) {
-        this.nome = nome;
-        this.preco = preco;
+        this.nome = Validacao.texto(nome, "Nome");
+        this.preco = Validacao.naoNegativo(preco, "Preço");
     }
 
     public String getNome() {

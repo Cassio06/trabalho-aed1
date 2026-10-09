@@ -1,30 +1,58 @@
 package bst;
 
+import apoio.Entrada;
+import apoio.Pendencia;
+import java.util.Locale;
+import java.util.Scanner;
+
 public class AutocompleteProdutos {
 
     public static void main(String[] args) {
-        Produto[] produtos = criarProdutosDemonstracao();
-        BST<String, Produto> catalogo = new BST<>();
-
-        try {
-            for (Produto produto : produtos) {
-                catalogo.inserir(produto.getNome().toLowerCase(), produto);
-            }
-
-            String nomeExato = "caderno";
-            System.out.println("Busca exata por \"" + nomeExato + "\":");
-            System.out.println(catalogo.buscar(nomeExato));
-
-            String prefixo = "ca";
-            System.out.println("\nPrefixo para autocomplete: " + prefixo);
-            // TODO: adaptar a travessia da BST para exibir somente nomes com o prefixo.
-            catalogo.listarEmOrdem();
-        } catch (UnsupportedOperationException excecao) {
-            System.out.println(excecao.getMessage());
+        try (Scanner scanner = new Scanner(System.in)) {
+            Entrada.executar(() -> executar(new Entrada(scanner)));
         }
     }
 
-    private static Produto[] criarProdutosDemonstracao() {
+    private static void executar(Entrada entrada) {
+        Produto[] produtos = criarProdutosDemonstracao();
+        BST<String, Produto> catalogo = new BST<>();
+        System.out.println("Catálogo inicial: " + produtos.length + " produtos.");
+        for (Produto produto : produtos) System.out.println(produto);
+        try {
+            for (Produto produto : produtos) catalogo.inserir(normalizar(produto.getNome()), produto);
+        } catch (UnsupportedOperationException excecao) {
+            Pendencia.mostrar(excecao);
+            return;
+        }
+        while (true) {
+            int opcao = entrada.inteiro("\n1 - Buscar nome exato; 2 - Autocomplete por prefixo; "
+                    + "3 - Listar todos; 0 - Sair: ", 0, 3);
+            if (opcao == 0) return;
+            try {
+                switch (opcao) {
+                    case 1 -> {
+                        Produto produto = catalogo.buscar(normalizar(entrada.texto("Nome: ")));
+                        System.out.println(produto == null ? "Produto não encontrado." : produto);
+                    }
+                    case 2 -> {
+                        String prefixo = normalizar(entrada.texto("Prefixo: "));
+                        System.out.println("Sugestões para " + prefixo + " (nenhuma linha se não houver):");
+                        catalogo.listarPorPrefixo(prefixo);
+                    }
+                    case 3 -> catalogo.listarEmOrdem();
+                    default -> throw new IllegalStateException("Opção inesperada.");
+                }
+            } catch (UnsupportedOperationException excecao) {
+                Pendencia.mostrar(excecao);
+            }
+        }
+    }
+
+    static String normalizar(String nome) {
+        return nome.trim().toLowerCase(Locale.ROOT);
+    }
+
+    static Produto[] criarProdutosDemonstracao() {
         String[] nomes = {
                 "Agenda", "Apontador", "Borracha", "Caderno", "Calculadora",
                 "Caneta Azul", "Caneta Preta", "Caneta Vermelha", "Cartolina", "Clips",

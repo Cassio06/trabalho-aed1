@@ -1,5 +1,6 @@
 package insertionsort;
 
+import apoio.Pendencia;
 import java.util.Comparator;
 
 public class JogoCartas {
@@ -10,19 +11,26 @@ public class JogoCartas {
                 .comparingInt(JogoCartas::ordemDoValor)
                 .thenComparing(Carta::getNaipe);
 
+        Carta[] recebidas = mao;
+        mao = new Carta[0];
+        System.out.println("Recebimento de " + recebidas.length + " cartas. Ás vale 1; desempate por naipe.");
         try {
-            InsertionSort.ordenar(mao, porValorENaipe);
-
-            System.out.println("Cartas ordenadas:");
-            for (Carta carta : mao) {
-                System.out.println(carta);
+            for (Carta recebida : recebidas) {
+                Carta[] ampliada = new Carta[mao.length + 1];
+                for (int i = 0; i < mao.length; i++) ampliada[i] = mao[i];
+                ampliada[mao.length] = recebida;
+                System.out.println("\nRecebida: " + recebida);
+                InsertionSort.ordenar(ampliada, porValorENaipe);
+                mao = ampliada;
+                System.out.println("Mão após a inserção:");
+                for (Carta carta : mao) System.out.println(carta);
             }
         } catch (UnsupportedOperationException excecao) {
-            System.out.println(excecao.getMessage());
+            Pendencia.mostrar(excecao);
         }
     }
 
-    private static Carta[] criarMaoDemonstracao() {
+    static Carta[] criarMaoDemonstracao() {
         return new Carta[]{
                 new Carta("K", "Copas"),
                 new Carta("3", "Paus"),
