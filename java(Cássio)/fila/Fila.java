@@ -1,35 +1,64 @@
 package fila;
 
-/** Contrato: FIFO; front/dequeue vazios lançam NoSuchElementException. */
+import java.util.NoSuchElementException;
+
 public class Fila<T> {
 
+    private Object[] elementos = new Object[20];
+    private int inicio = 0;
+    private int fim = 0;
+    private int quantidade = 0;
+
+
     public void enqueue(T elemento) {
-        // TODO: adicionar o elemento ao final da fila.
-        throw new UnsupportedOperationException("TODO: implementar por Cássio");
+        if(quantidade == elementos.length){
+            throw new IllegalStateException("A fila está cheia.");
+        }
+        if(elemento == null){
+            throw new IllegalArgumentException("O elemento é nulo.");
+        }
+        elementos[fim] = elemento;
+        quantidade++;
+        fim = (fim + 1) % elementos.length;
     }
 
+    @SuppressWarnings("unchecked")
     public T dequeue() {
-        // TODO: remover e devolver o primeiro elemento da fila.
-        throw new UnsupportedOperationException("TODO: implementar por Cássio");
+        if(isEmpty()){
+            throw new NoSuchElementException("A fila está vazia.");
+
+        }
+        T removido = (T) elementos[inicio];
+        elementos[inicio] = null;
+        inicio = (inicio + 1) % elementos.length;
+        quantidade--;
+
+        return removido;
     }
 
+    @SuppressWarnings("unchecked")
     public T front() {
-        // TODO: devolver o primeiro elemento sem removê-lo.
-        throw new UnsupportedOperationException("TODO: implementar por Cássio");
+        if(isEmpty()){
+            throw new NoSuchElementException("A fila está vazia.");
+
+        }
+
+        return (T) elementos[inicio];
+
     }
 
     public boolean isEmpty() {
-        // TODO: informar se a fila está vazia.
-        throw new UnsupportedOperationException("TODO: implementar por Cássio");
+       return quantidade == 0;
     }
 
     public int size() {
-        // TODO: informar a quantidade de elementos da fila.
-        throw new UnsupportedOperationException("TODO: implementar por Cássio");
+      return quantidade;
     }
 
     public void listar() {
-        // TODO: exibir um elemento por linha, na ordem FIFO, sem alterar a fila.
-        throw new UnsupportedOperationException("TODO: implementar Fila.listar por Cássio");
+        for(int i = 0; i < quantidade; i++){
+            int indice = (inicio + i) % elementos.length;
+            System.out.println(elementos[indice]);
+        }
     }
 }
