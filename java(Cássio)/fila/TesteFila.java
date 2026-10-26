@@ -218,6 +218,16 @@ public class TesteFila {
             }
             throw new AssertionError("Cancelar em uma fila vazia deve lançar NoSuchElementException.");
         });
+        executar("cancelar último após reutilizar índices circulares", () -> {
+            Fila<Integer> fila = new Fila<>();
+            for (int i = 1; i <= 20; i++) fila.enqueue(i);
+            for (int i = 1; i <= 10; i++) verificar(fila.dequeue() == i, "Ordem antes do cancelamento circular.");
+            for (int i = 21; i <= 30; i++) fila.enqueue(i);
+            verificar(fila.removerUltimo() == 30, "Deve remover o último elemento mesmo quando o índice final voltou ao início.");
+            verificar(fila.size() == 19, "O tamanho deve refletir o cancelamento circular.");
+            for (int i = 11; i <= 29; i++) verificar(fila.dequeue() == i, "A ordem dos elementos restantes deve continuar FIFO.");
+            verificar(fila.isEmpty(), "A fila deve terminar vazia após o percurso circular.");
+        });
         TESTES.concluir();
     }
 
