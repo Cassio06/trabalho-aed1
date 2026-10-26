@@ -18,7 +18,7 @@ import mergesort.Transacao;
 import static apoio.Testes.rejeita;
 import static apoio.Testes.verificar;
 
-/** Verificações executáveis mesmo antes da implementação dos algoritmos. */
+/** Testes de apoio para modelos, validações e entradas/saídas das aplicações. */
 public class TesteApoio {
 
     public static void main(String[] args) {
