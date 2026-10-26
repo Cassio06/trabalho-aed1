@@ -27,7 +27,7 @@ public class FilaImpressao {
         int paginas = 0;
         while (true) {
             int opcao = entrada.inteiro("\n1 - Enviar; 2 - Imprimir próximo; 3 - Listar fila; "
-                    + "4 - Tamanho; 5 - Imprimir todos; 0 - Sair: ", 0, 5);
+                    + "4 - Tamanho; 5 - Imprimir todos; 6 - Cancelar último; 0 - Sair: ", 0, 6);
             if (opcao == 0) {
                 System.out.println("Relatório: " + impressos + " trabalho(s), " + paginas + " página(s). "
                         + "A sequência efetiva foi exibida a cada impressão.");
@@ -66,6 +66,14 @@ public class FilaImpressao {
                     }
                     case 3 -> filaImpressao.listar();
                     case 4 -> System.out.println("Aguardando: " + filaImpressao.size());
+                    case 6 -> {
+                        if (filaImpressao.isEmpty()) {
+                            System.out.println("Não há trabalhos aguardando para cancelar.");
+                        } else {
+                            TrabalhoImpressao cancelado = filaImpressao.removerUltimo();
+                            System.out.println("Último trabalho aguardando cancelado: " + cancelado);
+                        }
+                    }
                     default -> throw new IllegalStateException("Opção inesperada.");
                 }
             } catch (UnsupportedOperationException excecao) {
