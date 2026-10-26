@@ -1,6 +1,7 @@
 package insertionsort;
 
 import apoio.Validacao;
+import java.util.Locale;
 
 public class Vendedor {
 
@@ -22,6 +23,6 @@ public class Vendedor {
 
     @Override
     public String toString() {
-        return nome + " - total vendido: R$ " + String.format("%.2f", totalVendido);
+        return nome + " - total vendido: R$ " + String.format(Locale.forLanguageTag("pt-BR"), "%,.2f", totalVendido);
     }
 }
