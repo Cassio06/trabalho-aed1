@@ -47,6 +47,19 @@ public class Fila<T> {
 
     }
 
+    /** Remove o elemento inserido mais recentemente que ainda aguarda na fila. */
+    @SuppressWarnings("unchecked")
+    public T removerUltimo() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("A fila está vazia.");
+        }
+        fim = (fim - 1 + elementos.length) % elementos.length;
+        T removido = (T) elementos[fim];
+        elementos[fim] = null;
+        quantidade--;
+        return removido;
+    }
+
     public boolean isEmpty() {
        return quantidade == 0;
     }
