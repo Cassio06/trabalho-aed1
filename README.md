@@ -8,7 +8,7 @@ As implementações utilizam Java puro, sem Maven, Gradle, JUnit ou dependência
 
 As aplicações incluem dados de demonstração, entradas, menus e testes próprios. O script `verificar.sh` compila o projeto e executa as suítes de testes.
 
-Na última execução registrada, as sete suítes totalizaram 104 testes aprovados, sem pendências ou falhas. Esse resultado corresponde às verificações realizadas na branch `Cassio` em 26 de outubro de 2026 e deverá ser confirmado novamente após alterações futuras.
+Na execução registrada em 26 de outubro de 2026, as sete suítes totalizaram 104 testes aprovados, sem pendências ou falhas. Esse resultado corresponde às verificações realizadas na branch `Cassio` e deverá ser confirmado novamente após alterações futuras.
 
 ## Organização
 
@@ -79,13 +79,11 @@ Substitua o nome completo da classe para executar qualquer aplicação da tabela
 
 Os dados são fictícios, fixos ou gerados por fórmulas determinísticas. Os CPFs são identificadores de teste: somente o formato é validado, sem cálculo de dígitos verificadores. O catálogo usa minúsculas com `Locale.ROOT`; a normalização preserva acentos.
 
-A clínica registra chegadas em ordem não decrescente no mesmo dia (03/08/2026), com início do serviço às 08:00 e duração estimada de dez minutos. A espera é calculada apenas a partir de pacientes realmente retirados da fila. O vetor auxiliar armazena o histórico de até 200 registros, sem substituir a fila. A impressão exibe sua sequência efetiva a cada retirada. O cancelamento do último trabalho, opcional no enunciado, fica fora desta preparação.
+A clínica registra chegadas em ordem não decrescente no mesmo dia (03/08/2026), com início do serviço às 08:00 e duração estimada de dez minutos. A espera é calculada apenas a partir de pacientes realmente retirados da fila. O vetor auxiliar armazena o histórico de até 200 registros, sem substituir a fila. A impressão exibe sua sequência efetiva a cada retirada. O cancelamento do último trabalho, opcional no enunciado, fica fora da implementação atual.
 
 As cartas usam Ás = 1, J = 11, Q = 12, K = 13, com desempate por naipe. As vendas são acumuladas diariamente mantendo a ordem do ranking anterior antes da próxima chamada ao Insertion Sort. As contagens observadas no comparador só são exibidas depois da execução real do algoritmo; não medem deslocamentos.
 
 O ranking de jogadores usa uma chave textual com dez dígitos de pontuação e nome, para preservar jogadores empatados. O Top-K percorre as chaves em ordem decrescente, incluindo nome decrescente no desempate. Atualizar a pontuação remove a chave antiga e insere a nova pela AVL; o vetor dos jogadores serve apenas como cadastro de identificadores, sem ordenar nem responder o Top-K.
-
-Enquanto a inserção inicial de uma estrutura estiver pendente, a aplicação mostra os dados e `[PENDENTE]`, encerrando antes do menu que depende dessa estrutura. Na clínica e nas notas, a escolha entre demonstração e cadastro ocorre antes dessa chamada. Os fluxos de atendimento, ranking e resultados ordenados só poderão ser verificados integralmente após implementar os algoritmos.
 
 ## Contratos usados nos testes
 
@@ -111,22 +109,6 @@ Enquanto a inserção inicial de uma estrutura estiver pendente, a aplicação m
 - [x] Modelo de relatório técnico e documentação dos comandos para compilação e execução.
 
 Na execução registrada em 26 de outubro de 2026, as sete suítes totalizaram 104 testes aprovados, sem falhas ou pendências. Esse resultado deverá ser confirmado novamente após alterações no código e a integração com os módulos do outro integrante da dupla.
-
-## Implementação didática pendente
-
-| Classe | Métodos/partes para Cássio implementar |
-|---|---|
-| `Fila<T>` | `enqueue`, `dequeue`, `front`, `isEmpty`, `size`, `listar` e representação interna |
-| `BubbleSort` | `ordenar`: comparações, trocas, parada antecipada e instrumentação interna de trocas |
-| `InsertionSort` | `ordenar`: comparações e deslocamentos |
-| `BST<K,V>` | Nós, `inserir`, `buscar`, `remover`, `listarEmOrdem`, `listarPorPrefixo` e percurso limitado |
-| `MergeSort` | `ordenar`: recursão e intercalação; `mesclarContatos`: merge com eliminação de duplicatas |
-| `AVL<K,V>` | Nós, rotações, balanceamento, `inserir`, `buscar`, `remover`, `altura`, `fatorBalanceamento`, `estaBalanceada`, `listarMaiores` |
-| Relatório | Justificativas próprias, complexidades da implementação, execuções completas, medições e dificuldades pessoais |
-
-Os corpos dos métodos centrais existentes foram preservados. As novas operações são somente contratos com `TODO`. Não há implementação alternativa para produzir resultados enquanto estiverem pendentes. Para cumprir a comparação de desempenho de Bubble Sort do enunciado, ainda será necessário instrumentar suas trocas e registrar comparações com outros algoritmos após implementá-los.
-
-Comece por `Fila.enqueue`, definindo a representação interna, e complete `isEmpty`, `size`, `front` e `dequeue`. Depois execute `fila.TesteFila` e as duas aplicações; implemente `listar` para a consulta da impressão.
 
 ## Verificações e interpretação
 
