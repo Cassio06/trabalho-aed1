@@ -2,9 +2,13 @@
 
 ## Objetivo e escopo
 
-Esta parte do trabalho de AED contém seis estruturas/algoritmos e 12 aplicações de console. Usa Java puro e vetores, sem Maven, Gradle, JUnit ou dependências externas, por escolha de organização do projeto. O enunciado exige implementar as estruturas do zero; a escolha das ferramentas de compilação é do projeto.
+Esta parte do trabalho de Algoritmos e Estruturas de Dados I contém seis estruturas e algoritmos, com 12 aplicações de console em Java: Fila, Bubble Sort, Insertion Sort, Árvore Binária de Busca (BST), Merge Sort e Árvore AVL.
 
-As classes de domínio, entradas, menus, dados e testes estão preparados. A implementação didática continua com Cássio: os métodos centrais preservam os `TODO`s e lançam `UnsupportedOperationException`. Compilar ou executar um caso `[PENDENTE]` não demonstra que o algoritmo funciona.
+As implementações utilizam Java puro, sem Maven, Gradle, JUnit ou dependências externas. As estruturas e os algoritmos são implementados no próprio projeto, sem substituir seu funcionamento por coleções ou métodos de ordenação prontos.
+
+As aplicações incluem dados de demonstração, entradas, menus e testes próprios. O script `verificar.sh` compila o projeto e executa as suítes de testes.
+
+Na última execução registrada, as sete suítes totalizaram 104 testes aprovados, sem pendências ou falhas. Esse resultado corresponde às verificações realizadas na branch `Cassio` em 26 de outubro de 2026 e deverá ser confirmado novamente após alterações futuras.
 
 ## Organização
 
