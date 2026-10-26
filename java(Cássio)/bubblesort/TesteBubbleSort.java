@@ -59,6 +59,49 @@ public class TesteBubbleSort {
                     "Bubble Sort otimizado deve encerrar após uma passagem sem trocas: esperado 4 comparações, obtido "
                             + comparacoes[0]);
         });
+        executar("estatísticas: vetor já ordenado", () -> {
+            Integer[] valores = {1, 2, 3, 4, 5};
+
+            BubbleSort.Estatisticas estatisticas =
+                    BubbleSort.ordenarComEstatisticas(
+                            valores,
+                            Comparator.naturalOrder()
+                    );
+
+            Testes.verificar(
+                    estatisticas.getComparacoes() == 4,
+                    "Esperadas 4 comparações."
+            );
+
+            Testes.verificar(
+                    estatisticas.getTrocas() == 0,
+                    "Esperadas 0 trocas."
+            );
+        });
+        executar("estatísticas: vetor desordenado", () -> {
+            Integer[] valores = {3, 1, 2};
+
+            BubbleSort.Estatisticas estatisticas =
+                    BubbleSort.ordenarComEstatisticas(
+                            valores,
+                            Comparator.naturalOrder()
+                    );
+
+            Testes.verificar(
+                    estatisticas.getComparacoes() == 3,
+                    "Esperadas 3 comparações."
+            );
+
+            Testes.verificar(
+                    estatisticas.getTrocas() == 2,
+                    "Esperadas 2 trocas."
+            );
+
+            Testes.verificar(
+                    valores[0] == 1 && valores[1] == 2 && valores[2] == 3,
+                    "O vetor deve terminar ordenado."
+            );
+        });
         TESTES.concluir();
     }
 

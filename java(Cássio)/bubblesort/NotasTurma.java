@@ -5,6 +5,7 @@ import apoio.Entrada;
 import apoio.Pendencia;
 import java.util.Comparator;
 import java.util.Scanner;
+import insertionsort.InsertionSort;
 
 public class NotasTurma {
 
@@ -26,6 +27,8 @@ public class NotasTurma {
                         entrada.decimal("Nota (0 a 10): ", 0, 10));
             }
         }
+        NotaAluno[] notasBubble = notas.clone();
+        NotaAluno[] notasInsertion = notas.clone();
         System.out.println("Notas recebidas:");
         double soma = 0;
         for (NotaAluno nota : notas) {
@@ -35,12 +38,39 @@ public class NotasTurma {
         System.out.printf("Média da turma (independente da ordenação): %.2f%n", soma / notas.length);
 
         try {
-            BubbleSort.ordenar(notas, Comparator.comparingDouble(NotaAluno::getNota));
+            BubbleSort.Estatisticas estatisticas =
+                    BubbleSort.ordenarComEstatisticas(
+                            notasBubble,
+                            Comparator.comparingDouble(NotaAluno::getNota)
+                    );
 
             System.out.println("Notas em ordem crescente:");
-            for (NotaAluno notaAluno : notas) {
+
+            for (NotaAluno notaAluno : notasBubble) {
                 System.out.println(notaAluno);
             }
+
+            System.out.println("\nEstatísticas do Bubble Sort:");
+            System.out.println("Comparações: " + estatisticas.getComparacoes());
+            System.out.println("Trocas: " + estatisticas.getTrocas());
+            InsertionSort.Estatisticas estatisticasInsertion =
+                    InsertionSort.ordenarComEstatisticas(
+                            notasInsertion,
+                            Comparator.comparingDouble(NotaAluno::getNota)
+                    );
+
+            System.out.println("\nEstatísticas do Insertion Sort:");
+            System.out.println("Comparações: " + estatisticasInsertion.getComparacoes());
+            System.out.println("Deslocamentos: " + estatisticasInsertion.getDeslocamentos());
+            long diferencaComparacoes =
+                    estatisticas.getComparacoes()
+                            - estatisticasInsertion.getComparacoes();
+
+            System.out.println("\nComparação entre os algoritmos:");
+            System.out.println(
+                    "Comparações a menos com Insertion Sort: "
+                            + diferencaComparacoes
+            );
         } catch (UnsupportedOperationException excecao) {
             Pendencia.mostrar(excecao);
         }

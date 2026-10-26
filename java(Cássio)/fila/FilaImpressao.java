@@ -36,10 +36,21 @@ public class FilaImpressao {
             try {
                 switch (opcao) {
                     case 1 -> {
-                        TrabalhoImpressao trabalho = new TrabalhoImpressao(entrada.texto("Aluno: "),
-                                entrada.texto("Arquivo: "), entrada.inteiro("Páginas: ", 1, 10000));
-                        filaImpressao.enqueue(trabalho);
-                        System.out.println("Enviado: " + trabalho);
+                        if (filaImpressao.size() >= 20) {
+                            System.out.println(
+                                    "Não foi possível enviar o trabalho: a fila está cheia."
+                            );
+                        } else {
+                            TrabalhoImpressao trabalho = new TrabalhoImpressao(
+                                    entrada.texto("Aluno: "),
+                                    entrada.texto("Arquivo: "),
+                                    entrada.inteiro("Páginas: ", 1, 10000)
+                            );
+
+                            filaImpressao.enqueue(trabalho);
+
+                            System.out.println("Enviado: " + trabalho);
+                        }
                     }
                     case 2, 5 -> {
                         if (filaImpressao.isEmpty()) {

@@ -57,6 +57,49 @@ public class TesteInsertionSort {
                 }
             }
         });
+        executar("estatísticas: vetor já ordenado", () -> {
+            Integer[] valores = {1, 2, 3, 4, 5};
+
+            InsertionSort.Estatisticas estatisticas =
+                    InsertionSort.ordenarComEstatisticas(
+                            valores,
+                            Comparator.naturalOrder()
+                    );
+
+            Testes.verificar(
+                    estatisticas.getComparacoes() == 4,
+                    "Esperadas 4 comparações."
+            );
+
+            Testes.verificar(
+                    estatisticas.getDeslocamentos() == 0,
+                    "Esperados 0 deslocamentos."
+            );
+        });
+        executar("estatísticas: vetor desordenado", () -> {
+            Integer[] valores = {3, 1, 2};
+
+            InsertionSort.Estatisticas estatisticas =
+                    InsertionSort.ordenarComEstatisticas(
+                            valores,
+                            Comparator.naturalOrder()
+                    );
+
+            Testes.verificar(
+                    estatisticas.getComparacoes() == 3,
+                    "Esperadas 3 comparações."
+            );
+
+            Testes.verificar(
+                    estatisticas.getDeslocamentos() == 2,
+                    "Esperados 2 deslocamentos."
+            );
+
+            Testes.verificar(
+                    valores[0] == 1 && valores[1] == 2 && valores[2] == 3,
+                    "O vetor deve terminar ordenado."
+            );
+        });
         TESTES.concluir();
     }
 

@@ -3,6 +3,7 @@ package insertionsort;
 import apoio.Dados;
 import apoio.Pendencia;
 import java.util.Comparator;
+import java.util.Random;
 
 public class RankingVendedores {
 
@@ -42,10 +43,18 @@ public class RankingVendedores {
     }
 
     private static void compararEntradas(Vendedor[] ordenados, Comparator<Vendedor> criterio) {
-        Vendedor[] embaralhados = new Vendedor[ordenados.length];
-        for (int i = 0; i < ordenados.length; i++) embaralhados[i] = ordenados[(i * 7) % ordenados.length];
+        Vendedor[] embaralhados = ordenados.clone();
+        Random aleatorio = new Random(42);
+
+        for (int i = embaralhados.length - 1; i > 0; i--) {
+            int indice = aleatorio.nextInt(i + 1);
+
+            Vendedor temporario = embaralhados[i];
+            embaralhados[i] = embaralhados[indice];
+            embaralhados[indice] = temporario;
+        }
         contarComparacoes("ranking já ordenado", ordenados, criterio);
-        contarComparacoes("ranking em permutação fixa", embaralhados, criterio);
+        contarComparacoes("ranking embaralhado (semente 42)", embaralhados, criterio);
         System.out.println("Contagens são chamadas ao Comparator, não contagens de deslocamentos.");
     }
 
