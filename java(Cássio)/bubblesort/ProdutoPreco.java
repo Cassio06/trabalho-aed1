@@ -1,6 +1,7 @@
 package bubblesort;
 
 import apoio.Validacao;
+import java.util.Locale;
 
 public class ProdutoPreco {
 
@@ -22,6 +23,6 @@ public class ProdutoPreco {
 
     @Override
     public String toString() {
-        return nome + " - R$ " + String.format("%.2f", preco);
+        return nome + " - R$ " + String.format(Locale.forLanguageTag("pt-BR"), "%,.2f", preco);
     }
 }
