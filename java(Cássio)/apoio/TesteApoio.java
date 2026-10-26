@@ -113,7 +113,9 @@ public class TesteApoio {
             LocalDateTime data = LocalDateTime.of(2026, 8, 1, 8, 0);
             Transacao transacao = new Transacao(data, -25, "Compra");
             verificar(transacao.getDataHora().equals(data) && transacao.getValor() == -25
-                    && transacao.getDescricao().equals("Compra") && transacao.toString().contains("Compra"), "Campos da transação.");
+                    && transacao.getDescricao().equals("Compra")
+                    && transacao.toString().equals("01/08/2026 08:00 - R$ -25,00 - Compra"),
+                    "Campos e formatação brasileira da transação.");
             rejeita(() -> new Transacao(data, Double.NaN, "Compra"));
             try {
                 new Transacao(null, 10, "PIX");
