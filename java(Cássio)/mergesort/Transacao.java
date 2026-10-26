@@ -2,6 +2,8 @@ package mergesort;
 
 import apoio.Validacao;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Transacao {
@@ -30,7 +32,9 @@ public class Transacao {
 
     @Override
     public String toString() {
-        return dataHora + " - R$ " + String.format("%.2f", valor) + " - " + descricao;
+        String dataFormatada = dataHora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.forLanguageTag("pt-BR")));
+        String valorFormatado = String.format(Locale.forLanguageTag("pt-BR"), "%,.2f", valor);
+        return dataFormatada + " - R$ " + valorFormatado + " - " + descricao;
     }
 
     private static double validarValor(double valor) {
