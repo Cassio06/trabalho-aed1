@@ -8,7 +8,7 @@ As implementações utilizam Java puro, sem Maven, Gradle, JUnit ou dependência
 
 As aplicações incluem dados de demonstração, entradas, menus e testes próprios. O script `verificar.sh` compila o projeto e executa as suítes de testes.
 
-Na execução registrada em 26 de outubro de 2026, antes das últimas alterações, as sete suítes totalizaram 104 testes aprovados. Depois disso, foram acrescentados um teste de cancelamento da fila e um teste de sintaxe do CPF. A versão atual prevê 106 casos no total; é necessário executar `bash verificar.sh` novamente para confirmar os resultados dessa versão.
+Na execução registrada em 26 de outubro de 2026, antes das últimas alterações, as sete suítes totalizaram 104 testes aprovados. Depois disso, foram acrescentados dois testes de cancelamento da fila (incluindo índices circulares) e um teste de sintaxe do CPF. A versão atual prevê 107 casos no total; é necessário executar `bash verificar.sh` novamente para confirmar os resultados dessa versão.
 
 ## Organização
 
@@ -108,7 +108,7 @@ O ranking de jogadores usa uma chave textual com dez dígitos de pontuação e n
 - [x] Script `verificar.sh` para compilar o projeto e executar as suítes de testes.
 - [x] Modelo de relatório técnico e documentação dos comandos para compilação e execução.
 
-A execução registrada em 26 de outubro de 2026 corresponde à versão anterior às últimas mudanças e totalizou 104 casos aprovados. As alterações recentes acrescentaram dois casos de teste (fila e validação de CPF), elevando a contagem prevista para 106. Até a reexecução de `bash verificar.sh`, o status do conjunto atualizado deve ser considerado pendente de confirmação.
+A execução registrada em 26 de outubro de 2026 corresponde à versão anterior às últimas mudanças e totalizou 104 casos aprovados. As alterações recentes acrescentaram dois casos à fila e um à validação de CPF, elevando a contagem prevista para 107. Até a reexecução de `bash verificar.sh`, o status do conjunto atualizado deve ser considerado pendente de confirmação.
 
 ## Verificações e interpretação
 
@@ -122,18 +122,18 @@ Os resultados são apresentados com os seguintes indicadores:
 
 O script deve ser interpretado em conjunto com os resumos de cada suíte. Um código de saída zero, isoladamente, não garante que todos os casos foram aprovados caso existam pendências.
 
-A tabela abaixo registra a execução anterior, de 26 de outubro de 2026. Após ela, um caso foi acrescentado a `apoio.TesteApoio` e outro a `fila.TesteFila`. A quantidade esperada na versão atual é mostrada na última coluna; ela não deve ser considerada aprovada até uma nova execução de `bash verificar.sh`.
+A tabela abaixo registra a execução anterior, de 26 de outubro de 2026. Após ela, um caso foi acrescentado a `apoio.TesteApoio` e dois a `fila.TesteFila`. A quantidade esperada na versão atual é mostrada na última coluna; ela não deve ser considerada aprovada até uma nova execução de `bash verificar.sh`.
 
 | Suíte | Execução anterior | Casos previstos na versão atual |
 |---|---:|---:|
 | `apoio.TesteApoio` | 20 | 21 |
-| `fila.TesteFila` | 14 | 15 |
+| `fila.TesteFila` | 14 | 16 |
 | `bubblesort.TesteBubbleSort` | 13 | 13 |
 | `insertionsort.TesteInsertionSort` | 12 | 12 |
 | `bst.TesteBST` | 14 | 14 |
 | `mergesort.TesteMergeSort` | 16 | 16 |
 | `avl.TesteAVL` | 15 | 15 |
-| **Total** | **104** | **106** |
+| **Total** | **104** | **107** |
 
 As aprovações da execução anterior não substituem uma nova verificação depois das alterações de código. Confirme que a versão atual termina sem falhas ou pendências antes de atualizar este registro.
 
