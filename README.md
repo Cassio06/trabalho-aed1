@@ -69,7 +69,7 @@ Substitua o nome completo da classe para executar qualquer aplicação da tabela
 | 15 - Notas | `bubblesort.NotasTurma` | 20 notas de demonstração ou 1 a 30 notas digitadas; média e ordenação crescente |
 | 16 - Preços | `bubblesort.ProdutosPreco` | 12 produtos existentes; opção de preço crescente ou decrescente |
 | 19 - Cartas | `insertionsort.JogoCartas` | 13 cartas existentes, recebidas uma a uma; mão após cada ordenação |
-| 20 - Vendedores | `insertionsort.RankingVendedores` | 10 vendedores; sete atualizações diárias; comparação de chamadas ao comparador em entrada ordenada e em permutação fixa |
+| 20 - Vendedores | `insertionsort.RankingVendedores` | 10 vendedores; sete atualizações diárias; comparação de chamadas ao comparador entre entrada ordenada e entrada embaralhada com semente fixa (42) |
 | 7 - Alunos | `bst.CadastroAlunos` | 20 alunos; cadastrar/atualizar, buscar, remover e listar por matrícula |
 | 8 - Autocomplete | `bst.AutocompleteProdutos` | 30 produtos existentes; busca exata, prefixo e listagem |
 | 21 - Transações | `mergesort.TransacoesBancarias` | 50 registros, incluindo débitos, créditos e instantes repetidos para verificar estabilidade |
@@ -99,13 +99,18 @@ Enquanto a inserção inicial de uma estrutura estiver pendente, a aplicação m
 
 ## O que está pronto
 
-- [x] Reaproveitamento das classes, aplicações, assinaturas e casos de teste existentes.
-- [x] Validações de textos, horários, números, notas, cartas e formato de CPF.
-- [x] Leitura robusta de console e tratamento específico de fim de entrada.
-- [x] Mensagens, menus, exibição de dados e relatórios conectados às estruturas.
-- [x] Bases que respeitam as quantidades dos 12 exercícios.
-- [x] Testes de console com resultados esperados, resumos e saída de erro em falhas reais.
-- [x] Comandos de compilação e modelo do relatório com campos para preenchimento pessoal.
+- [x] Implementação da fila circular e das duas aplicações associadas.
+- [x] Implementação do Bubble Sort, com parada antecipada e estatísticas de comparações e trocas.
+- [x] Implementação do Insertion Sort, com estatísticas de comparações e deslocamentos.
+- [x] Implementação da Árvore Binária de Busca (BST), incluindo cadastro, busca, remoção e autocomplete.
+- [x] Implementação do Merge Sort e da mesclagem de listas de contatos ordenadas com eliminação de duplicatas.
+- [x] Implementação da árvore AVL, incluindo operações de busca, inserção, remoção, balanceamento e consulta Top-K.
+- [x] Desenvolvimento das 12 aplicações de console associadas às seis categorias implementadas.
+- [x] Testes para estruturas, algoritmos, dados de demonstração e validações de entrada.
+- [x] Script `verificar.sh` para compilar o projeto e executar as suítes de testes.
+- [x] Modelo de relatório técnico e documentação dos comandos para compilação e execução.
+
+Na execução registrada em 26 de outubro de 2026, as sete suítes totalizaram 104 testes aprovados, sem falhas ou pendências. Esse resultado deverá ser confirmado novamente após alterações no código e a integração com os módulos do outro integrante da dupla.
 
 ## Implementação didática pendente
 
@@ -125,14 +130,31 @@ Comece por `Fila.enqueue`, definindo a representação interna, e complete `isEm
 
 ## Verificações e interpretação
 
-`verificar.sh` compila e executa `apoio.TesteApoio`, os seis `Teste*` e seus resumos:
+O script `verificar.sh` compila o projeto e executa sete suítes de testes: `apoio.TesteApoio`, `fila.TesteFila`, `bubblesort.TesteBubbleSort`, `insertionsort.TesteInsertionSort`, `bst.TesteBST`, `mergesort.TesteMergeSort` e `avl.TesteAVL`.
 
-- `[OK]`: verificações do caso realmente executadas e aprovadas.
-- `[PENDENTE]`: uma chamada lançou `UnsupportedOperationException` com mensagem iniciada por `TODO:`. O caso não foi aprovado.
-- `[FALHOU]`: resultado incorreto ou exceção inesperada; mostra detalhes e faz o programa terminar com código diferente de zero.
+Os resultados são apresentados com os seguintes indicadores:
 
-O script retorna zero quando não há falhas reais, mesmo havendo pendências; consulte os resumos antes de considerar um módulo concluído. Exceções inesperadas não são convertidas em pendência.
+- `[OK]`: o caso foi executado e aprovado.
+- `[PENDENTE]`: o caso depende de uma funcionalidade ainda não implementada; não equivale a aprovação.
+- `[FALHOU]`: o resultado foi incorreto ou ocorreu uma exceção inesperada.
 
-Na preparação, com OpenJDK 25 e compilação `--release 17`, foram executados 97 casos: **30 aprovados, 67 pendentes e nenhuma falha real restante**. Os aprovados cobrem domínio, entradas, quantidade/ordem dos dados e diagnóstico dos testes. As 12 aplicações também tiveram a inicialização e a mensagem de pendência verificadas; as entradas manuais de clínica/notas, opções inválidas e fim de entrada foram exercitados. Menus após a carga das árvores/filas e resultados dos algoritmos continuam aguardando implementação.
+O script deve ser interpretado em conjunto com os resumos de cada suíte. Um código de saída zero, isoladamente, não garante que todos os casos foram aprovados caso existam pendências.
 
-Use [CHECKLIST.md](CHECKLIST.md) para acompanhar o término didático e [MODELO_RELATORIO.md](relatorio/MODELO_RELATORIO.md) para registrar seus resultados reais. Os números desta verificação são um registro desta preparação, não resultados pessoais nem aprovação das estruturas.
+Na execução registrada em 26 de outubro de 2026, foram obtidos os seguintes resultados:
+
+| Suíte | Casos aprovados |
+|---|---:|
+| `apoio.TesteApoio` | 20 |
+| `fila.TesteFila` | 14 |
+| `bubblesort.TesteBubbleSort` | 13 |
+| `insertionsort.TesteInsertionSort` | 12 |
+| `bst.TesteBST` | 14 |
+| `mergesort.TesteMergeSort` | 16 |
+| `avl.TesteAVL` | 15 |
+| **Total** | **104** |
+
+Todas as sete suítes terminaram sem falhas ou pendências. Esses resultados correspondem às verificações realizadas na branch `Cassio` e devem ser confirmados novamente após mudanças no código e a integração com os módulos do outro integrante da dupla.
+
+Os testes cobrem operações das estruturas, ordenações, casos-limite, dados das aplicações e validações de entrada. A execução das suítes não substitui a revisão das aplicações nem a confirmação de que os resultados descritos no relatório correspondem às saídas efetivamente observadas.
+
+Use `CHECKLIST.md` para acompanhar as etapas restantes e `relatorio/MODELO_RELATORIO.md` como referência para a documentação técnica.
