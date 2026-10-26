@@ -202,6 +202,22 @@ public class TesteFila {
             );
         });
 
+        executar("cancelar último inserido e preservar FIFO", () -> {
+            Fila<Integer> fila = new Fila<>();
+            fila.enqueue(1);
+            fila.enqueue(2);
+            fila.enqueue(3);
+            verificar(fila.removerUltimo() == 3, "Deve cancelar o elemento inserido mais recentemente.");
+            verificar(fila.size() == 2, "O tamanho deve diminuir após o cancelamento.");
+            verificar(fila.dequeue() == 1 && fila.dequeue() == 2 && fila.isEmpty(),
+                    "O cancelamento não pode alterar a ordem FIFO dos demais elementos.");
+            try {
+                fila.removerUltimo();
+            } catch (NoSuchElementException esperado) {
+                return;
+            }
+            throw new AssertionError("Cancelar em uma fila vazia deve lançar NoSuchElementException.");
+        });
         TESTES.concluir();
     }
 
