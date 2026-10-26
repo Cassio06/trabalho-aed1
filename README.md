@@ -65,7 +65,7 @@ Substitua o nome completo da classe para executar qualquer aplicação da tabela
 | Exercício | Classe com `main` | Base e interação preparada |
 |---|---|---|
 | 1 - Clínica | `fila.Clinica` | 15 pacientes de demonstração ou cadastro manual; chegada, chamada, próximo, tamanho, atender todos e relatório |
-| 2 - Impressão | `fila.FilaImpressao` | 12 trabalhos existentes, 75 páginas; enviar, imprimir, listar, tamanho e relatório |
+| 2 - Impressão | `fila.FilaImpressao` | 12 trabalhos existentes, 75 páginas; enviar, imprimir, listar, tamanho, cancelar o último pendente e relatório |
 | 15 - Notas | `bubblesort.NotasTurma` | 20 notas de demonstração ou 1 a 30 notas digitadas; média e ordenação crescente |
 | 16 - Preços | `bubblesort.ProdutosPreco` | 12 produtos existentes; opção de preço crescente ou decrescente |
 | 19 - Cartas | `insertionsort.JogoCartas` | 13 cartas existentes, recebidas uma a uma; mão após cada ordenação |
