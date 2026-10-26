@@ -62,6 +62,12 @@ public class TesteApoio {
             rejeita(() -> new Funcionario("abc", "Ana", "Analista"));
             rejeita(() -> new Funcionario("123", "Ana", "Analista"));
         });
+        testes.executar("CPF: aceitar formatos válidos e rejeitar pontuação deslocada", () -> {
+            verificar(Validacao.cpf("73120510000").equals("731.205.100-00"), "Aceitar 11 dígitos.");
+            verificar(Validacao.cpf("731.205.100-00").equals("731.205.100-00"), "Aceitar formato pontuado.");
+            rejeita(() -> Validacao.cpf("73.1205.100-00"));
+            rejeita(() -> Validacao.cpf("731-205.100.00"));
+        });
         testes.executar("jogador: zero pontos e negativos", () -> {
             Jogador jogador = new Jogador("Ana", 0);
             verificar(jogador.getNome().equals("Ana") && jogador.getPontuacao() == 0
