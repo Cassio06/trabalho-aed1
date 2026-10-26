@@ -13,7 +13,6 @@ public class MesclagemContatos {
         exibir("Departamento B (já ordenado)", segundaLista);
         System.out.println("Critério: nome sem distinguir caixa. Empates mantêm o contato de A.");
         try {
-            // A mesclagem e a remoção de duplicatas pertencem ao algoritmo pendente.
             Contato[] contatos = MergeSort.mesclarContatos(primeiraLista, segundaLista);
             exibir("Contatos mesclados sem duplicatas", contatos);
             System.out.println("Total resultante: " + contatos.length + " (esperado nesta base: 30).");
