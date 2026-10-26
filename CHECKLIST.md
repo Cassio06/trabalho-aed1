@@ -29,7 +29,7 @@ Este checklist descreve somente as seis categorias desenvolvidas neste ramo: Fil
 
 ## Contagem de testes
 
-A execução anterior, registrada em 26/10/2026, apresentou 104 casos aprovados. As duas alterações recentes acrescentaram um caso à suíte de apoio e um à suíte da fila, totalizando **106 casos previstos** na versão atual. Essa contagem é uma expectativa baseada nos casos adicionados; não confirma aprovação até que `bash verificar.sh` seja executado novamente.
+A execução anterior, registrada em 26/10/2026, apresentou 104 casos aprovados. As alterações recentes acrescentaram um caso à suíte de apoio e dois à suíte da fila, totalizando **107 casos previstos** na versão atual. Essa contagem é uma expectativa baseada nos casos adicionados; não confirma aprovação até que `bash verificar.sh` seja executado novamente.
 
 ## Integração posterior da dupla
 
