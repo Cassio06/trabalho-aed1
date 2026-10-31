@@ -1,0 +1,11 @@
+# Executáveis do Windows e Linux
+*.exe
+*.out
+*.o
+*.app
+
+# Pastas de saída/build comuns do VS Code
+bin/
+build/
+output/
+.vscode/
