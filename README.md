@@ -1,169 +1,140 @@
-# Trabalho de AED 1
+# Algoritmos e Estruturas de Dados em Java
 
-Projeto acadêmico da disciplina de **Algoritmos e Estruturas de Dados I**, ministrada pelo professor **Hilson Silva**, no semestre **2026.2**.
+## Objetivo e escopo
 
-O trabalho aplica estruturas de dados e algoritmos de ordenação a problemas do cotidiano, com implementação própria, testes e análise de complexidade.
+Esta parte do trabalho de Algoritmos e Estruturas de Dados I contém seis estruturas e algoritmos, com 12 aplicações de console em Java: Fila, Bubble Sort, Insertion Sort, Árvore Binária de Busca (BST), Merge Sort e Árvore AVL.
 
-## Equipe
+As implementações utilizam Java puro, sem Maven, Gradle, JUnit ou dependências externas. As estruturas e os algoritmos são implementados no próprio projeto, sem substituir seu funcionamento por coleções ou métodos de ordenação prontos.
 
-- **Cássio Filipe Meireles De Carvalho Braga**
-- **Lukas Souza Melo**
+As aplicações incluem dados de demonstração, entradas, menus e testes próprios. O script `verificar.sh` compila o projeto e executa as suítes de testes.
 
-## Objetivos
+Na execução registrada em 02 de novembro de 2026 via `bash verificar.sh`, as sete suítes totalizaram **107 testes aprovados, 0 pendentes e 0 falhas**, incluindo os testes de cancelamento da fila (com índices circulares) e de validação de formato do CPF.
 
-- Compreender e implementar o funcionamento interno das estruturas e dos algoritmos.
-- Resolver situações práticas e justificar a escolha de cada abordagem.
-- Analisar a complexidade de tempo e espaço das implementações.
-- Documentar exemplos de entrada e saída e tratar casos de erro.
+## Organização
 
-## Escopo do trabalho
-
-O enunciado completo reúne **12 categorias e 24 aplicações**, com dois problemas por estrutura ou algoritmo.
-
-| Categoria | Situações propostas |
-|---|---|
-| Fila | 1. Atendimento de clínica; 2. Fila de impressão |
-| Pilha | 3. Desfazer em editor de texto; 4. Verificação de delimitadores |
-| Lista | 5. Playlist de músicas; 6. Controle de estoque |
-| Árvore Binária de Busca (BST) | 7. Cadastro de alunos; 8. Autocomplete de produtos |
-| Árvore Balanceada | 9. Índice de CPF; 10. Ranking de jogadores |
-| Grafo | 11. Rotas de entrega; 12. Rede de amizades |
-| Tabela Hash | 13. Cadastro e autenticação de usuários; 14. Frequência de palavras |
-| Bubble Sort | 15. Notas de uma turma; 16. Produtos por preço |
-| Selection Sort | 17. Candidatos por pontuação; 18. Tarefas por prioridade |
-| Insertion Sort | 19. Cartas de um jogo; 20. Ranking de vendedores |
-| Merge Sort | 21. Transações bancárias; 22. Mesclagem de contatos |
-| Quick Sort | 23. Catálogo de produtos; 24. Classificação esportiva |
-
-Na parte Java de Cássio, a árvore balanceada escolhida é a **AVL**.
-
-## Estado atual
-
-Na consulta de **12/10/2026**:
-
-- A branch `main` contém apenas a configuração inicial de atributos do Git.
-- A branch `Cassio` contém a preparação de **seis categorias e 12 aplicações em Java**: Fila, Bubble Sort, Insertion Sort, BST, Merge Sort e AVL.
-- Essa preparação inclui classes de domínio, dados de demonstração, entradas, menus, testes e modelo de relatório.
-- O README e o checklist dessa branch registram os métodos centrais das estruturas e dos algoritmos como **pendentes de implementação**.
-- As demais categorias e a integração da dupla ainda precisam ser incorporadas à versão geral do projeto.
-
-A presença dos menus e testes não significa que as aplicações estejam concluídas. O status deverá ser atualizado conforme as implementações forem validadas.
-
-## Organização disponível na branch Cassio
-
-| Caminho | Conteúdo |
-|---|---|
-| `java(Cássio)/apoio/` | Entrada, validações, dados e apoio aos testes |
-| `java(Cássio)/fila/` | Fila, clínica e impressão |
-| `java(Cássio)/bubblesort/` | Ordenação de notas e preços |
-| `java(Cássio)/insertionsort/` | Cartas e ranking de vendedores |
-| `java(Cássio)/bst/` | Cadastro de alunos e autocomplete |
-| `java(Cássio)/mergesort/` | Transações e mesclagem de contatos |
-| `java(Cássio)/avl/` | Índice de CPF e ranking de jogadores |
-| `relatorio/MODELO_RELATORIO.md` | Modelo para documentar o desenvolvimento |
-| `CHECKLIST.md` | Acompanhamento das pendências da parte Java |
-| `verificar.sh` | Compilação e execução dos testes de console |
-| `out/` | Classes compiladas; diretório ignorado pelo Git |
-
-## Tecnologias
-
-O enunciado permite **C, Python ou Java**. A parte disponível na branch `Cassio` utiliza:
-
-- Java puro, com **JDK 17 ou superior**.
-- `javac` e `java`, sem Maven ou Gradle.
-- Testes próprios de console, sem JUnit.
-- Bash para o script de verificação.
-
-As tecnologias dos demais módulos deverão ser documentadas quando forem integrados.
-
-## Como executar a parte Java
-
-Os comandos abaixo correspondem à estrutura atual da branch `Cassio` e usam Bash/Linux. É necessário ter Git e um JDK 17 ou superior, com `java` e `javac` disponíveis no PATH.
-
-### Obter o código
-
-```bash
-git clone --branch Cassio https://github.com/Cassio06/trabalho-aed1.git
-cd trabalho-aed1
+```text
+java(Cássio)/
+├── apoio/          # Entrada, validações, dados de nomes e verificação de console
+├── fila/           # Fila, clínica e impressão
+├── bubblesort/     # Bubble Sort, notas e preços
+├── insertionsort/  # Insertion Sort, cartas e vendedores
+├── bst/            # BST, alunos e autocomplete
+├── mergesort/      # Merge Sort, transações e contatos
+└── avl/            # AVL, CPF e jogadores
+relatorio/MODELO_RELATORIO.md
+CHECKLIST.md
+verificar.sh
+out/                # .class gerados e ignorados pelo Git
 ```
 
-### Compilar
+Cada pasta de código corresponde a um pacote Java. Os modelos existentes continuam imutáveis: alterações de totais ou pontuações criam novos objetos, preservando getters, construtores e `toString`. Não há necessidade de setters para os fluxos atuais. `Comparator` define o critério de ordenação; não executa o algoritmo. Não são usadas coleções nem ordenações prontas.
+
+## Compilação e execução
+
+Requisito: JDK 17 ou superior, com `java` e `javac` no PATH. Execute na raiz do repositório. Os comandos abaixo foram verificados em Bash/Linux:
 
 ```bash
 mkdir -p out
 find 'java(Cássio)' -name '*.java' -print0 | xargs -0 javac -encoding UTF-8 --release 17 -Xlint:all -d out
-```
-
-### Executar uma aplicação
-
-```bash
 java -cp out fila.Clinica
 ```
 
-Outras classes disponíveis:
-
-| Aplicação | Classe |
-|---|---|
-| Impressão | `fila.FilaImpressao` |
-| Notas | `bubblesort.NotasTurma` |
-| Preços | `bubblesort.ProdutosPreco` |
-| Cartas | `insertionsort.JogoCartas` |
-| Vendedores | `insertionsort.RankingVendedores` |
-| Alunos | `bst.CadastroAlunos` |
-| Autocomplete | `bst.AutocompleteProdutos` |
-| Transações | `mergesort.TransacoesBancarias` |
-| Contatos | `mergesort.MesclagemContatos` |
-| Índice de CPF | `avl.IndiceCpf` |
-| Jogadores | `avl.RankingJogadores` |
-
-Substitua `fila.Clinica` pelo nome da classe desejada. Aplicações que dependem de métodos ainda não implementados podem encerrar com uma mensagem de pendência.
-
-### Executar as verificações
+Para compilar e executar todos os testes:
 
 ```bash
 bash verificar.sh
 ```
 
-Para executar apenas um conjunto de testes após a compilação:
+Para executar apenas um teste após compilar:
 
 ```bash
-java -cp out fila.TesteFila
+java -cp out mergesort.TesteMergeSort
 ```
 
-Interpretação dos resultados:
+Substitua o nome completo da classe para executar qualquer aplicação da tabela seguinte. Aplicações com menu aceitam `0` para sair; fim de entrada também encerra normalmente. Valores inválidos são solicitados novamente. Números decimais aceitam ponto ou vírgula, sem separador de milhar; horários usam `HH:mm`.
 
-- **[OK]:** o caso foi executado e aprovado.
-- **[PENDENTE]:** o caso depende de um método ainda não implementado; não equivale a aprovação.
-- **[FALHOU]:** resultado incorreto ou exceção inesperada.
+### IntelliJ
 
-O script pode retornar código zero mesmo com pendências. Consulte os resumos para avaliar a conclusão de cada módulo. Este README não registra uma nova execução dos testes.
+1. Abra a pasta do projeto.
+2. Configure o SDK do projeto para JDK 17 ou superior.
+3. Marque `java(Cássio)` como **Sources Root**, se necessário.
+4. Abra a classe e execute o `main` pelo triângulo verde.
 
-## Diretrizes de implementação
+## Aplicações e dados reproduzíveis
 
-- Implementar as estruturas e os algoritmos do zero, conforme o enunciado.
-- Usar arrays ou listas nativas como base dentro das permissões da atividade.
-- Separar estruturas, aplicações e testes em módulos ou classes.
-- Não substituir a implementação solicitada por uma estrutura ou ordenação pronta.
-- Tratar situações como estrutura vazia, chave inexistente e entrada inválida.
-- Testar dados comuns e casos-limite e registrar saídas reais.
+| Exercício | Classe com `main` | Base e interação preparada |
+|---|---|---|
+| 1 - Clínica | `fila.Clinica` | 15 pacientes de demonstração ou cadastro manual; chegada, chamada, próximo, tamanho, atender todos e relatório |
+| 2 - Impressão | `fila.FilaImpressao` | 12 trabalhos existentes, 75 páginas; enviar, imprimir, listar, tamanho, cancelar o último pendente e relatório |
+| 15 - Notas | `bubblesort.NotasTurma` | 20 notas de demonstração ou 1 a 30 notas digitadas; média e ordenação crescente |
+| 16 - Preços | `bubblesort.ProdutosPreco` | 12 produtos existentes; opção de preço crescente ou decrescente |
+| 19 - Cartas | `insertionsort.JogoCartas` | 13 cartas existentes, recebidas uma a uma; mão após cada ordenação |
+| 20 - Vendedores | `insertionsort.RankingVendedores` | 10 vendedores; sete atualizações diárias; comparação de chamadas ao comparador entre entrada ordenada e entrada embaralhada com semente fixa (42) |
+| 7 - Alunos | `bst.CadastroAlunos` | 20 alunos; cadastrar/atualizar, buscar, remover e listar por matrícula |
+| 8 - Autocomplete | `bst.AutocompleteProdutos` | 30 produtos existentes; busca exata, prefixo e listagem |
+| 21 - Transações | `mergesort.TransacoesBancarias` | 50 registros, incluindo débitos, créditos e instantes repetidos para verificar estabilidade |
+| 22 - Contatos | `mergesort.MesclagemContatos` | Duas listas já ordenadas de 20 contatos, com dez nomes em comum; resultado esperado de 30 contatos únicos |
+| 9 - CPF | `avl.IndiceCpf` | 25 funcionários; cadastrar/atualizar, buscar, remover e consultar altura/balanceamento |
+| 10 - Jogadores | `avl.RankingJogadores` | 30 jogadores e três atualizações de rodada; atualizar pontuação, Top-K e consulta |
 
-## Relatório técnico e entrega
+Os dados são fictícios, fixos ou gerados por fórmulas determinísticas. Os CPFs são identificadores de teste: somente o formato é validado, sem cálculo de dígitos verificadores. O catálogo usa minúsculas com `Locale.ROOT`; a normalização preserva acentos.
 
-O relatório deverá apresentar:
+A clínica registra chegadas em ordem não decrescente no mesmo dia (03/08/2026), com início do serviço às 08:00 e duração estimada de dez minutos. A espera é calculada apenas a partir de pacientes realmente retirados da fila. O vetor auxiliar armazena o histórico de até 200 registros, sem substituir a fila. A impressão exibe sua sequência efetiva a cada retirada. A opção 6 cancela o trabalho mais recentemente inserido que ainda esteja aguardando; trabalhos já impressos não podem ser cancelados.
 
-- Justificativas das estruturas e algoritmos utilizados.
-- Análise de complexidade de tempo e espaço.
-- Exemplos de entrada e saída.
-- Dificuldades encontradas e soluções adotadas.
-- Conclusão sobre a aplicação das estruturas em problemas reais.
+As cartas usam Ás = 1, J = 11, Q = 12, K = 13, com desempate por naipe. As vendas são acumuladas diariamente mantendo a ordem do ranking anterior antes da próxima chamada ao Insertion Sort. As contagens observadas no comparador só são exibidas depois da execução real do algoritmo; não medem deslocamentos.
 
-A entrega deve incluir o código-fonte, o relatório e a **ficha obrigatória preenchida**, por meio da plataforma **iCEV Digital**. O enunciado informa a entrega no dia da aplicação da P2; a data específica deverá seguir o calendário da disciplina.
+O ranking de jogadores usa uma chave textual com dez dígitos de pontuação e nome, para preservar jogadores empatados. O Top-K percorre as chaves em ordem decrescente, incluindo nome decrescente no desempate. Atualizar a pontuação remove a chave antiga e insere a nova pela AVL; o vetor dos jogadores serve apenas como cadastro de identificadores, sem ordenar nem responder o Top-K.
 
-## Próximas etapas
+## Contratos usados nos testes
 
-- [ ] Concluir e validar os algoritmos da parte Java.
-- [ ] Incorporar os demais módulos da dupla.
-- [ ] Registrar exemplos de execução e análises de complexidade.
-- [ ] Finalizar o relatório técnico e preencher a ficha.
-- [ ] Integrar a versão de entrega na branch principal.
-- [ ] Atualizar este README com a estrutura e as instruções finais.
+- **Fila:** FIFO; `front` não remove; `front`, `dequeue` e `removerUltimo` em fila vazia lançam `NoSuchElementException`; `removerUltimo` cancela o elemento mais recentemente inserido ainda pendente; `listar` imprime um elemento por linha sem alterar a fila.
+- **BST/AVL:** busca e remoção inexistentes retornam `null`; inserção de chave repetida atualiza o valor; remoção retorna o valor removido.
+- **Percursos:** imprimem somente os valores, um por linha; árvore vazia não imprime valores. Os títulos pertencem às aplicações.
+- **Autocomplete:** `listarPorPrefixo` recebe prefixo normalizado, faz percurso limitado e exibe somente correspondências ordenadas; prefixo vazio lista todos, prefixo inexistente não imprime valores.
+- **AVL:** altura em nós (vazia = 0, folha = 1); fator = altura esquerda menos altura direita; `estaBalanceada` verifica todos os nós; `listarMaiores(0)` não imprime valores e K maior que a base exibe todos.
+- **Ordenações:** respeitam o comparador, preservam os elementos e a ordem relativa de empates; vetores vazios e unitários são válidos.
+- **Contatos:** `mesclarContatos` intercala entradas já ordenadas sem chamar uma ordenação completa. Nome sem distinguir caixa define duplicata; mantém a primeira ocorrência, com preferência pela primeira lista. Deve devolver vetor de tamanho exato, sem `null`s sobrando, e não alterar as entradas.
+
+## O que está pronto
+
+- [x] Implementação da fila circular e das duas aplicações associadas.
+- [x] Implementação do Bubble Sort, com parada antecipada e estatísticas de comparações e trocas.
+- [x] Implementação do Insertion Sort, com estatísticas de comparações e deslocamentos.
+- [x] Implementação da Árvore Binária de Busca (BST), incluindo cadastro, busca, remoção e autocomplete.
+- [x] Implementação do Merge Sort e da mesclagem de listas de contatos ordenadas com eliminação de duplicatas.
+- [x] Implementação da árvore AVL, incluindo operações de busca, inserção, remoção, balanceamento e consulta Top-K.
+- [x] Desenvolvimento das 12 aplicações de console associadas às seis categorias implementadas.
+- [x] Testes para estruturas, algoritmos, dados de demonstração e validações de entrada.
+- [x] Script `verificar.sh` para compilar o projeto e executar as suítes de testes.
+- [x] Relatório técnico preenchido e documentação dos comandos para compilação e execução.
+
+A execução registrada em 02 de novembro de 2026 corresponde à versão atualizada e totalizou **107 casos aprovados, 0 pendentes e 0 falhas** nas sete suítes de verificação.
+
+## Verificações e interpretação
+
+O script `verificar.sh` compila o projeto e executa sete suítes de testes: `apoio.TesteApoio`, `fila.TesteFila`, `bubblesort.TesteBubbleSort`, `insertionsort.TesteInsertionSort`, `bst.TesteBST`, `mergesort.TesteMergeSort` e `avl.TesteAVL`.
+
+Os resultados são apresentados com os seguintes indicadores:
+
+- `[OK]`: o caso foi executado e aprovado.
+- `[PENDENTE]`: o caso depende de uma funcionalidade ainda não implementada; não equivale a aprovação.
+- `[FALHOU]`: o resultado foi incorreto ou ocorreu uma exceção inesperada.
+
+O script deve ser interpretado em conjunto com os resumos de cada suíte. Um código de saída zero, isoladamente, não garante que todos os casos foram aprovados caso existam pendências.
+
+A tabela abaixo registra a execução anterior (26/10/2026) e a execução atualizada (02/11/2026), com todos os 107 casos aprovados:
+
+| Suíte | Execução anterior (26/10/2026) | Execução atual (02/11/2026) |
+|---|---:|---:|
+| `apoio.TesteApoio` | 20 | 21 OK |
+| `fila.TesteFila` | 14 | 16 OK |
+| `bubblesort.TesteBubbleSort` | 13 | 13 OK |
+| `insertionsort.TesteInsertionSort` | 12 | 12 OK |
+| `bst.TesteBST` | 14 | 14 OK |
+| `mergesort.TesteMergeSort` | 16 | 16 OK |
+| `avl.TesteAVL` | 15 | 15 OK |
+| **Total** | **104** | **107 OK (0 pendentes, 0 falhas)** |
+
+Os testes cobrem operações das estruturas, ordenações, casos-limite, dados das aplicações e validações de entrada.
+
+Use `CHECKLIST.md` para acompanhar as etapas restantes e `relatorio/MODELO_RELATORIO.md` para consultar a documentação técnica detalhada.
