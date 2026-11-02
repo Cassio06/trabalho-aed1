@@ -1,4 +1,17 @@
+# IDEs e ambientes
 .idea/
 .codex/
+.vscode/
+
+# Artefatos Java
 out/
 *.class
+
+# Executáveis e artefatos C (Windows e Linux)
+*.exe
+*.out
+*.o
+*.app
+bin/
+build/
+output/
