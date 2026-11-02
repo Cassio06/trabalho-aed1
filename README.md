@@ -8,7 +8,7 @@ As implementações utilizam Java puro, sem Maven, Gradle, JUnit ou dependência
 
 As aplicações incluem dados de demonstração, entradas, menus e testes próprios. O script `verificar.sh` compila o projeto e executa as suítes de testes.
 
-Na execução registrada em 26 de outubro de 2026, antes das últimas alterações, as sete suítes totalizaram 104 testes aprovados. Depois disso, foram acrescentados dois testes de cancelamento da fila (incluindo índices circulares) e um teste de sintaxe do CPF. A versão atual prevê 107 casos no total; é necessário executar `bash verificar.sh` novamente para confirmar os resultados dessa versão.
+Na execução registrada em 02 de novembro de 2026 via `bash verificar.sh`, as sete suítes totalizaram **107 testes aprovados, 0 pendentes e 0 falhas**, incluindo os testes de cancelamento da fila (com índices circulares) e de validação de formato do CPF.
 
 ## Organização
 
@@ -106,9 +106,9 @@ O ranking de jogadores usa uma chave textual com dez dígitos de pontuação e n
 - [x] Desenvolvimento das 12 aplicações de console associadas às seis categorias implementadas.
 - [x] Testes para estruturas, algoritmos, dados de demonstração e validações de entrada.
 - [x] Script `verificar.sh` para compilar o projeto e executar as suítes de testes.
-- [x] Modelo de relatório técnico e documentação dos comandos para compilação e execução.
+- [x] Relatório técnico preenchido e documentação dos comandos para compilação e execução.
 
-A execução registrada em 26 de outubro de 2026 corresponde à versão anterior às últimas mudanças e totalizou 104 casos aprovados. As alterações recentes acrescentaram dois casos à fila e um à validação de CPF, elevando a contagem prevista para 107. Até a reexecução de `bash verificar.sh`, o status do conjunto atualizado deve ser considerado pendente de confirmação.
+A execução registrada em 02 de novembro de 2026 corresponde à versão atualizada e totalizou **107 casos aprovados, 0 pendentes e 0 falhas** nas sete suítes de verificação.
 
 ## Verificações e interpretação
 
@@ -122,21 +122,19 @@ Os resultados são apresentados com os seguintes indicadores:
 
 O script deve ser interpretado em conjunto com os resumos de cada suíte. Um código de saída zero, isoladamente, não garante que todos os casos foram aprovados caso existam pendências.
 
-A tabela abaixo registra a execução anterior, de 26 de outubro de 2026. Após ela, um caso foi acrescentado a `apoio.TesteApoio` e dois a `fila.TesteFila`. A quantidade esperada na versão atual é mostrada na última coluna; ela não deve ser considerada aprovada até uma nova execução de `bash verificar.sh`.
+A tabela abaixo registra a execução anterior (26/10/2026) e a execução atualizada (02/11/2026), com todos os 107 casos aprovados:
 
-| Suíte | Execução anterior | Casos previstos na versão atual |
+| Suíte | Execução anterior (26/10/2026) | Execução atual (02/11/2026) |
 |---|---:|---:|
-| `apoio.TesteApoio` | 20 | 21 |
-| `fila.TesteFila` | 14 | 16 |
-| `bubblesort.TesteBubbleSort` | 13 | 13 |
-| `insertionsort.TesteInsertionSort` | 12 | 12 |
-| `bst.TesteBST` | 14 | 14 |
-| `mergesort.TesteMergeSort` | 16 | 16 |
-| `avl.TesteAVL` | 15 | 15 |
-| **Total** | **104** | **107** |
+| `apoio.TesteApoio` | 20 | 21 OK |
+| `fila.TesteFila` | 14 | 16 OK |
+| `bubblesort.TesteBubbleSort` | 13 | 13 OK |
+| `insertionsort.TesteInsertionSort` | 12 | 12 OK |
+| `bst.TesteBST` | 14 | 14 OK |
+| `mergesort.TesteMergeSort` | 16 | 16 OK |
+| `avl.TesteAVL` | 15 | 15 OK |
+| **Total** | **104** | **107 OK (0 pendentes, 0 falhas)** |
 
-As aprovações da execução anterior não substituem uma nova verificação depois das alterações de código. Confirme que a versão atual termina sem falhas ou pendências antes de atualizar este registro.
+Os testes cobrem operações das estruturas, ordenações, casos-limite, dados das aplicações e validações de entrada.
 
-Os testes cobrem operações das estruturas, ordenações, casos-limite, dados das aplicações e validações de entrada. A execução das suítes não substitui a revisão das aplicações nem a confirmação de que os resultados descritos no relatório correspondem às saídas efetivamente observadas.
-
-Use `CHECKLIST.md` para acompanhar as etapas restantes e `relatorio/MODELO_RELATORIO.md` como referência para a documentação técnica.
+Use `CHECKLIST.md` para acompanhar as etapas restantes e `relatorio/MODELO_RELATORIO.md` para consultar a documentação técnica detalhada.

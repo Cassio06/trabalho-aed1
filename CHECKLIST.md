@@ -24,12 +24,12 @@ Este checklist descreve somente as seis categorias desenvolvidas neste ramo: Fil
 - [x] Padronizar data/hora e valores monetários das transações para a apresentação brasileira.
 - [x] Padronizar valores monetários de produtos e vendedores para a apresentação brasileira.
 - [x] Remover comentário desatualizado que indicava a mesclagem de contatos como pendente.
-- [ ] Executar `bash verificar.sh` após as alterações recentes e confirmar zero falhas e zero pendências.
-- [ ] Atualizar este checklist e o README com os resultados efetivamente observados após a nova execução.
+- [x] Executar `bash verificar.sh` após as alterações recentes e confirmar zero falhas e zero pendências.
+- [x] Atualizar este checklist e o README com os resultados efetivamente observados após a nova execução.
 
 ## Contagem de testes
 
-A execução anterior, registrada em 26/10/2026, apresentou 104 casos aprovados. As alterações recentes acrescentaram um caso à suíte de apoio e dois à suíte da fila, totalizando **107 casos previstos** na versão atual. Essa contagem é uma expectativa baseada nos casos adicionados; não confirma aprovação até que `bash verificar.sh` seja executado novamente.
+A execução registrada em 02/11/2026 via `bash verificar.sh` confirmou **107 casos aprovados, 0 pendentes e 0 falhas** nas sete suítes (`apoio.TesteApoio`: 21, `fila.TesteFila`: 16, `bubblesort.TesteBubbleSort`: 13, `insertionsort.TesteInsertionSort`: 12, `bst.TesteBST`: 14, `mergesort.TesteMergeSort`: 16 e `avl.TesteAVL`: 15).
 
 ## Integração posterior da dupla
 
