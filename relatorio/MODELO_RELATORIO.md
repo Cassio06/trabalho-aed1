@@ -6,7 +6,7 @@
 - **Curso / Período:** Engenharia de Software — 1º Período (2026-2)
 - **Disciplina:** Algoritmo e Estrutura de Dados I (Tipo: P2)
 - **Professor:** Hilson Silva
-- **Nome da Turma:** [Preencher: ADELLE ou SNYDER]
+- **Nome da Turma:** SNYDER
 - **Aluno 1:** Cássio Filipe Meireles De Carvalho Braga — **Matrícula 1:** [Preencher]
 - **Aluno 2:** Lukas Souza Melo — **Matrícula 2:** [Preencher]
 - **Data:** 02/11/2026
