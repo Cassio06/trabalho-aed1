@@ -21,7 +21,7 @@ A divisão de desenvolvimento entre a dupla foi organizada em 6 categorias (12 p
 
 - **Cássio Filipe Meireles De Carvalho Braga (Java — `java(Cássio)/`):**
   - Filas (Situações 1 e 2), Árvore Binária de Busca — BST (Situações 7 e 8), Árvore Balanceada — AVL (Situações 9 e 10), Bubble Sort (Situações 15 e 16), Insertion Sort (Situações 19 e 20) e Merge Sort (Situações 21 e 22), acompanhadas de 7 suítes de testes automatizados (`verificar.sh` com **107 casos aprovados, 0 pendentes e 0 falhas**).
-- **Lukas Souza Melo (C — `Pilha/`, `Lista_Encadeada/`, `Grafo/`, `Tabela_Hash/`, `Selection_Sort/`, `Quick_Sort/`):**
+- **Lukas Souza Melo (C — `c(Lukas)/`):**
   - Pilhas (Situações 3 e 4), Listas Encadeadas (Situações 5 e 6), Grafos (Situações 11 e 12), Tabela Hash (Situações 13 e 14), Selection Sort (Situações 17 e 18) e Quick Sort (Situações 23 e 24), com menus interativos e simulações automatizadas para todos os cenários do edital.
 
 ---
@@ -68,7 +68,7 @@ Relatório: 11 trabalho(s), 66 página(s). A sequência efetiva foi exibida a ca
 
 ---
 
-### 2.2 Pilhas (Stacks) — `Pilha/`
+### 2.2 Pilhas (Stacks) — `c(Lukas)/Pilha/`
 
 - **Justificativa de Escolha:** A pilha segue a política **LIFO (*Last-In, First-Out*)**, na qual o último elemento inserido é o primeiro a ser removido. É a estrutura natural para reverter ações recentes em um editor de texto (Undo/Redo) e para validar delimitadores aninhados em expressões matemáticas, onde o último parêntese/colchete/chave aberto precisa ser o primeiro a fechar.
 - **Funcionamento Interno:** Implementada com vetor estático e índice `topo` (inicializado em `-1`). `empilhar` incrementa `topo` e grava o registro em $O(1)$; `desempilhar` lê `dados[topo]` e decrementa `topo` em $O(1)$. No editor de texto, uma segunda pilha (`redo`) recebe as ações desfeitas da pilha `undo`. No verificador de expressões, cada caractere de abertura é empilhado junto com seu índice na string para reportar a posição exata de qualquer desbalanceamento.
@@ -76,7 +76,7 @@ Relatório: 11 trabalho(s), 66 página(s). A sequência efetiva foi exibida a ca
   - **Tempo:** `empilhar` (`push`), `desempilhar` (`pop`) e `topo` (`peek`): $O(1)$; validação de expressão de tamanho $n$: $O(n)$.
   - **Espaço:** $O(n)$ proporcional à capacidade máxima da pilha.
 
-#### Situação Problema 3 – Sistema de Desfazer (Undo) em Editor de Texto Simples (`Pilha/Sistema de Undo.c`)
+#### Situação Problema 3 – Sistema de Desfazer (Undo) em Editor de Texto Simples (`c(Lukas)/Pilha/Sistema de Undo.c`)
 - **Cenário e Entrada:** Opção `7` — Simulação automatizada com 12 ações (digitação, formatação e exclusão), seguida de 4 operações de Undo e 2 operações de Redo.
 - **Saída Observada:**
 ```text
@@ -96,7 +96,7 @@ Acao 'Fim da primeira secao.' (Exclusao) registrada com sucesso!
 [REFAZENDO] Acao refeita: [Formatacao] "Fonte alterada para tamanho 12"
 ```
 
-#### Situação Problema 4 – Verificação de Expressões com Parênteses, Colchetes e Chaves (`Pilha/Verificação de Sistemas.c`)
+#### Situação Problema 4 – Verificação de Expressões com Parênteses, Colchetes e Chaves (`c(Lukas)/Pilha/Verificação de Sistemas.c`)
 - **Cenário e Entrada:** Opção `2` — Execução dos casos de teste obrigatórios do enunciado (`"{ [ ( ) ] }"`, `"( [ ) ]"`, `"((()))"`, `"([)]"`, `"([]]"`).
 - **Saída Observada:**
 ```text
@@ -117,7 +117,7 @@ Analisando expressao: "([)]"
 
 ---
 
-### 2.3 Listas Encadeadas — `Lista_Encadeada/`
+### 2.3 Listas Encadeadas — `c(Lukas)/Lista_Encadeada/`
 
 - **Justificativa de Escolha:** Listas encadeadas alocam nós dinamicamente conforme a demanda e permitem inserir, remover e reordenar elementos em qualquer posição (início, meio ou fim) ajustando apenas ponteiros, sem necessidade de realocar blocos contíguos de memória.
 - **Funcionamento Interno:** Cada nó (`Musica` ou `Produto`) contém os dados de domínio e um ponteiro `proximo`. A inserção no início atualiza `inicio` em $O(1)$; inserções em posição específica, buscas, remoções e reordenações percorrem os ponteiros até o nó alvo em $O(n)$, liberando memória com `free()` nas remoções.
@@ -125,7 +125,7 @@ Analisando expressao: "([)]"
   - **Tempo:** Inserir no início: $O(1)$; Inserir no fim / em posição específica / remover / buscar / reordenar / listar: $O(n)$.
   - **Espaço:** $O(n)$ alocado dinamicamente para $n$ elementos ativos.
 
-#### Situação Problema 5 – Gerenciamento de Playlist de Músicas (`Lista_Encadeada/playlist.c`)
+#### Situação Problema 5 – Gerenciamento de Playlist de Músicas (`c(Lukas)/Lista_Encadeada/playlist.c`)
 - **Cenário e Entrada:** Opção `8` — Simulação com 12 músicas inseridas no início, fim e posição específica (posição 4), busca por título, reordenação (movendo da posição 12 para a 2) e remoção de música.
 - **Saída Observada:**
 ```text
@@ -143,7 +143,7 @@ Tempo total da playlist: 59.98 min
 [-] Musica 'Imagine' removida com sucesso!
 ```
 
-#### Situação Problema 6 – Controle de Estoque de uma Pequena Loja (`Lista_Encadeada/estoque.c`)
+#### Situação Problema 6 – Controle de Estoque de uma Pequena Loja (`c(Lukas)/Lista_Encadeada/estoque.c`)
 - **Cenário e Entrada:** Opção `8` — Simulação de uma semana (7 dias) de movimentação em uma loja de materiais de construção, com cadastro, baixas de vendas, remoção automática de produto esgotado (`Caixa D'Agua 1000L`), buscas por código/nome e alerta de estoque mínimo (`< 10`).
 - **Saída Observada:**
 ```text
@@ -239,17 +239,17 @@ Altura: 6 | Fator da raiz: -1 | Todos os nós balanceados: true
 
 ---
 
-### 3.3 Grafos — `Grafo/`
+### 3.3 Grafos — `c(Lukas)/Grafo/`
 
 - **Justificativa de Escolha:** Grafos modelam diretamente redes de conexões e rotas. Na logística de entregas, um grafo ponderado em lista de adjacência associado ao algoritmo de **Dijkstra** determina o caminho de menor custo entre bairros. Em redes sociais, um grafo não-direcionado associado à **Busca em Largura (BFS)** determina amigos em comum, sugestões de amizade e o menor grau de separação entre duas pessoas.
 - **Funcionamento Interno:**
-  - Em [`Grafo/Entregas.c`](../Grafo/Entregas.c), cada bairro possui uma lista encadeada de adjacência (`NoAdj`) com o vértice destino e o peso em km; `dijkstra` relaxa as arestas escolhendo iterativamente o vértice não visitado de menor distância acumulada e reconstrói a rota ótima pelo vetor `anterior[]`.
-  - Em [`Grafo/rede_social.c`](../Grafo/rede_social.c), conexões simétricas são registradas em `matriz[u][v] = matriz[v][u] = 1`; `grauSeparacaoBFS` utiliza uma fila FIFO para explorar os níveis de amizade em largura, garantindo a menor distância em número de arestas.
+  - Em [`c(Lukas)/Grafo/Entregas.c`](../c(Lukas)/Grafo/Entregas.c), cada bairro possui uma lista encadeada de adjacência (`NoAdj`) com o vértice destino e o peso em km; `dijkstra` relaxa as arestas escolhendo iterativamente o vértice não visitado de menor distância acumulada e reconstrói a rota ótima pelo vetor `anterior[]`.
+  - Em [`c(Lukas)/Grafo/rede_social.c`](../c(Lukas)/Grafo/rede_social.c), conexões simétricas são registradas em `matriz[u][v] = matriz[v][u] = 1`; `grauSeparacaoBFS` utiliza uma fila FIFO para explorar os níveis de amizade em largura, garantindo a menor distância em número de arestas.
 - **Complexidade:**
   - **Tempo:** Dijkstra: $O(V^2 + E)$; BFS (graus de separação): $O(V^2)$ em matriz de adjacência; Amigos em comum: $O(V)$.
   - **Espaço:** $O(V + E)$ na lista de adjacência (`Entregas.c`) e $O(V^2)$ na matriz (`rede_social.c`).
 
-#### Situação Problema 11 – Roteamento de Entrega de Mercadorias (`Grafo/Entregas.c`)
+#### Situação Problema 11 – Roteamento de Entrega de Mercadorias (`c(Lukas)/Grafo/Entregas.c`)
 - **Cenário e Entrada:** Opção `4` — Simulação com 10 bairros/pontos de entrega e cálculo de rotas mínimas com Dijkstra entre diferentes pares de pontos.
 - **Saída Observada:**
 ```text
@@ -266,7 +266,7 @@ Altura: 6 | Fator da raiz: -1 | Todos os nós balanceados: true
   -> Caminho: Distrito Industrial -> Vila Nova -> Sao Jose -> Santa Cecilia
 ```
 
-#### Situação Problema 12 – Rede de Amizades em uma Rede Social Simples (`Grafo/rede_social.c`)
+#### Situação Problema 12 – Rede de Amizades em uma Rede Social Simples (`c(Lukas)/Grafo/rede_social.c`)
 - **Cenário e Entrada:** Opção `6` — Simulação com 15 usuários conectados, listagem de amigos, amigos em comum, sugestões de conexão e cálculo de graus de separação via BFS.
 - **Saída Observada:**
 ```text
@@ -290,15 +290,15 @@ Sugestoes de amizade para Ana (amigos de amigos):
 
 ---
 
-### 3.4 Tabela Hash (Hash Table) — `Tabela_Hash/`
+### 3.4 Tabela Hash (Hash Table) — `c(Lukas)/Tabela_Hash/`
 
 - **Justificativa de Escolha:** A tabela hash oferece inserção, busca e remoção em tempo constante médio $O(1)$ a partir de uma chave textual (e-mail de usuário ou palavra de um texto), sem necessitar manter os dados ordenados.
-- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular (base 31) e **tratamento de colisões por encadeamento externo** (listas encadeadas em cada bucket). Em [`Tabela_Hash/login.c`](../Tabela_Hash/login.c), a senha é convertida em hash numérico via algoritmo DJB2 (`gerarHashSenha`) e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`Tabela_Hash/frequencia.c`](../Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
+- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular (base 31) e **tratamento de colisões por encadeamento externo** (listas encadeadas em cada bucket). Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em hash numérico via algoritmo DJB2 (`gerarHashSenha`) e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
 - **Complexidade:**
   - **Tempo:** Inserção, busca/autenticação e remoção: $O(1)$ no caso médio e $O(n)$ no pior caso (colisão total); processamento de texto com $N$ palavras: $O(N)$ médio.
   - **Espaço:** $O(M + N)$, onde $M$ é o número de buckets e $N$ o número de chaves distintas armazenadas.
 
-#### Situação Problema 13 – Cadastro de Usuários com Login Rápido (`Tabela_Hash/login.c`)
+#### Situação Problema 13 – Cadastro de Usuários com Login Rápido (`c(Lukas)/Tabela_Hash/login.c`)
 - **Cenário e Entrada:** Opção `5` — Simulação com 20 usuários cadastrados em 11 buckets (gerando colisões tratadas por encadeamento), testes de autenticação válida, senha incorreta, usuário inexistente e remoção de conta.
 - **Saída Observada:**
 ```text
@@ -315,7 +315,7 @@ Total de usuarios ativos: 20 | Buckets com colisao encadeada: 6
 5. Login apos remocao (carla.alves@empresa.com): FALHA (Conta removida)
 ```
 
-#### Situação Problema 14 – Contagem de Frequência de Palavras em um Texto (`Tabela_Hash/frequencia.c`)
+#### Situação Problema 14 – Contagem de Frequência de Palavras em um Texto (`c(Lukas)/Tabela_Hash/frequencia.c`)
 - **Cenário e Entrada:** Opção `2` — Processamento de um artigo técnico real sobre estruturas de dados e tabelas hash.
 - **Saída Observada:**
 ```text
@@ -365,12 +365,12 @@ Preços decrescentes: Monitor (R$ 899,90), Microfone (R$ 250,00), ..., Cabo HDMI
 
 ---
 
-### 4.2 Selection Sort — `Selection_Sort/`
+### 4.2 Selection Sort — `c(Lukas)/Selection_Sort/`
 
 - **Justificativa de Escolha:** Embora realize $O(n^2)$ comparações, o Selection Sort executa no máximo $n - 1$ trocas ($O(n)$ escritas). É indicado quando se deseja selecionar diretamente os maiores/menores elementos (Top-N candidatos) ou organizar listas pequenas de tarefas diárias minimizando movimentações de registros.
 - **Funcionamento e Complexidade:** A cada posição $i$, localiza o índice do maior (ou menor) elemento em $[i..n-1]$ e efetua uma única troca com a posição $i$. Tempo: $O(n^2)$ no melhor, médio e pior casos. Trocas: $O(n)$. Espaço auxiliar: $O(1)$.
 
-#### Situação Problema 17 – Seleção dos Melhores Candidatos em um Processo Seletivo (`Selection_Sort/processo_seletivo.c`)
+#### Situação Problema 17 – Seleção dos Melhores Candidatos em um Processo Seletivo (`c(Lukas)/Selection_Sort/processo_seletivo.c`)
 - **Cenário e Entrada:** Opção `3` — Simulação com 15 candidatos e extração dos Top-5 classificados.
 - **Saída Observada:**
 ```text
@@ -383,7 +383,7 @@ Preços decrescentes: Monitor (R$ 899,90), Microfone (R$ 250,00), ..., Cabo HDMI
 Estatisticas do Selection Sort: 105 comparacoes e 12 trocas realizadas.
 ```
 
-#### Situação Problema 18 – Organização de Tarefas por Prioridade (`Selection_Sort/tarefas.c`)
+#### Situação Problema 18 – Organização de Tarefas por Prioridade (`c(Lukas)/Selection_Sort/tarefas.c`)
 - **Cenário e Entrada:** Opção `3` — Simulação de um dia de trabalho com 14 tarefas ordenadas pelo nível de prioridade (1 = Urgente a 5 = Baixa).
 - **Saída Observada:**
 ```text
@@ -447,12 +447,12 @@ Total resultante: 30 (esperado nesta base: 30).
 
 ---
 
-### 4.5 Quick Sort — `Quick_Sort/`
+### 4.5 Quick Sort — `c(Lukas)/Quick_Sort/`
 
-- **Justificativa de Escolha:** É o algoritmo de ordenação de propósito geral mais rápido na prática em memória principal ($O(n \log n)$ no caso médio, constantes pequenas e uso de memória auxiliar restrito à pilha de recursão $O(\log n)$). Em [`Quick_Sort/ecommerce.c`](../Quick_Sort/ecommerce.c), a escolha de pivô por **mediana-de-três** evita a degradação para $O(n^2)$ em entradas já ordenadas.
+- **Justificativa de Escolha:** É o algoritmo de ordenação de propósito geral mais rápido na prática em memória principal ($O(n \log n)$ no caso médio, constantes pequenas e uso de memória auxiliar restrito à pilha de recursão $O(\log n)$). Em [`c(Lukas)/Quick_Sort/ecommerce.c`](../c(Lukas)/Quick_Sort/ecommerce.c), a escolha de pivô por **mediana-de-três** evita a degradação para $O(n^2)$ em entradas já ordenadas.
 - **Funcionamento e Complexidade:** Seleciona um pivô (mediana entre `low`, `mid` e `high`), particiona o subvetor colocando elementos menores/iguais à esquerda e maiores à direita, e ordena recursivamente as partições. Tempo: $O(n \log n)$ no melhor e médio casos, $O(n^2)$ no pior caso. Espaço auxiliar: $O(\log n)$.
 
-#### Situação Problema 23 – Ordenação de Catálogo de Produtos de E-commerce (`Quick_Sort/ecommerce.c`)
+#### Situação Problema 23 – Ordenação de Catálogo de Produtos de E-commerce (`c(Lukas)/Quick_Sort/ecommerce.c`)
 - **Cenário e Entrada:** Opção `3` — Simulação com **100 produtos**, ordenação por três critérios distintos (Preço crescente, Nome A-Z e Popularidade decrescente) e benchmark comparativo entre **Quick Sort (Mediana-de-Três)** e **Merge Sort**.
 - **Saída Observada:**
 ```text
@@ -466,7 +466,7 @@ Total resultante: 30 (esperado nesta base: 30).
 (Também ordena e exibe o catálogo por Nome Alfabético e por Popularidade Decrescente)
 ```
 
-#### Situação Problema 24 – Classificação de Resultados de uma Competição Esportiva (`Quick_Sort/competicao.c`)
+#### Situação Problema 24 – Classificação de Resultados de uma Competição Esportiva (`c(Lukas)/Quick_Sort/competicao.c`)
 - **Cenário e Entrada:** Opção `3` — Simulação de corrida de 100m rasos com **30 atletas**, geração da classificação final e destaque do **Pódio (Top 3)**.
 - **Saída Observada:**
 ```text

@@ -5,7 +5,7 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 ## Equipe (Dupla)
 
 - **Cássio Filipe Meireles De Carvalho Braga** — 6 categorias / 12 aplicações em **Java** (`java(Cássio)/`)
-- **Lukas Souza Melo** — 6 categorias / 12 aplicações em **C** (`Pilha/`, `Lista_Encadeada/`, `Grafo/`, `Tabela_Hash/`, `Selection_Sort/`, `Quick_Sort/`)
+- **Lukas Souza Melo** — 6 categorias / 12 aplicações em **C** (`c(Lukas)/`)
 
 ---
 
@@ -15,28 +15,28 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 |---|---|---|---|---|
 | 1 | **Fila** | Sistema de Atendimento de uma Clínica Médica (15 pacientes) | Java | `fila.Clinica` (`java(Cássio)/fila/Clinica.java`) |
 | 2 | **Fila** | Fila de Impressão em Laboratório (12 trabalhos + cancelar último) | Java | `fila.FilaImpressao` (`java(Cássio)/fila/FilaImpressao.java`) |
-| 3 | **Pilha** | Sistema de Desfazer (Undo/Redo) em Editor de Texto (12 ações) | C | `Pilha/Sistema de Undo.c` |
-| 4 | **Pilha** | Verificação de Expressões com `()`, `[]` e `{}` + posição de erro | C | `Pilha/Verificação de Sistemas.c` |
-| 5 | **Lista Encadeada** | Gerenciamento de Playlist de Músicas (12 músicas) | C | `Lista_Encadeada/playlist.c` |
-| 6 | **Lista Encadeada** | Controle de Estoque de uma Pequena Loja (simulação de 7 dias) | C | `Lista_Encadeada/estoque.c` |
+| 3 | **Pilha** | Sistema de Desfazer (Undo/Redo) em Editor de Texto (12 ações) | C | `c(Lukas)/Pilha/Sistema de Undo.c` |
+| 4 | **Pilha** | Verificação de Expressões com `()`, `[]` e `{}` + posição de erro | C | `c(Lukas)/Pilha/Verificação de Sistemas.c` |
+| 5 | **Lista Encadeada** | Gerenciamento de Playlist de Músicas (12 músicas) | C | `c(Lukas)/Lista_Encadeada/playlist.c` |
+| 6 | **Lista Encadeada** | Controle de Estoque de uma Pequena Loja (simulação de 7 dias) | C | `c(Lukas)/Lista_Encadeada/estoque.c` |
 | 7 | **BST** | Cadastro e Busca de Alunos por Matrícula (20 alunos) | Java | `bst.CadastroAlunos` (`java(Cássio)/bst/CadastroAlunos.java`) |
 | 8 | **BST** | Sistema de Autocomplete de Nomes de Produtos (30 produtos) | Java | `bst.AutocompleteProdutos` (`java(Cássio)/bst/AutocompleteProdutos.java`) |
 | 9 | **AVL** | Índice de CPF para Sistema de RH (25 funcionários) | Java | `avl.IndiceCpf` (`java(Cássio)/avl/IndiceCpf.java`) |
 | 10 | **AVL** | Ranking de Jogadores em Jogo Online (30 jogadores + Top-K) | Java | `avl.RankingJogadores` (`java(Cássio)/avl/RankingJogadores.java`) |
-| 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 10 bairros) | C | `Grafo/Entregas.c` |
-| 12 | **Grafo** | Rede de Amizades em Rede Social (15 usuários + BFS graus de separação) | C | `Grafo/rede_social.c` |
-| 13 | **Tabela Hash** | Cadastro de Usuários com Login Rápido (20 usuários + hash de senha) | C | `Tabela_Hash/login.c` |
-| 14 | **Tabela Hash** | Contagem de Frequência de Palavras em um Texto Real | C | `Tabela_Hash/frequencia.c` |
+| 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 10 bairros) | C | `c(Lukas)/Grafo/Entregas.c` |
+| 12 | **Grafo** | Rede de Amizades em Rede Social (15 usuários + BFS graus de separação) | C | `c(Lukas)/Grafo/rede_social.c` |
+| 13 | **Tabela Hash** | Cadastro de Usuários com Login Rápido (20 usuários + hash de senha) | C | `c(Lukas)/Tabela_Hash/login.c` |
+| 14 | **Tabela Hash** | Contagem de Frequência de Palavras em um Texto Real | C | `c(Lukas)/Tabela_Hash/frequencia.c` |
 | 15 | **Bubble Sort** | Ordenação de Notas de uma Turma Pequena (20 alunos + estatísticas) | Java | `bubblesort.NotasTurma` (`java(Cássio)/bubblesort/NotasTurma.java`) |
 | 16 | **Bubble Sort** | Ordenação de Produtos por Preço em Vitrine Pequena (12 produtos) | Java | `bubblesort.ProdutosPreco` (`java(Cássio)/bubblesort/ProdutosPreco.java`) |
-| 17 | **Selection Sort** | Seleção dos Melhores Candidatos em Processo Seletivo (15 candidatos) | C | `Selection_Sort/processo_seletivo.c` |
-| 18 | **Selection Sort** | Organização de Tarefas por Prioridade 1 a 5 (14 tarefas) | C | `Selection_Sort/tarefas.c` |
+| 17 | **Selection Sort** | Seleção dos Melhores Candidatos em Processo Seletivo (15 candidatos) | C | `c(Lukas)/Selection_Sort/processo_seletivo.c` |
+| 18 | **Selection Sort** | Organização de Tarefas por Prioridade 1 a 5 (14 tarefas) | C | `c(Lukas)/Selection_Sort/tarefas.c` |
 | 19 | **Insertion Sort** | Inserção de Novas Cartas em Jogo de Cartas Ordenado (13 cartas) | Java | `insertionsort.JogoCartas` (`java(Cássio)/insertionsort/JogoCartas.java`) |
 | 20 | **Insertion Sort** | Atualização de Ranking de Vendedores do Mês (10 vendedores, 7 dias) | Java | `insertionsort.RankingVendedores` (`java(Cássio)/insertionsort/RankingVendedores.java`) |
 | 21 | **Merge Sort** | Ordenação de Histórico de Transações Bancárias (50 transações) | Java | `mergesort.TransacoesBancarias` (`java(Cássio)/mergesort/TransacoesBancarias.java`) |
 | 22 | **Merge Sort** | Mesclagem de Duas Listas de Contatos Ordenadas (20+20 -> 30 únicos) | Java | `mergesort.MesclagemContatos` (`java(Cássio)/mergesort/MesclagemContatos.java`) |
-| 23 | **Quick Sort** | Catálogo de E-commerce (100 produtos, Mediana-de-3 vs Merge Sort) | C | `Quick_Sort/ecommerce.c` |
-| 24 | **Quick Sort** | Classificação de Resultados de Competição Esportiva (30 atletas, Top 3) | C | `Quick_Sort/competicao.c` |
+| 23 | **Quick Sort** | Catálogo de E-commerce (100 produtos, Mediana-de-3 vs Merge Sort) | C | `c(Lukas)/Quick_Sort/ecommerce.c` |
+| 24 | **Quick Sort** | Classificação de Resultados de Competição Esportiva (30 atletas, Top 3) | C | `c(Lukas)/Quick_Sort/competicao.c` |
 
 ---
 
@@ -52,12 +52,13 @@ trabalho-aed1/
 │   ├── bubblesort/             # Situações 15 e 16 (Bubble Sort, Notas da Turma e Vitrine)
 │   ├── insertionsort/          # Situações 19 e 20 (Insertion Sort, Jogo de Cartas e Vendedores)
 │   └── mergesort/              # Situações 21 e 22 (Merge Sort, Transações e Mesclagem de Contatos)
-├── Pilha/                      # Situações 3 e 4 em C (Sistema de Undo e Verificação de Expressões)
-├── Lista_Encadeada/            # Situações 5 e 6 em C (Playlist de Músicas e Controle de Estoque)
-├── Grafo/                      # Situações 11 e 12 em C (Entregas com Dijkstra e Rede Social com BFS)
-├── Tabela_Hash/                # Situações 13 e 14 em C (Login Rápido e Frequência de Palavras)
-├── Selection_Sort/             # Situações 17 e 18 em C (Processo Seletivo e Tarefas por Prioridade)
-├── Quick_Sort/                 # Situações 23 e 24 em C (E-commerce 100 itens e Competição Esportiva)
+├── c(Lukas)/                   # 6 categorias e 12 aplicações em C com simulações completas
+│   ├── Pilha/                  # Situações 3 e 4 em C (Sistema de Undo e Verificação de Expressões)
+│   ├── Lista_Encadeada/        # Situações 5 e 6 em C (Playlist de Músicas e Controle de Estoque)
+│   ├── Grafo/                  # Situações 11 e 12 em C (Entregas com Dijkstra e Rede Social com BFS)
+│   ├── Tabela_Hash/            # Situações 13 e 14 em C (Login Rápido e Frequência de Palavras)
+│   ├── Selection_Sort/         # Situações 17 e 18 em C (Processo Seletivo e Tarefas por Prioridade)
+│   └── Quick_Sort/             # Situações 23 e 24 em C (E-commerce 100 itens e Competição Esportiva)
 ├── relatorio/
 │   └── MODELO_RELATORIO.md     # Relatório Técnico Completo (24 situações-problema)
 ├── CHECKLIST.md                # Checklist consolidado do projeto
@@ -102,18 +103,18 @@ java -cp out fila.Clinica
 Requisito: **Compilador C (GCC / Clang)**. Todos os programas possuem menu interativo e uma opção dedicada para rodar a **simulação completa exigida pelo enunciado**:
 
 ```bash
-gcc "Pilha/Sistema de Undo.c" -o undo && ./undo
-gcc "Pilha/Verificação de Sistemas.c" -o expressoes && ./expressoes
-gcc "Lista_Encadeada/playlist.c" -o playlist && ./playlist
-gcc "Lista_Encadeada/estoque.c" -o estoque && ./estoque
-gcc "Grafo/Entregas.c" -o entregas && ./entregas
-gcc "Grafo/rede_social.c" -o rede_social && ./rede_social
-gcc "Tabela_Hash/login.c" -o login && ./login
-gcc "Tabela_Hash/frequencia.c" -o frequencia && ./frequencia
-gcc "Selection_Sort/processo_seletivo.c" -o seletivo && ./seletivo
-gcc "Selection_Sort/tarefas.c" -o tarefas && ./tarefas
-gcc "Quick_Sort/ecommerce.c" -o ecommerce && ./ecommerce
-gcc "Quick_Sort/competicao.c" -o competicao && ./competicao
+gcc "c(Lukas)/Pilha/Sistema de Undo.c" -o undo && ./undo
+gcc "c(Lukas)/Pilha/Verificação de Sistemas.c" -o expressoes && ./expressoes
+gcc "c(Lukas)/Lista_Encadeada/playlist.c" -o playlist && ./playlist
+gcc "c(Lukas)/Lista_Encadeada/estoque.c" -o estoque && ./estoque
+gcc "c(Lukas)/Grafo/Entregas.c" -o entregas && ./entregas
+gcc "c(Lukas)/Grafo/rede_social.c" -o rede_social && ./rede_social
+gcc "c(Lukas)/Tabela_Hash/login.c" -o login && ./login
+gcc "c(Lukas)/Tabela_Hash/frequencia.c" -o frequencia && ./frequencia
+gcc "c(Lukas)/Selection_Sort/processo_seletivo.c" -o seletivo && ./seletivo
+gcc "c(Lukas)/Selection_Sort/tarefas.c" -o tarefas && ./tarefas
+gcc "c(Lukas)/Quick_Sort/ecommerce.c" -o ecommerce && ./ecommerce
+gcc "c(Lukas)/Quick_Sort/competicao.c" -o competicao && ./competicao
 ```
 
 ---
