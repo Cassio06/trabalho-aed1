@@ -1,101 +1,245 @@
 /*
- * ESTRUTURA DE DADOS: GRAFO PONDERADO (Matriz de Adjacência)
- * APLICAÇÃO: Roteamento de Entrega de Mercadorias (Caminho Mínimo com Dijkstra)
- * 
- * JUSTIFICATIVA: O grafo ponderado modela os pontos de entrega (vértices) e as rotas
- * com suas respectivas distâncias/custos (arestas com pesos). O algoritmo de Dijkstra encontra
- * a rota de menor custo total a partir de uma origem.
- * 
+ * ESTRUTURA DE DADOS: GRAFO PONDERADO (Lista de Adjacência)
+ * APLICAÇÃO: Situação Problema 11 - Roteamento de Entrega de Mercadorias (Caminho Mínimo com Dijkstra)
+ *
+ * JUSTIFICATIVA: O grafo ponderado em lista de adjacência modela os bairros/pontos de entrega
+ * (vértices) e as vias urbanas com seus custos/distâncias (arestas com peso), economizando
+ * memória em mapas esparsos. O algoritmo de Dijkstra encontra o caminho de menor custo total.
+ *
  * COMPLEXIDADE:
- * - Algoritmo de Dijkstra: O(V^2), onde V é o número de vértices.
- * - Espaço: O(V^2) na matriz de adjacência.
+ * - Inserção de vértice/aresta: O(1) amortizado.
+ * - Algoritmo de Dijkstra: O(V^2 + E) com busca linear do vértice mínimo.
+ * - Espaço: O(V + E) na lista de adjacência.
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#define MAX 10
+#define MAX_VERTICES 25
 #define INF 999999
 
+typedef struct NoAdj {
+    int destino;
+    int peso;
+    struct NoAdj *proximo;
+} NoAdj;
+
 typedef struct {
-    char nomes[MAX][50];
-    int matriz[MAX][MAX];
+    char nomes[MAX_VERTICES][50];
+    NoAdj *adj[MAX_VERTICES];
     int numVertices;
 } GrafoDelivery;
 
 void inicializar(GrafoDelivery *g) {
     g->numVertices = 0;
-    for (int i = 0; i < MAX; i++)
-        for (int j = 0; j < MAX; j++)
-            g->matriz[i][j] = (i == j) ? 0 : INF;
+    for (int i = 0; i < MAX_VERTICES; i++) {
+        g->adj[i] = NULL;
+    }
 }
 
-int buscarOuAdicionarPonto(GrafoDelivery *g, char *nome) {
+void liberarGrafo(GrafoDelivery *g) {
+    for (int i = 0; i < g->numVertices; i++) {
+        NoAdj *atual = g->adj[i];
+        while (atual != NULL) {
+            NoAdj *prox = atual->proximo;
+            free(atual);
+            atual = prox;
+        }
+        g->adj[i] = NULL;
+    }
+    g->numVertices = 0;
+}
+
+int buscarPonto(GrafoDelivery *g, const char *nome) {
     for (int i = 0; i < g->numVertices; i++) {
         if (strcmp(g->nomes[i], nome) == 0) return i;
     }
-    if (g->numVertices >= MAX) return -1;
-    strcpy(g->nomes[g->numVertices], nome);
+    return -1;
+}
+
+int buscarOuAdicionarPonto(GrafoDelivery *g, const char *nome) {
+    int id = buscarPonto(g, nome);
+    if (id != -1) return id;
+    if (g->numVertices >= MAX_VERTICES) return -1;
+    strncpy(g->nomes[g->numVertices], nome, 49);
+    g->nomes[g->numVertices][49] = '\0';
     return g->numVertices++;
 }
 
-void adicionarRota(GrafoDelivery *g, char *origem, char *destino, int peso) {
+void inserirArestaDirecionada(GrafoDelivery *g, int u, int v, int peso) {
+    NoAdj *atual = g->adj[u];
+    while (atual != NULL) {
+        if (atual->destino == v) {
+            atual->peso = peso;
+            return;
+        }
+        atual = atual->proximo;
+    }
+    NoAdj *novo = (NoAdj*) malloc(sizeof(NoAdj));
+    novo->destino = v;
+    novo->peso = peso;
+    novo->proximo = g->adj[u];
+    g->adj[u] = novo;
+}
+
+void adicionarRota(GrafoDelivery *g, const char *origem, const char *destino, int peso) {
     int u = buscarOuAdicionarPonto(g, origem);
     int v = buscarOuAdicionarPonto(g, destino);
     if (u != -1 && v != -1) {
-        g->matriz[u][v] = peso;
-        g->matriz[v][u] = peso;
-        printf("Rota entre '%s' e '%s' adicionada com custo/distancia %d!\n", origem, destino, peso);
+        inserirArestaDirecionada(g, u, v, peso);
+        inserirArestaDirecionada(g, v, u, peso);
+        printf("[ROTA] '%s' <-> '%s' (custo/distancia: %d km)\n", origem, destino, peso);
     }
 }
 
-void dijkstra(GrafoDelivery *g, int orig, int dest) {
-    int dist[MAX], visitado[MAX], anterior[MAX];
+void listarMapa(GrafoDelivery *g) {
+    printf("\n--- MAPA DE ROTAS (LISTA DE ADJACENCIA - %d VERTICES) ---\n", g->numVertices);
     for (int i = 0; i < g->numVertices; i++) {
-        dist[i] = INF; visitado[i] = 0; anterior[i] = -1;
+        printf("[%2d] %-22s -> ", i + 1, g->nomes[i]);
+        NoAdj *aux = g->adj[i];
+        while (aux != NULL) {
+            printf("%s (%d km)%s", g->nomes[aux->destino], aux->peso,
+                   aux->proximo != NULL ? " | " : "");
+            aux = aux->proximo;
+        }
+        printf("\n");
+    }
+}
+
+void dijkstra(GrafoDelivery *g, const char *nomeOrig, const char *nomeDest) {
+    int orig = buscarPonto(g, nomeOrig);
+    int dest = buscarPonto(g, nomeDest);
+    if (orig == -1 || dest == -1) {
+        printf("Ponto de origem ou destino nao cadastrado no mapa!\n");
+        return;
+    }
+
+    int dist[MAX_VERTICES], visitado[MAX_VERTICES], anterior[MAX_VERTICES];
+    for (int i = 0; i < g->numVertices; i++) {
+        dist[i] = INF;
+        visitado[i] = 0;
+        anterior[i] = -1;
     }
     dist[orig] = 0;
 
     for (int count = 0; count < g->numVertices - 1; count++) {
         int min = INF, u = -1;
-        for (int v = 0; v < g->numVertices; v++)
-            if (!visitado[v] && dist[v] <= min) { min = dist[v]; u = v; }
-
+        for (int v = 0; v < g->numVertices; v++) {
+            if (!visitado[v] && dist[v] < min) {
+                min = dist[v];
+                u = v;
+            }
+        }
         if (u == -1) break;
         visitado[u] = 1;
 
-        for (int v = 0; v < g->numVertices; v++)
-            if (!visitado[v] && g->matriz[u][v] != INF && dist[u] + g->matriz[u][v] < dist[v]) {
-                dist[v] = dist[u] + g->matriz[u][v];
+        NoAdj *aresta = g->adj[u];
+        while (aresta != NULL) {
+            int v = aresta->destino;
+            int peso = aresta->peso;
+            if (!visitado[v] && dist[u] + peso < dist[v]) {
+                dist[v] = dist[u] + peso;
                 anterior[v] = u;
             }
+            aresta = aresta->proximo;
+        }
     }
 
-    if (dist[dest] == INF) { printf("Nao ha rota disponivel entre esses pontos!\n"); return; }
-    printf("\nCusto minimo total de entrega: %d\nCaminho: ", dist[dest]);
-    int caminho[MAX], tam = 0, curr = dest;
-    while (curr != -1) { caminho[tam++] = curr; curr = anterior[curr]; }
-    for (int i = tam - 1; i >= 0; i--) printf("%s%s", g->nomes[caminho[i]], (i > 0) ? " -> " : "\n");
+    if (dist[dest] == INF) {
+        printf("\nNao ha rota disponivel entre '%s' e '%s'!\n", nomeOrig, nomeDest);
+        return;
+    }
+
+    printf("\n[DIJKSTRA] Menor rota de '%s' ate '%s':\n", nomeOrig, nomeDest);
+    printf("  -> Custo minimo total: %d km\n  -> Caminho: ", dist[dest]);
+    int caminho[MAX_VERTICES], tam = 0, curr = dest;
+    while (curr != -1) {
+        caminho[tam++] = curr;
+        curr = anterior[curr];
+    }
+    for (int i = tam - 1; i >= 0; i--) {
+        printf("%s%s", g->nomes[caminho[i]], (i > 0) ? " -> " : "\n");
+    }
+}
+
+// Simulação com pelo menos 10 vértices e demonstração de rotas entre diferentes pares de pontos
+void executarSimulacao(GrafoDelivery *g) {
+    liberarGrafo(g);
+    printf("\n================================================================\n");
+    printf("   SIMULACAO DE DELIVERY: 10 BAIRROS E CAMINHO MINIMO (DIJKSTRA)\n");
+    printf("================================================================\n");
+
+    adicionarRota(g, "CD Central", "Centro", 4);
+    adicionarRota(g, "CD Central", "Distrito Industrial", 3);
+    adicionarRota(g, "Centro", "Jardim Europa", 5);
+    adicionarRota(g, "Centro", "Vila Nova", 6);
+    adicionarRota(g, "Distrito Industrial", "Vila Nova", 4);
+    adicionarRota(g, "Jardim Europa", "Bela Vista", 3);
+    adicionarRota(g, "Vila Nova", "Bela Vista", 2);
+    adicionarRota(g, "Vila Nova", "Sao Jose", 7);
+    adicionarRota(g, "Bela Vista", "Morumbi", 4);
+    adicionarRota(g, "Sao Jose", "Santa Cecilia", 3);
+    adicionarRota(g, "Morumbi", "Parque das Flores", 5);
+    adicionarRota(g, "Santa Cecilia", "Parque das Flores", 2);
+    adicionarRota(g, "Parque das Flores", "Campus Universitario", 4);
+    adicionarRota(g, "Morumbi", "Campus Universitario", 11);
+
+    listarMapa(g);
+
+    dijkstra(g, "CD Central", "Campus Universitario");
+    dijkstra(g, "CD Central", "Morumbi");
+    dijkstra(g, "Distrito Industrial", "Santa Cecilia");
+    dijkstra(g, "Jardim Europa", "Parque das Flores");
 }
 
 int main() {
-    GrafoDelivery g; inicializar(&g);
-    int op, peso; char p1[50], p2[50];
+    GrafoDelivery g;
+    inicializar(&g);
+    int op, peso;
+    char p1[50], p2[50];
+
     do {
-        printf("\n=== ROTEAMENTO DE DELIVERY ===\n1. Cadastrar Rota Ponderada\n2. Calcular Rota Minima \n0. Sair\nEscolha: ");
-        scanf("%d", &op); getchar();
-        switch(op) {
+        printf("\n=== ROTEAMENTO DE DELIVERY (SITUACAO 11) ===\n");
+        printf("1. Cadastrar Rota Ponderada\n");
+        printf("2. Calcular Rota Minima (Dijkstra)\n");
+        printf("3. Exibir Lista de Adjacencia do Mapa\n");
+        printf("4. Executar Simulacao com 10 Bairros\n");
+        printf("0. Sair\nEscolha: ");
+        if (scanf("%d", &op) != 1) break;
+        getchar();
+
+        switch (op) {
             case 1:
-                printf("Ponto de Origem: "); fgets(p1, 50, stdin); p1[strcspn(p1, "\n")] = '\0';
-                printf("Ponto de Destino: "); fgets(p2, 50, stdin); p2[strcspn(p2, "\n")] = '\0';
-                printf("Distancia/Custo: "); scanf("%d", &peso); getchar();
-                adicionarRota(&g, p1, p2, peso); break;
+                printf("Ponto de Origem: ");
+                fgets(p1, 50, stdin);
+                p1[strcspn(p1, "\n")] = '\0';
+                printf("Ponto de Destino: ");
+                fgets(p2, 50, stdin);
+                p2[strcspn(p2, "\n")] = '\0';
+                printf("Distancia/Custo (km): ");
+                scanf("%d", &peso);
+                getchar();
+                adicionarRota(&g, p1, p2, peso);
+                break;
             case 2:
-                printf("Origem da entrega: "); fgets(p1, 50, stdin); p1[strcspn(p1, "\n")] = '\0';
-                printf("Destino da entrega: "); fgets(p2, 50, stdin); p2[strcspn(p2, "\n")] = '\0';
-                int u = buscarOuAdicionarPonto(&g, p1), v = buscarOuAdicionarPonto(&g, p2);
-                dijkstra(&g, u, v); break;
+                printf("Origem da entrega: ");
+                fgets(p1, 50, stdin);
+                p1[strcspn(p1, "\n")] = '\0';
+                printf("Destino da entrega: ");
+                fgets(p2, 50, stdin);
+                p2[strcspn(p2, "\n")] = '\0';
+                dijkstra(&g, p1, p2);
+                break;
+            case 3:
+                listarMapa(&g);
+                break;
+            case 4:
+                executarSimulacao(&g);
+                break;
         }
     } while (op != 0);
+
+    liberarGrafo(&g);
     return 0;
 }

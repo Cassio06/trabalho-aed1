@@ -1,7 +1,21 @@
+/*
+ * ESTRUTURA DE DADOS: PILHA (LIFO - Last-In, First-Out)
+ * APLICAÇÃO: Situação Problema 4 - Verificação de Expressões com Parênteses, Colchetes e Chaves
+ *
+ * JUSTIFICATIVA: Em expressões aninhadas, o último delimitador de abertura encontrado deve ser
+ * obrigatoriamente o primeiro a ser fechado. A pilha armazena cada símbolo de abertura e sua
+ * posição original em O(1), permitindo validar o pareamento e apontar o índice exato de erros.
+ *
+ * COMPLEXIDADE:
+ * - Tempo de verificação: O(N), onde N é o comprimento da string avaliada.
+ * - Operações de empilhar e desempilhar: O(1).
+ * - Espaço auxiliar: O(N) no pior caso (expressão contendo apenas símbolos de abertura).
+ */
+
 #include <stdio.h>
 #include <string.h>
 
-#define TAMANHO 50
+#define TAMANHO 100
 
 // Estrutura para guardar o caractere e sua posição na string
 typedef struct {
@@ -50,8 +64,8 @@ int ehPar(char abertura, char fechamento) {
     return 0;
 }
 
-// Função de validação com o Relatório de Erros por posição
-void validarExpressao(char *exp) {
+// Função que recebe uma string, exibe o relatório de erros por posição e retorna 1 (balanceada) ou 0 (inválida)
+int validarExpressao(const char *exp) {
     int i;
     Pilha p;
     inicializar(&p);
@@ -65,22 +79,22 @@ void validarExpressao(char *exp) {
         // Se for abertura, empilha o caractere junto com a sua posição (índice i)
         if (atual == '(' || atual == '[' || atual == '{') {
             empilhar(&p, atual, i);
-        } 
+        }
         // Se for fechamento, valida
         else if (atual == ')' || atual == ']' || atual == '}') {
             if (vazia(&p)) {
                 printf("-> RESULTADO: INCORRETA!\n");
                 printf("   [RELATORIO DE ERRO] Desbalanceamento no caractere '%c' (posicao %d): Fechamento sem abertura correspondente.\n", atual, i);
-                return;
+                return 0;
             }
 
             ItemPilha topoItem = desempilhar(&p);
 
             if (!ehPar(topoItem.simbolo, atual)) {
                 printf("-> RESULTADO: INCORRETA!\n");
-                printf("   [RELATORIO DE ERRO] Desbalanceamento no caractere '%c' (posicao %d): Nao combina com '%c' aberto na posicao %d.\n", 
+                printf("   [RELATORIO DE ERRO] Desbalanceamento no caractere '%c' (posicao %d): Nao combina com '%c' aberto na posicao %d.\n",
                        atual, i, topoItem.simbolo, topoItem.posicao);
-                return;
+                return 0;
             }
         }
     }
@@ -89,12 +103,13 @@ void validarExpressao(char *exp) {
     if (!vazia(&p)) {
         ItemPilha topoItem = desempilhar(&p);
         printf("-> RESULTADO: INCORRETA!\n");
-        printf("   [RELATORIO DE ERRO] O simbolo '%c' na posicao %d nao foi fechado ate o final da expressao.\n", 
+        printf("   [RELATORIO DE ERRO] O simbolo '%c' na posicao %d nao foi fechado ate o final da expressao.\n",
                topoItem.simbolo, topoItem.posicao);
-        return;
+        return 0;
     }
 
     printf("-> RESULTADO: CORRETA (Expressao perfeitamente balanceada)!\n");
+    return 1;
 }
 
 int main() {
@@ -108,7 +123,7 @@ int main() {
         printf("2 - Executar Simulacao de Testes Obrigatorios\n");
         printf("0 - Sair\n");
         printf("Escolha: ");
-        scanf("%d", &opcao);
+        if (scanf("%d", &opcao) != 1) break;
         getchar();
 
         switch (opcao) {
@@ -120,20 +135,24 @@ int main() {
                 validarExpressao(expressao);
                 break;
 
-            case 2:
-                printf("\n=================== RODANDO SIMULACOES ===================");
-                // Casos de teste indicados no enunciado
-                char *testes[] = {
-                    "{[()]}",   // Válida
-                    "([)]",     // Inválida (fecha fora de ordem)
-                    "((()))",   // Válida
-                    "([]]"      // Inválida (desbalanceada)
+            case 2: {
+                printf("\n=================== RODANDO SIMULACOES ===================\n");
+                // Casos de teste indicados no enunciado + casos adicionais de borda
+                const char *testes[] = {
+                    "{ [ ( ) ] }",          // Válida (enunciado)
+                    "( [ ) ]",              // Inválida - fecha fora de ordem (enunciado)
+                    "((()))",               // Válida (enunciado)
+                    "([)]",                 // Inválida - cruzada (enunciado)
+                    "([]]",                 // Inválida - fechamento extra
+                    "{[a + (b * c)] - d}",  // Válida com variáveis
+                    "((a + b) * [c - d]"    // Inválida - abertura sem fechar
                 };
 
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i < 7; i++) {
                     validarExpressao(testes[i]);
                 }
                 break;
+            }
 
             case 0:
                 printf("Encerrando...\n");

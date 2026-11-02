@@ -1,3 +1,17 @@
+/*
+ * ESTRUTURA DE DADOS: PILHA (LIFO - Last-In, First-Out)
+ * APLICAÇÃO: Situação Problema 3 - Sistema de Desfazer (Undo/Redo) em Editor de Texto Simples
+ *
+ * JUSTIFICATIVA: A pilha é a estrutura natural para reverter ações na ordem inversa em que
+ * ocorreram, pois a última ação executada (topo) deve ser a primeira a ser desfeita.
+ * Com uma segunda pilha auxiliar (Redo), ações desfeitas podem ser refeitas em O(1).
+ *
+ * COMPLEXIDADE:
+ * - Executar ação (push), Desfazer (pop), Refazer e Consultar topo (peek): O(1) em tempo.
+ * - Listagem do histórico: O(N) em tempo.
+ * - Espaço: O(N), onde N é a capacidade máxima das pilhas de histórico.
+ */
+
 #include <stdio.h>
 #include <string.h>
 
@@ -6,7 +20,7 @@
 // Estrutura que representa a ação do editor de texto
 typedef struct {
     char tipo[20];      // Ex: "Digitacao", "Exclusao", "Formatacao"
-    char texto[50];     // O texto associado à ação
+    char texto[50];     // O texto/estado anterior associado à ação
 } Acao;
 
 // Estrutura da Pilha
@@ -71,12 +85,12 @@ void listar(Pilha *p, char *nomePilha) {
         return;
     }
     printf("\n--- %s ---\n", nomePilha);
-    for ( i = p->topo; i >= 0; i--) {
+    for (i = p->topo; i >= 0; i--) {
         printf("%d. [%s] %s\n", i + 1, p->dados[i].tipo, p->dados[i].texto);
     }
 }
 
-// Função que simula as 12 ações do editor e o processo de desfazer/refazer
+// Função que simula as 12 ações do editor e o processo de desfazer/refazer passo a passo
 void executarSimulacao(Pilha *undo, Pilha *redo) {
     int i;
     printf("\n======================================================\n");
@@ -86,7 +100,7 @@ void executarSimulacao(Pilha *undo, Pilha *redo) {
     inicializar(undo);
     inicializar(redo);
 
-    // Conjunto com 12 ações para preencher os requisitos do trabalho
+    // Conjunto com 12 ações para preencher os requisitos do trabalho (10-15 ações)
     Acao acoesSimuladas[12] = {
         {"Digitacao", "Ola, este e um documento de teste."},
         {"Digitacao", "Estrutura de dados e uma materia importante."},
@@ -166,21 +180,21 @@ int main() {
         printf("7 - Executar Simulacao Automatizada (12 Acoes)\n");
         printf("0 - Sair\n");
         printf("Escolha uma opcao: ");
-        scanf("%d", &opcao);
+        if (scanf("%d", &opcao) != 1) break;
         getchar();
 
         switch (opcao) {
             case 1:
                 printf("Digite o tipo da acao (ex: Digitacao, Exclusao, Formatacao): ");
                 fgets(acao.tipo, 20, stdin);
-                acao.tipo[strcspn(acao.tipo, "\n")] = '\0'; // Remove o '\n'
+                acao.tipo[strcspn(acao.tipo, "\n")] = '\0';
 
                 printf("Digite o conteudo/texto da acao: ");
                 fgets(acao.texto, 50, stdin);
-                acao.texto[strcspn(acao.texto, "\n")] = '\0'; // Remove o '\n'
+                acao.texto[strcspn(acao.texto, "\n")] = '\0';
 
                 empilhar(&undo, acao);
-                inicializar (&redo); // Limpa o redo ao empilhar uma nova ação
+                inicializar(&redo);
                 break;
 
             case 2:
@@ -188,7 +202,6 @@ int main() {
                 break;
 
             case 3:
-            // Tira de undo e joga em redo
                 if (desempilhar(&undo, &acao)) {
                     empilhar(&redo, acao);
                     printf("\n[Undo] Desfeito: [%s] \"%s\" \n", acao.texto, acao.tipo);
@@ -210,18 +223,16 @@ int main() {
                 listar(&redo, "Redo");
                 break;
 
-            // Tira de redo e devolve para undo
-            case 6:
-            {
-                    Acao refazer;
-                    if (desempilhar(&redo, &refazer)) {
-                        empilhar(&undo, refazer);
-                        printf("\n[REFAZENDO] Acao refeita: [%s] \"%s\"\n", refazer.tipo, refazer.texto);
-                    } else {
-                        printf("\nNada para refazer!\n");
-                    }
-            }
+            case 6: {
+                Acao refazer;
+                if (desempilhar(&redo, &refazer)) {
+                    empilhar(&undo, refazer);
+                    printf("\n[REFAZENDO] Acao refeita: [%s] \"%s\"\n", refazer.tipo, refazer.texto);
+                } else {
+                    printf("\nNada para refazer!\n");
+                }
                 break;
+            }
 
             case 7:
                 executarSimulacao(&undo, &redo);
