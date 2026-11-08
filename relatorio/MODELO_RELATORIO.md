@@ -7,8 +7,8 @@
 - **Disciplina:** Algoritmo e Estrutura de Dados I (Tipo: P2)
 - **Professor:** Hilson Silva
 - **Nome da Turma:** SNYDER
-- **Aluno 1:** Cássio Filipe Meireles De Carvalho Braga — **Matrícula 1:** [Preencher]
-- **Aluno 2:** Lukas Souza Melo — **Matrícula 2:** [Preencher]
+- **Aluno 1:** Cássio Filipe Meireles De Carvalho Braga — **Matrícula 1:** 0031236
+- **Aluno 2:** Lukas Souza Melo — **Matrícula 2:** 0031163
 - **Data:** 02/11/2026
 
 ---
@@ -135,12 +135,13 @@ Analisando expressao: "([)]"
  3. Hotel California             | Eagles               | 6.50 min
  4. Evidencias                   | Chitaozinho & Xororo | 4.65 min
 ...
-12. tempo Perdido                | Legiao Urbana        | 5.03 min
+12. Tempo Perdido                | Legiao Urbana        | 5.03 min
 Tempo total da playlist: 59.98 min
 
 [BUSCA] Encontrada na posicao 4: 'Evidencias' - Chitaozinho & Xororo (4.65 min)
-[REORDENACAO] Musica 'tempo Perdido' movida da posicao 12 para 2!
+[REORDENACAO] Musica 'Tempo Perdido' movida da posicao 12 para 2!
 [-] Musica 'Imagine' removida com sucesso!
+Tempo total da playlist (11 musicas): 56.91 min
 ```
 
 #### Situação Problema 6 – Controle de Estoque de uma Pequena Loja (`c(Lukas)/Lista_Encadeada/estoque.c`)
@@ -250,11 +251,11 @@ Altura: 6 | Fator da raiz: -1 | Todos os nós balanceados: true
   - **Espaço:** $O(V + E)$ na lista de adjacência (`Entregas.c`) e $O(V^2)$ na matriz (`rede_social.c`).
 
 #### Situação Problema 11 – Roteamento de Entrega de Mercadorias (`c(Lukas)/Grafo/Entregas.c`)
-- **Cenário e Entrada:** Opção `4` — Simulação com 10 bairros/pontos de entrega e cálculo de rotas mínimas com Dijkstra entre diferentes pares de pontos.
+- **Cenário e Entrada:** Opção `4` — Simulação com 11 bairros/pontos de entrega interligados por 14 rotas bidirecionais e cálculo de rotas mínimas com Dijkstra entre 5 pares distintos de pontos.
 - **Saída Observada:**
 ```text
 [DIJKSTRA] Menor rota de 'CD Central' ate 'Campus Universitario':
-  -> Custo minimo total: 20 km
+  -> Custo minimo total: 22 km
   -> Caminho: CD Central -> Distrito Industrial -> Vila Nova -> Bela Vista -> Morumbi -> Parque das Flores -> Campus Universitario
 
 [DIJKSTRA] Menor rota de 'CD Central' ate 'Morumbi':
@@ -264,6 +265,14 @@ Altura: 6 | Fator da raiz: -1 | Todos os nós balanceados: true
 [DIJKSTRA] Menor rota de 'Distrito Industrial' ate 'Santa Cecilia':
   -> Custo minimo total: 14 km
   -> Caminho: Distrito Industrial -> Vila Nova -> Sao Jose -> Santa Cecilia
+
+[DIJKSTRA] Menor rota de 'Jardim Europa' ate 'Parque das Flores':
+  -> Custo minimo total: 12 km
+  -> Caminho: Jardim Europa -> Bela Vista -> Morumbi -> Parque das Flores
+
+[DIJKSTRA] Menor rota de 'Centro' ate 'Santa Cecilia':
+  -> Custo minimo total: 16 km
+  -> Caminho: Centro -> Vila Nova -> Sao Jose -> Santa Cecilia
 ```
 
 #### Situação Problema 12 – Rede de Amizades em uma Rede Social Simples (`c(Lukas)/Grafo/rede_social.c`)
@@ -286,6 +295,9 @@ Sugestoes de amizade para Ana (amigos de amigos):
 
 [BFS] Grau de separacao entre Ana e Olivia: 6 grau(s)
   -> Cadeia de conexao: Ana -> Daniel -> Gabriela -> Isabela -> Karen -> Marina -> Olivia
+
+[BFS] Grau de separacao entre Bruno e Nicolas: 5 grau(s)
+  -> Cadeia de conexao: Bruno -> Elisa -> Heitor -> Joao -> Lucas -> Nicolas
 ```
 
 ---
@@ -293,7 +305,7 @@ Sugestoes de amizade para Ana (amigos de amigos):
 ### 3.4 Tabela Hash (Hash Table) — `c(Lukas)/Tabela_Hash/`
 
 - **Justificativa de Escolha:** A tabela hash oferece inserção, busca e remoção em tempo constante médio $O(1)$ a partir de uma chave textual (e-mail de usuário ou palavra de um texto), sem necessitar manter os dados ordenados.
-- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular (base 31) e **tratamento de colisões por encadeamento externo** (listas encadeadas em cada bucket). Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em hash numérico via algoritmo DJB2 (`gerarHashSenha`) e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
+- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular de base 31 (`funcaoHash`, módulo `TAM_HASH = 11` em `login.c` e `TAM_HASH = 31` em `frequencia.c`) e **tratamento de colisões por encadeamento externo** (listas simplesmente encadeadas em cada bucket). Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em resumo numérico via algoritmo não criptográfico DJB2 (`gerarHashSenha`, utilizado para fins estritamente didáticos, visto que sistemas reais em produção exigem algoritmos criptográficos lentos com *salt* como bcrypt, PBKDF2 ou Argon2) e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
 - **Complexidade:**
   - **Tempo:** Inserção, busca/autenticação e remoção: $O(1)$ no caso médio e $O(n)$ no pior caso (colisão total); processamento de texto com $N$ palavras: $O(N)$ médio.
   - **Espaço:** $O(M + N)$, onde $M$ é o número de buckets e $N$ o número de chaves distintas armazenadas.
@@ -302,7 +314,7 @@ Sugestoes de amizade para Ana (amigos de amigos):
 - **Cenário e Entrada:** Opção `5` — Simulação com 20 usuários cadastrados em 11 buckets (gerando colisões tratadas por encadeamento), testes de autenticação válida, senha incorreta, usuário inexistente e remoção de conta.
 - **Saída Observada:**
 ```text
-Total de usuarios ativos: 20 | Buckets com colisao encadeada: 6
+Total de usuarios ativos: 20 | Buckets com colisao encadeada: 5
 
 --- Testes de Autenticacao (Login O(1)) ---
 1. Login valido (ana.lima@empresa.com / Senha#01): SUCESSO
@@ -311,7 +323,7 @@ Total de usuarios ativos: 20 | Buckets com colisao encadeada: 6
 4. Usuario inexistente (nao.existe@empresa.com / 123): FALHA (Esperado)
 
 --- Teste de Remocao de Conta ---
-[REMOCAO] Conta 'carla.alves@empresa.com' removida com sucesso do bucket 9!
+[REMOCAO] Conta 'carla.alves@empresa.com' removida com sucesso do bucket 8!
 5. Login apos remocao (carla.alves@empresa.com): FALHA (Conta removida)
 ```
 
@@ -320,22 +332,22 @@ Total de usuarios ativos: 20 | Buckets com colisao encadeada: 6
 - **Saída Observada:**
 ```text
 --- RELATORIO DE FREQUENCIA DE PALAVRAS ---
-Total de palavras processadas : 94
-Total de palavras distintas   : 56
+Total de palavras processadas : 103
+Total de palavras distintas   : 67
 
 Top 12 palavras mais frequentes:
-   1º de                 -> 10 ocorrencia(s)
-   2º e                  -> 5 ocorrencia(s)
-   3º hash               -> 5 ocorrencia(s)
-   4º dados              -> 4 ocorrencia(s)
-   5º tabela             -> 4 ocorrencia(s)
-   6º a                  -> 3 ocorrencia(s)
-   7º em                 -> 3 ocorrencia(s)
-   8º uma                -> 3 ocorrencia(s)
-   9º chaves             -> 2 ocorrencia(s)
-  10º estrutura          -> 2 ocorrencia(s)
-  11º na                 -> 2 ocorrencia(s)
-  12º palavras           -> 2 ocorrencia(s)
+   1º de                 -> 12 ocorrencia(s)
+   2º e                  -> 6 ocorrencia(s)
+   3º dados              -> 4 ocorrencia(s)
+   4º hash               -> 4 ocorrencia(s)
+   5º a                  -> 3 ocorrencia(s)
+   6º em                 -> 3 ocorrencia(s)
+   7º na                 -> 3 ocorrencia(s)
+   8º tabela             -> 3 ocorrencia(s)
+   9º uma                -> 3 ocorrencia(s)
+  10º boa                -> 2 ocorrencia(s)
+  11º chaves             -> 2 ocorrencia(s)
+  12º estrutura          -> 2 ocorrencia(s)
 ```
 
 ---
@@ -380,7 +392,7 @@ Preços decrescentes: Monitor (R$ 899,90), Microfone (R$ 250,00), ..., Cabo HDMI
 [APROVADO 3º] Bruno Costa            | Pontuacao: 91.00
 [APROVADO 4º] Lucas Martins          | Pontuacao: 90.00
 [APROVADO 5º] Nicolas Freitas        | Pontuacao: 89.00
-Estatisticas do Selection Sort: 105 comparacoes e 12 trocas realizadas.
+Estatisticas do Selection Sort: 105 comparacoes e 13 trocas realizadas.
 ```
 
 #### Situação Problema 18 – Organização de Tarefas por Prioridade (`c(Lukas)/Selection_Sort/tarefas.c`)
@@ -393,8 +405,8 @@ Estatisticas do Selection Sort: 105 comparacoes e 12 trocas realizadas.
  3. [Prioridade 1] Restaurar backup de contingencia
  4. [Prioridade 2] Reuniao de alinhamento diario (Daily Scrum)
 ...
-14. [Prioridade 5] Limpar logs temporarios de homologacao
-Estatisticas: 91 comparacoes e 8 trocas realizadas.
+14. [Prioridade 5] Organizar arquivos antigos da pasta compartilhada
+Estatisticas: 91 comparacoes e 10 trocas realizadas.
 ```
 
 ---
@@ -449,21 +461,23 @@ Total resultante: 30 (esperado nesta base: 30).
 
 ### 4.5 Quick Sort — `c(Lukas)/Quick_Sort/`
 
-- **Justificativa de Escolha:** É o algoritmo de ordenação de propósito geral mais rápido na prática em memória principal ($O(n \log n)$ no caso médio, constantes pequenas e uso de memória auxiliar restrito à pilha de recursão $O(\log n)$). Em [`c(Lukas)/Quick_Sort/ecommerce.c`](../c(Lukas)/Quick_Sort/ecommerce.c), a escolha de pivô por **mediana-de-três** evita a degradação para $O(n^2)$ em entradas já ordenadas.
-- **Funcionamento e Complexidade:** Seleciona um pivô (mediana entre `low`, `mid` e `high`), particiona o subvetor colocando elementos menores/iguais à esquerda e maiores à direita, e ordena recursivamente as partições. Tempo: $O(n \log n)$ no melhor e médio casos, $O(n^2)$ no pior caso. Espaço auxiliar: $O(\log n)$.
+- **Justificativa de Escolha:** É o algoritmo de ordenação de propósito geral mais rápido na prática em memória principal ($O(n \log n)$ no caso médio, constantes pequenas e uso de memória auxiliar restrito à pilha de recursão). Em [`c(Lukas)/Quick_Sort/ecommerce.c`](../c(Lukas)/Quick_Sort/ecommerce.c), a escolha de pivô por **mediana-de-três** reduz significativamente a probabilidade de degradação para o pior caso $O(n^2)$ em entradas já ordenadas ou inversamente ordenadas.
+- **Funcionamento e Complexidade:** Em `ecommerce.c`, seleciona como pivô a mediana entre `low`, `mid` e `high`; em `competicao.c`, utiliza o particionamento de Lomuto com pivô no último elemento (`v[high]`). Particiona o subvetor colocando elementos menores/iguais à esquerda e maiores à direita, e ordena recursivamente as partições. Tempo: $O(n \log n)$ no melhor e médio casos, $O(n^2)$ no pior caso. Espaço auxiliar: $O(\log n)$ no caso médio e $O(n)$ no pior caso na pilha de recursão.
 
 #### Situação Problema 23 – Ordenação de Catálogo de Produtos de E-commerce (`c(Lukas)/Quick_Sort/ecommerce.c`)
 - **Cenário e Entrada:** Opção `3` — Simulação com **100 produtos**, ordenação por três critérios distintos (Preço crescente, Nome A-Z e Popularidade decrescente) e benchmark comparativo entre **Quick Sort (Mediana-de-Três)** e **Merge Sort**.
 - **Saída Observada:**
 ```text
---- ORDENADO POR PRECO CRESCENTE (QUICK SORT MEDIANA-DE-TRES) (100 produtos) ---
-  1. [ID  79] Mouse Modelo 024         | R$    57.10 | Popularidade: 571
-  2. [ID  53] Mouse Modelo 062         | R$   195.70 | Popularidade: 695
+--- ORDENADO POR PRECO CRESCENTE (QUICK SORT MEDIANA-DE-TRES) (Exibindo 10 primeiros e 5 ultimos de 100 produtos) ---
+  1. [ID  53] Placa de Video Modelo 025 | R$    76.70 | Popularidade: 595
+  2. [ID   1] Mouse Modelo 001          | R$    78.90 | Popularidade: 143
 ...
+100. [ID  26] Roteador Modelo 026       | R$  4408.40 | Popularidade: 118
+
 [COMPARACAO QUICK SORT vs MERGE SORT (100 produtos por preco)]
-  -> Quick Sort (Mediana-de-3): ~650 comparacoes, ~380 trocas
-  -> Merge Sort               : ~542 comparacoes
-(Também ordena e exibe o catálogo por Nome Alfabético e por Popularidade Decrescente)
+  -> Quick Sort (Mediana-de-3): 999 comparacoes, 493 trocas
+  -> Merge Sort               : 500 comparacoes
+(Também ordena e exibe o catálogo por Nome Alfabético: 1º Headset Modelo 002 ... 100º Webcam Modelo 097; e por Popularidade Decrescente: 1º Mouse Modelo 051 [Pop: 993] ... 100º Teclado Modelo 060 [Pop: 100])
 ```
 
 #### Situação Problema 24 – Classificação de Resultados de uma Competição Esportiva (`c(Lukas)/Quick_Sort/competicao.c`)
@@ -478,7 +492,11 @@ Total resultante: 30 (esperado nesta base: 30).
 --- CLASSIFICACAO FINAL COMPLETA (30 ATLETAS) ---
  1º Lugar: Victor Braga           | Tempo: 9.91 s
 ...
+ 4º Lugar: Henrique Vieira        | Tempo: 10.08 s
+ 5º Lugar: Daniel Rocha           | Tempo: 10.12 s
+...
 30º Lugar: Karen Ribeiro          | Tempo: 12.45 s
+Estatisticas do Quick Sort: 121 comparacoes e 88 particionamentos/trocas.
 ```
 
 ---
@@ -498,13 +516,27 @@ Total resultante: 30 (esperado nesta base: 30).
 | **4.2** | **Selection Sort** | $O(n^2) / O(n^2) / O(n^2)$ | $O(1)$ | Minimização de trocas $O(n)$ e seleção Top-N (Seletivo e Tarefas) |
 | **4.3** | **Insertion Sort** | $O(n) / O(n^2) / O(n^2)$ | $O(1)$ | Inserção incremental e listas quase ordenadas (Cartas e Vendedores) |
 | **4.4** | **Merge Sort** | $O(n \log n)$ em todos os casos | $O(n)$ | Estabilidade garantida e mesclagem $O(n+m)$ (Extrato e Contatos) |
-| **4.5** | **Quick Sort** | $O(n \log n) / O(n \log n) / O(n^2)$ | $O(\log n)$ | Ordenação rápida em memória para catálogos e rankings esportivos |
+| **4.5** | **Quick Sort** | $O(n \log n) / O(n \log n) / O(n^2)$ | $O(\log n)$ médio / $O(n)$ pior caso (pilha) | Ordenação rápida em memória para catálogos e rankings esportivos |
 
 ### Dificuldades Encontradas e Soluções Adotadas
 1. **Aritmética circular no cancelamento da Fila:** Ao implementar o cancelamento do último trabalho de impressão na fila circular, foi necessário tratar o recuo de `fim = 0` usando `(fim - 1 + elementos.length) % elementos.length`.
 2. **Empates de pontuação na Árvore AVL:** Como árvores de busca não duplicam chaves, o ranking de jogadores combinou a pontuação formatada em 10 dígitos com o nome do jogador (`%010d:%s`), preservando todos os jogadores empatados.
-3. **Colisões e busca $O(1)$ na Tabela Hash:** Na autenticação de usuários, garantiu-se que o login e a remoção calculem diretamente `funcaoHash(email)` para percorrer apenas a lista encadeada do bucket correspondente, além de armazenar o hash da senha (DJB2).
-4. **Estabilidade e escolha de pivô nas ordenações:** No Merge Sort e no Insertion Sort, o uso de `<= 0` preservou a ordem relativa de transações no mesmo minuto; no Quick Sort, a mediana-de-três evitou o pior caso em listas ordenadas.
+3. **Colisões, busca $O(1)$ e uso didático do DJB2 na Tabela Hash:** Na autenticação de usuários, garantiu-se que o login e a remoção calculem diretamente `funcaoHash(email)` para percorrer apenas a lista encadeada do bucket correspondente, além de armazenar um resumo numérico da senha via função DJB2 (adotada de forma didática, visto não ser uma função hash criptográfica).
+4. **Estabilidade e escolha de pivô nas ordenações:** No Merge Sort e no Insertion Sort, o uso de `<= 0` preservou a ordem relativa de transações no mesmo minuto; no Quick Sort aplicado ao e-commerce, a escolha de pivô por mediana-de-três reduziu significativamente a probabilidade de partições degeneradas em listas previamente ordenadas, embora não elimine o pior caso teórico $O(n^2)$.
 
 ### Conclusão
 O desenvolvimento das 24 situações-problema demonstrou na prática que nenhuma estrutura de dados ou algoritmo de ordenação é universalmente superior: a escolha técnica correta depende do padrão de acesso (FIFO, LIFO, busca por chave exata, busca por prefixo/intervalo ou travessia de caminhos), do volume de dados e das garantias exigidas de estabilidade, memória e tempo no pior caso.
+
+
+---
+
+## 6. Referências Bibliográficas
+
+- CELES, Waldemar; CERQUEIRA, Renato; RANGEL, José Lucas. *Introdução a Estruturas de Dados: com Técnicas de Programação em C*. 2. ed. Rio de Janeiro: Elsevier, 2016.
+- CORMEN, Thomas H.; LEISERSON, Charles E.; RIVEST, Ronald L.; STEIN, Clifford. *Algoritmos: Teoria e Prática*. 3. ed. Rio de Janeiro: Elsevier, 2012.
+- GOODRICH, Michael T.; TAMASSIA, Roberto; GOLDWASSER, Michael H. *Estruturas de Dados e Algoritmos em Java*. 6. ed. Porto Alegre: Bookman, 2015.
+- ISO/IEC. *ISO/IEC 9899:2011 — Information technology — Programming languages — C (C11 Standard)*. Geneva: International Organization for Standardization, 2011.
+- ORACLE. *Java Platform, Standard Edition 17 API Specification*. Redwood Shores: Oracle Corporation, 2021. Disponível em: https://docs.oracle.com/en/java/javase/17/docs/api/. Acesso em: nov. 2026.
+- SEDGEWICK, Robert; WAYNE, Kevin. *Algorithms*. 4. ed. Boston: Addison-Wesley Professional, 2011.
+- SILVA, Hilson. *Material Didático e Edital do Trabalho Prático Avaliativo (P2) — Disciplina de Algoritmos e Estruturas de Dados I*. Teresina: Instituto de Ensino Superior iCEV, Curso de Engenharia de Software (Turma Snyder — 2026.2), 2026.
+- ZIVIANI, Nivio. *Projeto de Algoritmos: com Implementações em Java e C++*. 3. ed. São Paulo: Cengage Learning, 2011.

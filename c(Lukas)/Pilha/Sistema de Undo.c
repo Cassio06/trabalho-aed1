@@ -44,6 +44,16 @@ int cheia(Pilha *p) {
     return p->topo == TAMANHO - 1;
 }
 
+// Empilha silenciosamente (usado nas transferencias internas entre Undo e Redo)
+void empilharSilencioso(Pilha *p, Acao acao) {
+    if (cheia(p)) {
+        printf("\n[AVISO] Historico de acoes cheio! Nao e possivel guardar mais acoes.\n");
+        return;
+    }
+    p->topo++;
+    p->dados[p->topo] = acao;
+}
+
 // Executa e empilha uma ação (Push)
 void empilhar(Pilha *p, Acao acao) {
     if (cheia(p)) {
@@ -63,6 +73,16 @@ void topo(Pilha *p) {
     }
     Acao ultima = p->dados[p->topo];
     printf("\nUltima acao realizada: [%s] \"%s\"\n", ultima.tipo, ultima.texto);
+}
+
+// Desempilha silenciosamente (usado ao retirar da pilha Redo)
+int desempilharSilencioso(Pilha *p, Acao *acao) {
+    if (vazia(p)) {
+        return 0;
+    }
+    *acao = p->dados[p->topo];
+    p->topo--;
+    return 1;
 }
 
 // Desfaz a última ação (Pop)
@@ -133,7 +153,7 @@ void executarSimulacao(Pilha *undo, Pilha *redo) {
     Acao aux;
     for (i = 1; i <= 4; i++) {
         if (desempilhar(undo, &aux)) {
-            empilhar(redo, aux);
+            empilharSilencioso(redo, aux);
         }
     }
 
@@ -145,8 +165,8 @@ void executarSimulacao(Pilha *undo, Pilha *redo) {
     // PASSO 5: Refazendo 2 Ações (Desempilhar do Redo -> Empilhar no Undo)
     printf("\n--- PASSO 3: Refazendo 2 Acoes (Redo) ---\n");
     for (i = 1; i <= 2; i++) {
-        if (desempilhar(redo, &aux)) {
-            empilhar(undo, aux);
+        if (desempilharSilencioso(redo, &aux)) {
+            empilharSilencioso(undo, aux);
             printf("\n[REFAZENDO] Acao refeita: [%s] \"%s\"\n", aux.tipo, aux.texto);
         }
     }
@@ -203,10 +223,7 @@ int main() {
 
             case 3:
                 if (desempilhar(&undo, &acao)) {
-                    empilhar(&redo, acao);
-                    printf("\n[Undo] Desfeito: [%s] \"%s\" \n", acao.texto, acao.tipo);
-                } else {
-                    printf("\nNada para desfazer!\n");
+                    empilharSilencioso(&redo, acao);
                 }
                 break;
 
@@ -225,8 +242,8 @@ int main() {
 
             case 6: {
                 Acao refazer;
-                if (desempilhar(&redo, &refazer)) {
-                    empilhar(&undo, refazer);
+                if (desempilharSilencioso(&redo, &refazer)) {
+                    empilharSilencioso(&undo, refazer);
                     printf("\n[REFAZENDO] Acao refeita: [%s] \"%s\"\n", refazer.tipo, refazer.texto);
                 } else {
                     printf("\nNada para refazer!\n");

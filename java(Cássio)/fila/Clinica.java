@@ -84,6 +84,12 @@ public class Clinica {
             try {
                 switch (opcao) {
                     case 1 -> {
+                        if (fila.size() >= 20) {
+                            System.out.println(
+                                    "A fila de espera está cheia (limite de 20 pacientes)."
+                            );
+                            break;
+                        }
                         if (quantidade + fila.size() >= atendidos.length) {
                             System.out.println(
                                     "Limite de 200 registros para este dia."

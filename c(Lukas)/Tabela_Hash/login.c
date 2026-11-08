@@ -54,7 +54,7 @@ int funcaoHash(const char *chave) {
     return (int)hash;
 }
 
-// Gera hash criptográfico simples (DJB2) para armazenar a senha em formato hash
+// Gera hash nao-criptografico didatico (DJB2) para armazenar a senha em formato de resumo numerico
 unsigned long gerarHashSenha(const char *senha) {
     unsigned long hash = 5381;
     int c;
@@ -80,6 +80,10 @@ void cadastrarUsuario(TabelaHash *th, const char *email, const char *usuario, co
     }
 
     Usuario *novo = (Usuario*) malloc(sizeof(Usuario));
+    if (novo == NULL) {
+        fprintf(stderr, "[ERRO] Falha ao alocar memoria para usuario.\n");
+        exit(EXIT_FAILURE);
+    }
     strncpy(novo->email, email, 49);
     novo->email[49] = '\0';
     strncpy(novo->usuario, usuario, 49);

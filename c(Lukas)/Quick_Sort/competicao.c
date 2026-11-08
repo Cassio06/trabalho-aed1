@@ -8,7 +8,7 @@
  * COMPLEXIDADE:
  * - Caso Médio: O(N log N)
  * - Pior Caso: O(N^2)
- * - Espaço Auxiliar: O(log N) em memória na pilha de recursão.
+ * - Espaço Auxiliar: O(log N) no caso médio e O(N) no pior caso na pilha de recursão.
  */
 
 #include <stdio.h>
@@ -115,7 +115,12 @@ int main() {
             fgets(atletas[total].nome, 50, stdin);
             atletas[total].nome[strcspn(atletas[total].nome, "\n")] = '\0';
             printf("Tempo (segundos, ex: 10.45): ");
-            scanf("%f", &atletas[total].tempo);
+            if (scanf("%f", &atletas[total].tempo) != 1 || atletas[total].tempo <= 0.0f) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Tempo invalido! Informe um tempo positivo.\n");
+                continue;
+            }
             getchar();
             total++;
         } else if (op == 2 && total > 0) {

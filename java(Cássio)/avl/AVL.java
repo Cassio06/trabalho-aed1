@@ -74,6 +74,9 @@ public class AVL<K extends Comparable<K>, V> {
 
 
     public void inserir(K chave, V valor) {
+        if (chave == null) {
+            throw new IllegalArgumentException("A chave não pode ser nula.");
+        }
         raiz = inserir(raiz, chave, valor);
     }
 
@@ -97,6 +100,9 @@ public class AVL<K extends Comparable<K>, V> {
     }
 
     public V buscar(K chave) {
+        if (chave == null) {
+            throw new IllegalArgumentException("A chave não pode ser nula.");
+        }
         No atual = raiz;
 
         while (atual != null) {

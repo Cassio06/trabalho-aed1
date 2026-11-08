@@ -46,6 +46,10 @@ void cadastrarDados(Estoque *e, int codigo, const char *nome, int quantidade, fl
     }
 
     Produto *novo = (Produto*) malloc(sizeof(Produto));
+    if (novo == NULL) {
+        fprintf(stderr, "[ERRO] Falha ao alocar memoria para produto.\n");
+        exit(EXIT_FAILURE);
+    }
     novo->codigo = codigo;
     strncpy(novo->nome, nome, 49);
     novo->nome[49] = '\0';
@@ -57,26 +61,43 @@ void cadastrarDados(Estoque *e, int codigo, const char *nome, int quantidade, fl
            codigo, nome, quantidade, preco);
 }
 
+void limparBufferEntrada(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
 void cadastrarConsole(Estoque *e) {
     int codigo, quantidade;
     char nome[50];
     float preco;
 
     printf("Codigo: ");
-    scanf("%d", &codigo);
-    getchar();
+    if (scanf("%d", &codigo) != 1 || codigo <= 0) {
+        limparBufferEntrada();
+        printf("[ERRO] Codigo invalido!\n");
+        return;
+    }
+    limparBufferEntrada();
 
     printf("Nome: ");
     fgets(nome, 50, stdin);
     nome[strcspn(nome, "\n")] = '\0';
 
     printf("Quantidade: ");
-    scanf("%d", &quantidade);
-    getchar();
+    if (scanf("%d", &quantidade) != 1 || quantidade <= 0) {
+        limparBufferEntrada();
+        printf("[ERRO] Quantidade invalida!\n");
+        return;
+    }
+    limparBufferEntrada();
 
     printf("Preco unitario (ex: 12.40): ");
-    scanf("%f", &preco);
-    getchar();
+    if (scanf("%f", &preco) != 1 || preco < 0.0f) {
+        limparBufferEntrada();
+        printf("[ERRO] Preco invalido!\n");
+        return;
+    }
+    limparBufferEntrada();
 
     cadastrarDados(e, codigo, nome, quantidade, preco);
 }
@@ -250,22 +271,22 @@ int main() {
                 break;
             case 2:
                 printf("Codigo: ");
-                scanf("%d", &cod);
+                if (scanf("%d", &cod) != 1) { limparBufferEntrada(); printf("[ERRO] Codigo invalido!\n"); break; }
                 printf("Nova Qtd: ");
-                scanf("%d", &qtd);
-                getchar();
+                if (scanf("%d", &qtd) != 1) { limparBufferEntrada(); printf("[ERRO] Quantidade invalida!\n"); break; }
+                limparBufferEntrada();
                 atualizarQtd(&e, cod, qtd);
                 break;
             case 3:
                 printf("Codigo a remover: ");
-                scanf("%d", &cod);
-                getchar();
+                if (scanf("%d", &cod) != 1) { limparBufferEntrada(); printf("[ERRO] Codigo invalido!\n"); break; }
+                limparBufferEntrada();
                 removerProduto(&e, cod);
                 break;
             case 4:
                 printf("Codigo a buscar: ");
-                scanf("%d", &cod);
-                getchar();
+                if (scanf("%d", &cod) != 1) { limparBufferEntrada(); printf("[ERRO] Codigo invalido!\n"); break; }
+                limparBufferEntrada();
                 buscarPorCodigo(&e, cod);
                 break;
             case 5:
@@ -276,8 +297,8 @@ int main() {
                 break;
             case 6:
                 printf("Estoque minimo: ");
-                scanf("%d", &min);
-                getchar();
+                if (scanf("%d", &min) != 1 || min < 0) { limparBufferEntrada(); printf("[ERRO] Limite invalido!\n"); break; }
+                limparBufferEntrada();
                 listarEstoqueBaixo(&e, min);
                 break;
             case 7:

@@ -106,14 +106,24 @@ int main() {
             printf("Nome: ");
             fgets(candidatos[total].nome, 50, stdin);
             candidatos[total].nome[strcspn(candidatos[total].nome, "\n")] = '\0';
-            printf("Pontuacao: ");
-            scanf("%f", &candidatos[total].nota);
+            printf("Pontuacao (0 a 100): ");
+            if (scanf("%f", &candidatos[total].nota) != 1 || candidatos[total].nota < 0.0f) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Pontuacao invalida!\n");
+                continue;
+            }
             getchar();
             total++;
         } else if (op == 2 && total > 0) {
             selectionSortTopN(candidatos, total, &comp, &trocas);
             printf("Quantos classificados deseja visualizar (Top-N)? ");
-            scanf("%d", &topN);
+            if (scanf("%d", &topN) != 1 || topN <= 0) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Valor de Top-N invalido!\n");
+                continue;
+            }
             getchar();
             exibirClassificacao(candidatos, total, topN, comp, trocas);
         } else if (op == 3) {

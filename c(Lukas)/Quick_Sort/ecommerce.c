@@ -4,12 +4,12 @@
  *
  * JUSTIFICATIVA: O Quick Sort é o algoritmo de ordenação em memória principal mais rápido na
  * prática (O(N log N) médio e baixo uso de memória auxiliar). A escolha de pivô por
- * mediana-de-três evita a degeneração para O(N^2) em catálogos já ordenados.
+ * mediana-de-três reduz a probabilidade de degeneração para O(N^2) em catálogos já ordenados.
  *
  * COMPLEXIDADE:
  * - Caso Médio e Melhor Caso: O(N log N)
- * - Pior Caso: O(N^2) (mitigado pela mediana-de-três)
- * - Espaço Auxiliar: O(log N) na pilha de recursão.
+ * - Pior Caso: O(N^2) (probabilidade reduzida pela mediana-de-três)
+ * - Espaço Auxiliar: O(log N) no caso médio e O(N) no pior caso na pilha de recursão.
  */
 
 #include <stdio.h>
@@ -202,14 +202,29 @@ int main() {
             fgets(catalogo[total].nome, 50, stdin);
             catalogo[total].nome[strcspn(catalogo[total].nome, "\n")] = '\0';
             printf("Preco (ex: 120.50): ");
-            scanf("%f", &catalogo[total].preco);
+            if (scanf("%f", &catalogo[total].preco) != 1 || catalogo[total].preco < 0.0f) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Preco invalido!\n");
+                continue;
+            }
             printf("Popularidade (0 a 1000): ");
-            scanf("%d", &catalogo[total].popularidade);
+            if (scanf("%d", &catalogo[total].popularidade) != 1 || catalogo[total].popularidade < 0) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Popularidade invalida!\n");
+                continue;
+            }
             getchar();
             total++;
         } else if (op == 2 && total > 0) {
             printf("Criterio (1 - Preco; 2 - Nome; 3 - Popularidade): ");
-            scanf("%d", &criterio);
+            if (scanf("%d", &criterio) != 1 || criterio < 1 || criterio > 3) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Criterio invalido! Escolha 1, 2 ou 3.\n");
+                continue;
+            }
             getchar();
             long comp = 0, trocas = 0;
             quickSort(catalogo, 0, total - 1, criterio, &comp, &trocas);

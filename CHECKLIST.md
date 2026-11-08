@@ -52,5 +52,5 @@ Este checklist consolida as **12 categorias e 24 situações-problema** exigidas
 - [x] Executar `bash verificar.sh` e confirmar **107/107 casos aprovados** nas 7 suítes da parte Java.
 - [x] Unificar as branches `Cassio` e `Lukas` na branch `main`.
 - [x] Consolidar o relatório técnico completo das 12 categorias e 24 aplicações em `relatorio/MODELO_RELATORIO.md`.
-- [ ] Preencher os números de matrícula dos dois alunos e o nome da turma (ADELLE ou SNYDER) na Ficha Obrigatória (página 2 do PDF) e no cabeçalho do relatório.
+- [x] Preencher os números de matrícula dos dois alunos (Cássio: `0031236` | Lukas: `0031163`) e o nome da turma (`SNYDER`) na Ficha Obrigatória (página 2 do PDF) e no cabeçalho do relatório.
 - [ ] Enviar o pacote final (código + relatório + ficha obrigatória) pela plataforma **iCEV Digital** até o dia da P2.

@@ -102,7 +102,13 @@ int main() {
             fgets(lista[total].descricao, 60, stdin);
             lista[total].descricao[strcspn(lista[total].descricao, "\n")] = '\0';
             printf("Prioridade (1 - Urgente ate 5 - Baixa): ");
-            scanf("%d", &lista[total].prioridade);
+            if (scanf("%d", &lista[total].prioridade) != 1 ||
+                lista[total].prioridade < 1 || lista[total].prioridade > 5) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF) {}
+                printf("[ERRO] Prioridade invalida! Informe um valor de 1 a 5.\n");
+                continue;
+            }
             getchar();
             total++;
         } else if (op == 2 && total > 0) {

@@ -82,6 +82,10 @@ void inserirPalavra(TabelaFrequencia *tf, const char *termoBruto) {
     }
 
     Palavra *nova = (Palavra*) malloc(sizeof(Palavra));
+    if (nova == NULL) {
+        fprintf(stderr, "[ERRO] Falha ao alocar memoria para palavra.\n");
+        exit(EXIT_FAILURE);
+    }
     strcpy(nova->termo, limpo);
     nova->contagem = 1;
     nova->proximo = tf->tabela[idx];
@@ -110,6 +114,10 @@ void exibirRelatorioFrequencia(TabelaFrequencia *tf, int topK) {
 
     // Coleta os ponteiros para exibir as palavras mais frequentes em ordem decrescente
     Palavra **vetor = (Palavra**) malloc(tf->totalDistintas * sizeof(Palavra*));
+    if (vetor == NULL) {
+        fprintf(stderr, "[ERRO] Falha ao alocar memoria para relatorio.\n");
+        exit(EXIT_FAILURE);
+    }
     int n = 0;
     for (int i = 0; i < TAM_HASH; i++) {
         Palavra *aux = tf->tabela[i];

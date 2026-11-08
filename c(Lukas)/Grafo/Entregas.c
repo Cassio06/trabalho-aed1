@@ -77,6 +77,10 @@ void inserirArestaDirecionada(GrafoDelivery *g, int u, int v, int peso) {
         atual = atual->proximo;
     }
     NoAdj *novo = (NoAdj*) malloc(sizeof(NoAdj));
+    if (novo == NULL) {
+        fprintf(stderr, "[ERRO] Falha ao alocar memoria para aresta.\n");
+        exit(EXIT_FAILURE);
+    }
     novo->destino = v;
     novo->peso = peso;
     novo->proximo = g->adj[u];
@@ -84,6 +88,10 @@ void inserirArestaDirecionada(GrafoDelivery *g, int u, int v, int peso) {
 }
 
 void adicionarRota(GrafoDelivery *g, const char *origem, const char *destino, int peso) {
+    if (peso <= 0) {
+        printf("[ERRO] O peso/distancia da rota deve ser positivo para o algoritmo de Dijkstra.\n");
+        return;
+    }
     int u = buscarOuAdicionarPonto(g, origem);
     int v = buscarOuAdicionarPonto(g, destino);
     if (u != -1 && v != -1) {
@@ -191,6 +199,7 @@ void executarSimulacao(GrafoDelivery *g) {
     dijkstra(g, "CD Central", "Morumbi");
     dijkstra(g, "Distrito Industrial", "Santa Cecilia");
     dijkstra(g, "Jardim Europa", "Parque das Flores");
+    dijkstra(g, "Centro", "Santa Cecilia");
 }
 
 int main() {
@@ -218,7 +227,12 @@ int main() {
                 fgets(p2, 50, stdin);
                 p2[strcspn(p2, "\n")] = '\0';
                 printf("Distancia/Custo (km): ");
-                scanf("%d", &peso);
+                if (scanf("%d", &peso) != 1 || peso <= 0) {
+                    int c;
+                    while ((c = getchar()) != '\n' && c != EOF) {}
+                    printf("[ERRO] Distancia invalida! Informe um valor inteiro positivo.\n");
+                    break;
+                }
                 getchar();
                 adicionarRota(&g, p1, p2, peso);
                 break;

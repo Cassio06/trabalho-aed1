@@ -4,8 +4,8 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 
 ## Equipe (Dupla)
 
-- **Cássio Filipe Meireles De Carvalho Braga** — 6 categorias / 12 aplicações em **Java** (`java(Cássio)/`)
-- **Lukas Souza Melo** — 6 categorias / 12 aplicações em **C** (`c(Lukas)/`)
+- **Cássio Filipe Meireles De Carvalho Braga** (Matrícula: `0031236`) — 6 categorias / 12 aplicações em **Java** (`java(Cássio)/`)
+- **Lukas Souza Melo** (Matrícula: `0031163`) — 6 categorias / 12 aplicações em **C** (`c(Lukas)/`)
 
 ---
 
@@ -23,7 +23,7 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 | 8 | **BST** | Sistema de Autocomplete de Nomes de Produtos (30 produtos) | Java | `bst.AutocompleteProdutos` (`java(Cássio)/bst/AutocompleteProdutos.java`) |
 | 9 | **AVL** | Índice de CPF para Sistema de RH (25 funcionários) | Java | `avl.IndiceCpf` (`java(Cássio)/avl/IndiceCpf.java`) |
 | 10 | **AVL** | Ranking de Jogadores em Jogo Online (30 jogadores + Top-K) | Java | `avl.RankingJogadores` (`java(Cássio)/avl/RankingJogadores.java`) |
-| 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 10 bairros) | C | `c(Lukas)/Grafo/Entregas.c` |
+| 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 11 pontos/bairros) | C | `c(Lukas)/Grafo/Entregas.c` |
 | 12 | **Grafo** | Rede de Amizades em Rede Social (15 usuários + BFS graus de separação) | C | `c(Lukas)/Grafo/rede_social.c` |
 | 13 | **Tabela Hash** | Cadastro de Usuários com Login Rápido (20 usuários + hash de senha) | C | `c(Lukas)/Tabela_Hash/login.c` |
 | 14 | **Tabela Hash** | Contagem de Frequência de Palavras em um Texto Real | C | `c(Lukas)/Tabela_Hash/frequencia.c` |

@@ -34,8 +34,17 @@ void inicializar(Playlist *p) {
     p->tamanho = 0;
 }
 
+void limparBufferEntrada(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
 Musica* novaMusicaDados(const char *titulo, const char *artista, float duracao) {
     Musica *nova = (Musica*) malloc(sizeof(Musica));
+    if (nova == NULL) {
+        fprintf(stderr, "[ERRO] Falha ao alocar memoria para musica.\n");
+        exit(EXIT_FAILURE);
+    }
     strncpy(nova->titulo, titulo, 49);
     nova->titulo[49] = '\0';
     strncpy(nova->artista, artista, 49);
@@ -55,8 +64,11 @@ Musica* lerMusicaConsole() {
     fgets(artista, 50, stdin);
     artista[strcspn(artista, "\n")] = '\0';
     printf("Duracao (minutos, ex: 3.45): ");
-    scanf("%f", &duracao);
-    getchar();
+    while (scanf("%f", &duracao) != 1 || duracao <= 0.0f) {
+        limparBufferEntrada();
+        printf("Valor invalido. Informe uma duracao positiva (ex: 3.45): ");
+    }
+    limparBufferEntrada();
     return novaMusicaDados(titulo, artista, duracao);
 }
 
@@ -212,7 +224,7 @@ void executarSimulacao(Playlist *p) {
     inserirFimDados(p, "Wonderwall", "Oasis", 4.30f);
     inserirFimDados(p, "Lose Yourself", "Eminem", 5.33f);
     inserirFimDados(p, "Clocks", "Coldplay", 5.08f);
-    inserirFimDados(p, "tempo Perdido", "Legiao Urbana", 5.03f);
+    inserirFimDados(p, "Tempo Perdido", "Legiao Urbana", 5.03f);
     inserirInicioDados(p, "Aquarela", "Toquinho", 4.25f);
     inserirPosicaoDados(p, "Evidencias", "Chitaozinho & Xororo", 4.65f, 4);
 
@@ -263,8 +275,13 @@ int main() {
             case 3: {
                 Musica *m = lerMusicaConsole();
                 printf("Posicao desejada (1 a %d): ", p.tamanho + 1);
-                scanf("%d", &pos);
-                getchar();
+                if (scanf("%d", &pos) != 1) {
+                    limparBufferEntrada();
+                    printf("Posicao invalida!\n");
+                    free(m);
+                    break;
+                }
+                limparBufferEntrada();
                 inserirPosicaoDados(&p, m->titulo, m->artista, m->duracao, pos);
                 free(m);
                 break;
@@ -283,10 +300,18 @@ int main() {
                 break;
             case 6:
                 printf("Posicao de origem: ");
-                scanf("%d", &orig);
+                if (scanf("%d", &orig) != 1) {
+                    limparBufferEntrada();
+                    printf("Posicao de origem invalida!\n");
+                    break;
+                }
                 printf("Posicao de destino: ");
-                scanf("%d", &dest);
-                getchar();
+                if (scanf("%d", &dest) != 1) {
+                    limparBufferEntrada();
+                    printf("Posicao de destino invalida!\n");
+                    break;
+                }
+                limparBufferEntrada();
                 moverMusica(&p, orig, dest);
                 break;
             case 7:
