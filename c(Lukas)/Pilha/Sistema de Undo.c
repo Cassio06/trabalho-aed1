@@ -55,14 +55,15 @@ void empilharSilencioso(Pilha *p, Acao acao) {
 }
 
 // Executa e empilha uma ação (Push)
-void empilhar(Pilha *p, Acao acao) {
+int empilhar(Pilha *p, Acao acao) {
     if (cheia(p)) {
         printf("\n[AVISO] Historico de acoes cheio! Nao e possivel guardar mais acoes.\n");
-        return;
+        return 0;
     }
     p->topo++;
     p->dados[p->topo] = acao;
     printf("Acao '%s' (%s) registrada com sucesso!\n", acao.texto, acao.tipo);
+    return 1;
 }
 
 // Visualiza a última ação realizada sem remover (Peek/Topo)
@@ -213,8 +214,9 @@ int main(void) {
                 fgets(acao.texto, 50, stdin);
                 acao.texto[strcspn(acao.texto, "\n")] = '\0';
 
-                empilhar(&undo, acao);
-                inicializar(&redo);
+                if (empilhar(&undo, acao)) {
+                    inicializar(&redo);
+                }
                 break;
 
             case 2:

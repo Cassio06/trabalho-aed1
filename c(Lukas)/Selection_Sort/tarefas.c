@@ -111,12 +111,18 @@ int main(void) {
             }
             getchar();
             total++;
+        } else if (op == 1 && total >= MAX) {
+            printf("[ERRO] Capacidade maxima de tarefas (%d) atingida!\n", MAX);
         } else if (op == 2 && total > 0) {
             selectionSortTarefas(lista, total, &comp, &trocas);
             listarTarefas(lista, total, "TAREFAS DO DIA (ORDENADAS POR PRIORIDADE)");
             printf("Estatisticas: %d comparacoes e %d trocas.\n", comp, trocas);
+        } else if (op == 2 && total == 0) {
+            printf("[AVISO] Nenhuma tarefa cadastrada para ordenar.\n");
         } else if (op == 3) {
             executarSimulacao(lista, &total);
+        } else if (op != 0) {
+            printf("Opcao invalida!\n");
         }
     } while (op != 0);
 

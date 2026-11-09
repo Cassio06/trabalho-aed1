@@ -56,7 +56,14 @@ public class TesteBST {
                     verificar(alunos[i].getMatricula() != alunos[j].getMatricula(), "Matrículas precisam ser distintas.");
                 }
             }
-            verificar(AutocompleteProdutos.criarProdutosDemonstracao().length == 30, "Esperados 30 produtos.");
+            Produto[] produtos = AutocompleteProdutos.criarProdutosDemonstracao();
+            verificar(produtos.length == 30, "Esperados 30 produtos.");
+            for (int i = 0; i < produtos.length; i++) {
+                for (int j = i + 1; j < produtos.length; j++) {
+                    verificar(!produtos[i].getNome().equalsIgnoreCase(produtos[j].getNome()),
+                            "Produtos da demonstração precisam ser distintos.");
+                }
+            }
         });
         TESTES.concluir();
     }

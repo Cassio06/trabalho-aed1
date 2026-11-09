@@ -307,6 +307,11 @@ int main(void) {
             case 8:
                 executarSimulacaoSemana(&e);
                 break;
+            case 0:
+                break;
+            default:
+                printf("Opcao invalida!\n");
+                break;
         }
     } while (op != 0);
 

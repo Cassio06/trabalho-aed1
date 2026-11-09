@@ -267,6 +267,11 @@ int main(void) {
             case 5:
                 executarSimulacao(&th);
                 break;
+            case 0:
+                break;
+            default:
+                printf("Opcao invalida!\n");
+                break;
         }
     } while (op != 0);
 

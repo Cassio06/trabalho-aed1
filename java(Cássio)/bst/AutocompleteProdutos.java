@@ -63,8 +63,10 @@ public class AutocompleteProdutos {
         };
         Produto[] produtos = new Produto[nomes.length];
 
+        // Usa passo coprimo com 30 (mdc(7, 30) = 1) para inserir todos os 30 produtos
+        // fora de ordem alfabética estrita, evitando degenerar a BST em lista linear.
         for (int i = 0; i < nomes.length; i++) {
-            produtos[i] = new Produto(nomes[i]);
+            produtos[i] = new Produto(nomes[(i * 7) % nomes.length]);
         }
 
         return produtos;

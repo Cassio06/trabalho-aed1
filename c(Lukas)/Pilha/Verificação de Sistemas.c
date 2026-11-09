@@ -41,11 +41,12 @@ int cheia(Pilha *p) {
     return p->topo == TAMANHO - 1;
 }
 
-void empilhar(Pilha *p, char c, int pos) {
-    if (cheia(p)) return;
+int empilhar(Pilha *p, char c, int pos) {
+    if (cheia(p)) return 0;
     p->topo++;
     p->dados[p->topo].simbolo = c;
     p->dados[p->topo].posicao = pos;
+    return 1;
 }
 
 ItemPilha desempilhar(Pilha *p) {
@@ -78,7 +79,11 @@ int validarExpressao(const char *exp) {
 
         // Se for abertura, empilha o caractere junto com a sua posição (índice i)
         if (atual == '(' || atual == '[' || atual == '{') {
-            empilhar(&p, atual, i);
+            if (!empilhar(&p, atual, i)) {
+                printf("-> RESULTADO: INCORRETA!\n");
+                printf("   [RELATORIO DE ERRO] Limite maximo da pilha (%d simbolos) excedido na posicao %d.\n", TAMANHO, i);
+                return 0;
+            }
         }
         // Se for fechamento, valida
         else if (atual == ')' || atual == ']' || atual == '}') {

@@ -217,6 +217,8 @@ int main(void) {
             }
             getchar();
             total++;
+        } else if (op == 1 && total >= MAX) {
+            printf("[ERRO] Capacidade maxima do catalogo (%d) atingida!\n", MAX);
         } else if (op == 2 && total > 0) {
             printf("Criterio (1 - Preco; 2 - Nome; 3 - Popularidade): ");
             if (scanf("%d", &criterio) != 1 || criterio < 1 || criterio > 3) {
@@ -230,8 +232,12 @@ int main(void) {
             quickSort(catalogo, 0, total - 1, criterio, &comp, &trocas);
             exibirAmostraCatalogo(catalogo, total, "CATALOGO ORDENADO");
             printf("Comparacoes: %ld | Trocas: %ld\n", comp, trocas);
+        } else if (op == 2 && total == 0) {
+            printf("[AVISO] Nenhum produto cadastrado para ordenar.\n");
         } else if (op == 3) {
             executarSimulacao100Produtos(catalogo, &total);
+        } else if (op != 0) {
+            printf("Opcao invalida!\n");
         }
     } while (op != 0);
 

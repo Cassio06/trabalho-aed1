@@ -46,13 +46,19 @@ int buscarOuAdicionarUsuario(RedeSocial *r, const char *nome) {
 }
 
 void conectarAmigos(RedeSocial *r, const char *u1, const char *u2) {
+    if (strcmp(u1, u2) == 0) {
+        printf("[ERRO] Um usuario nao pode adicionar a si mesmo como amigo.\n");
+        return;
+    }
     int id1 = buscarOuAdicionarUsuario(r, u1);
     int id2 = buscarOuAdicionarUsuario(r, u2);
-    if (id1 != -1 && id2 != -1 && id1 != id2) {
-        r->matriz[id1][id2] = 1;
-        r->matriz[id2][id1] = 1;
-        printf("[AMIZADE] %s <-> %s conectados!\n", u1, u2);
+    if (id1 == -1 || id2 == -1) {
+        printf("[ERRO] Limite maximo de usuarios (%d) atingido!\n", MAX);
+        return;
     }
+    r->matriz[id1][id2] = 1;
+    r->matriz[id2][id1] = 1;
+    printf("[AMIZADE] %s <-> %s conectados!\n", u1, u2);
 }
 
 void listarAmigos(RedeSocial *r, const char *nome) {
@@ -269,6 +275,11 @@ int main(void) {
                 break;
             case 6:
                 executarSimulacao(&r);
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcao invalida!\n");
                 break;
         }
     } while (op != 0);

@@ -199,7 +199,7 @@ Matrícula: Removido: 1008 - Bruno Costa - Engenharia
 ```
 
 #### Situação Problema 8 – Sistema de Autocomplete de Nomes de Produtos (`bst.AutocompleteProdutos`)
-- **Cenário e Entrada:** Catálogo de 30 produtos; consulta de autocomplete para o prefixo `"ca"` e para prefixo inexistente `"xyz"`.
+- **Cenário e Entrada:** Catálogo de 30 produtos inseridos em permutação não monótona com passo coprimo (`(i * 7) % 30`, gerando BST ramificada de altura 9); consulta de autocomplete para o prefixo `"ca"` e para prefixo inexistente `"xyz"`.
 - **Saída Observada:**
 ```text
 Prefixo: Sugestões para ca (nenhuma linha se não houver):

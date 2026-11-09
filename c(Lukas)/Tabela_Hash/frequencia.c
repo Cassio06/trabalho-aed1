@@ -199,6 +199,11 @@ int main(void) {
             case 2:
                 executarSimulacaoArtigo(&tf);
                 break;
+            case 0:
+                break;
+            default:
+                printf("Opcao invalida!\n");
+                break;
         }
     } while (op != 0);
 

@@ -123,12 +123,18 @@ int main(void) {
             }
             getchar();
             total++;
+        } else if (op == 1 && total >= MAX) {
+            printf("[ERRO] Capacidade maxima de atletas (%d) atingida!\n", MAX);
         } else if (op == 2 && total > 0) {
             comp = 0; trocas = 0;
             quickSort(atletas, 0, total - 1, &comp, &trocas);
             exibirResultadoCompeticao(atletas, total, comp, trocas);
+        } else if (op == 2 && total == 0) {
+            printf("[AVISO] Nenhum atleta cadastrado para ordenar.\n");
         } else if (op == 3) {
             executarSimulacao(atletas, &total);
+        } else if (op != 0) {
+            printf("Opcao invalida!\n");
         }
     } while (op != 0);
 

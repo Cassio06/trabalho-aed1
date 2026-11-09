@@ -107,14 +107,17 @@ int main(void) {
             fgets(candidatos[total].nome, 50, stdin);
             candidatos[total].nome[strcspn(candidatos[total].nome, "\n")] = '\0';
             printf("Pontuacao (0 a 100): ");
-            if (scanf("%f", &candidatos[total].nota) != 1 || candidatos[total].nota < 0.0f) {
+            if (scanf("%f", &candidatos[total].nota) != 1 ||
+                candidatos[total].nota < 0.0f || candidatos[total].nota > 100.0f) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF) {}
-                printf("[ERRO] Pontuacao invalida!\n");
+                printf("[ERRO] Pontuacao invalida! Informe um valor de 0 a 100.\n");
                 continue;
             }
             getchar();
             total++;
+        } else if (op == 1 && total >= MAX) {
+            printf("[ERRO] Capacidade maxima de candidatos (%d) atingida!\n", MAX);
         } else if (op == 2 && total > 0) {
             selectionSortTopN(candidatos, total, &comp, &trocas);
             printf("Quantos classificados deseja visualizar (Top-N)? ");
@@ -126,8 +129,12 @@ int main(void) {
             }
             getchar();
             exibirClassificacao(candidatos, total, topN, comp, trocas);
+        } else if (op == 2 && total == 0) {
+            printf("[AVISO] Nenhum candidato cadastrado para ordenar.\n");
         } else if (op == 3) {
             executarSimulacao(candidatos, &total);
+        } else if (op != 0) {
+            printf("Opcao invalida!\n");
         }
     } while (op != 0);
 

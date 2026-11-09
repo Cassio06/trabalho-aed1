@@ -279,9 +279,9 @@ int main(void) {
             case 3: {
                 Musica *m = lerMusicaConsole();
                 printf("Posicao desejada (1 a %d): ", p.tamanho + 1);
-                if (scanf("%d", &pos) != 1) {
+                if (scanf("%d", &pos) != 1 || pos < 1 || pos > p.tamanho + 1) {
                     limparBufferEntrada();
-                    printf("Posicao invalida!\n");
+                    printf("Posicao invalida! Informe um valor entre 1 e %d.\n", p.tamanho + 1);
                     free(m);
                     break;
                 }
@@ -323,6 +323,11 @@ int main(void) {
                 break;
             case 8:
                 executarSimulacao(&p);
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcao invalida!\n");
                 break;
         }
     } while (op != 0);

@@ -92,13 +92,19 @@ void adicionarRota(GrafoDelivery *g, const char *origem, const char *destino, in
         printf("[ERRO] O peso/distancia da rota deve ser positivo para o algoritmo de Dijkstra.\n");
         return;
     }
+    if (strcmp(origem, destino) == 0) {
+        printf("[ERRO] Origem e destino da rota devem ser distintos.\n");
+        return;
+    }
     int u = buscarOuAdicionarPonto(g, origem);
     int v = buscarOuAdicionarPonto(g, destino);
-    if (u != -1 && v != -1) {
-        inserirArestaDirecionada(g, u, v, peso);
-        inserirArestaDirecionada(g, v, u, peso);
-        printf("[ROTA] '%s' <-> '%s' (custo/distancia: %d km)\n", origem, destino, peso);
+    if (u == -1 || v == -1) {
+        printf("[ERRO] Limite maximo de pontos (%d) atingido!\n", MAX_VERTICES);
+        return;
     }
+    inserirArestaDirecionada(g, u, v, peso);
+    inserirArestaDirecionada(g, v, u, peso);
+    printf("[ROTA] '%s' <-> '%s' (custo/distancia: %d km)\n", origem, destino, peso);
 }
 
 void listarMapa(GrafoDelivery *g) {
@@ -250,6 +256,11 @@ int main(void) {
                 break;
             case 4:
                 executarSimulacao(&g);
+                break;
+            case 0:
+                break;
+            default:
+                printf("Opcao invalida!\n");
                 break;
         }
     } while (op != 0);
