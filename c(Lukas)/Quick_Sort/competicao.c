@@ -97,7 +97,7 @@ void executarSimulacao(Atleta atletas[], int *total) {
     exibirResultadoCompeticao(atletas, *total, comp, trocas);
 }
 
-int main() {
+int main(void) {
     Atleta atletas[MAX];
     int total = 0, op, comp = 0, trocas = 0;
 

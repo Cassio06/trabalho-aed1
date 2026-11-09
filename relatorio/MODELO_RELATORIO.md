@@ -9,7 +9,7 @@
 - **Nome da Turma:** SNYDER
 - **Aluno 1:** Cássio Filipe Meireles De Carvalho Braga — **Matrícula 1:** 0031236
 - **Aluno 2:** Lukas Souza Melo — **Matrícula 2:** 0031163
-- **Data:** 02/11/2026
+- **Data:** 08/11/2026
 
 ---
 
@@ -97,8 +97,8 @@ Acao 'Fim da primeira secao.' (Exclusao) registrada com sucesso!
 ```
 
 #### Situação Problema 4 – Verificação de Expressões com Parênteses, Colchetes e Chaves (`c(Lukas)/Pilha/Verificação de Sistemas.c`)
-- **Cenário e Entrada:** Opção `2` — Execução dos casos de teste obrigatórios do enunciado (`"{ [ ( ) ] }"`, `"( [ ) ]"`, `"((()))"`, `"([)]"`, `"([]]"`).
-- **Saída Observada:**
+- **Cenário e Entrada:** Opção `2` — Execução automática dos 7 casos da bateria de simulação (`"{ [ ( ) ] }"`, `"( [ ) ]"`, `"((()))"`, `"([)]"`, `"([]]"`, `"{[a + (b * c)] - d}"`, `"((a + b) * [c - d]"`), além de testes manuais na Opção `1` (como `"a + b ) + c"` para fechamento sem abertura correspondente).
+- **Saída Observada (Opção 2 — Simulação Automática):**
 ```text
 Analisando expressao: "{ [ ( ) ] }"
 -> RESULTADO: CORRETA (Expressao perfeitamente balanceada)!
@@ -113,6 +113,17 @@ Analisando expressao: "((()))"
 Analisando expressao: "([)]"
 -> RESULTADO: INCORRETA!
    [RELATORIO DE ERRO] Desbalanceamento no caractere ')' (posicao 2): Nao combina com '[' aberto na posicao 1.
+
+Analisando expressao: "([]]"
+-> RESULTADO: INCORRETA!
+   [RELATORIO DE ERRO] Desbalanceamento no caractere ']' (posicao 3): Nao combina com '(' aberto na posicao 0.
+
+Analisando expressao: "{[a + (b * c)] - d}"
+-> RESULTADO: CORRETA (Expressao perfeitamente balanceada)!
+
+Analisando expressao: "((a + b) * [c - d]"
+-> RESULTADO: INCORRETA!
+   [RELATORIO DE ERRO] O simbolo '(' na posicao 0 nao foi fechado ate o final da expressao.
 ```
 
 ---
@@ -251,7 +262,7 @@ Altura: 6 | Fator da raiz: -1 | Todos os nós balanceados: true
   - **Espaço:** $O(V + E)$ na lista de adjacência (`Entregas.c`) e $O(V^2)$ na matriz (`rede_social.c`).
 
 #### Situação Problema 11 – Roteamento de Entrega de Mercadorias (`c(Lukas)/Grafo/Entregas.c`)
-- **Cenário e Entrada:** Opção `4` — Simulação com 11 bairros/pontos de entrega interligados por 14 rotas bidirecionais e cálculo de rotas mínimas com Dijkstra entre 5 pares distintos de pontos.
+- **Cenário e Entrada:** Opção `4` — Simulação com 10 bairros + CD Central = 11 vértices interligados por 14 rotas bidirecionais e cálculo de rotas mínimas com Dijkstra entre 5 pares distintos de pontos.
 - **Saída Observada:**
 ```text
 [DIJKSTRA] Menor rota de 'CD Central' ate 'Campus Universitario':
@@ -305,13 +316,13 @@ Sugestoes de amizade para Ana (amigos de amigos):
 ### 3.4 Tabela Hash (Hash Table) — `c(Lukas)/Tabela_Hash/`
 
 - **Justificativa de Escolha:** A tabela hash oferece inserção, busca e remoção em tempo constante médio $O(1)$ a partir de uma chave textual (e-mail de usuário ou palavra de um texto), sem necessitar manter os dados ordenados.
-- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular de base 31 (`funcaoHash`, módulo `TAM_HASH = 11` em `login.c` e `TAM_HASH = 31` em `frequencia.c`) e **tratamento de colisões por encadeamento externo** (listas simplesmente encadeadas em cada bucket). Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em resumo numérico via algoritmo não criptográfico DJB2 (`gerarHashSenha`, utilizado para fins estritamente didáticos, visto que sistemas reais em produção exigem algoritmos criptográficos lentos com *salt* como bcrypt, PBKDF2 ou Argon2) e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
+- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular de base 31 (`funcaoHash`, módulo `TAM_HASH = 11` em `login.c` e `TAM_HASH = 31` em `frequencia.c`) e **tratamento de colisões por encadeamento externo** (listas simplesmente encadeadas em cada bucket). Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em resumo numérico via algoritmo não criptográfico DJB2 (`gerarHashSenha`, utilizado para fins estritamente didáticos, sem expor o valor numérico do hash nas saídas do console ou na listagem de usuários, visto que sistemas reais em produção exigem algoritmos criptográficos lentos com *salt* como bcrypt, PBKDF2 ou Argon2), cadastros com e-mail duplicado são bloqueados e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
 - **Complexidade:**
   - **Tempo:** Inserção, busca/autenticação e remoção: $O(1)$ no caso médio e $O(n)$ no pior caso (colisão total); processamento de texto com $N$ palavras: $O(N)$ médio.
   - **Espaço:** $O(M + N)$, onde $M$ é o número de buckets e $N$ o número de chaves distintas armazenadas.
 
 #### Situação Problema 13 – Cadastro de Usuários com Login Rápido (`c(Lukas)/Tabela_Hash/login.c`)
-- **Cenário e Entrada:** Opção `5` — Simulação com 20 usuários cadastrados em 11 buckets (gerando colisões tratadas por encadeamento), testes de autenticação válida, senha incorreta, usuário inexistente e remoção de conta.
+- **Cenário e Entrada:** Opção `5` — Simulação com 20 usuários cadastrados em 11 buckets (gerando colisões tratadas por encadeamento), listagem da tabela sem exposição do hash numérico das senhas, testes de autenticação válida, senha incorreta, usuário inexistente e remoção de conta (além de bloqueio de cadastro duplicado para e-mail já existente na Opção `1`).
 - **Saída Observada:**
 ```text
 Total de usuarios ativos: 20 | Buckets com colisao encadeada: 5
@@ -328,7 +339,7 @@ Total de usuarios ativos: 20 | Buckets com colisao encadeada: 5
 ```
 
 #### Situação Problema 14 – Contagem de Frequência de Palavras em um Texto (`c(Lukas)/Tabela_Hash/frequencia.c`)
-- **Cenário e Entrada:** Opção `2` — Processamento de um artigo técnico real sobre estruturas de dados e tabelas hash.
+- **Cenário e Entrada:** Opção `2` — Processamento de um texto técnico de demonstração sobre estruturas de dados e tabelas hash.
 - **Saída Observada:**
 ```text
 --- RELATORIO DE FREQUENCIA DE PALAVRAS ---

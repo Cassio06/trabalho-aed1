@@ -92,8 +92,8 @@ void cadastrarUsuario(TabelaHash *th, const char *email, const char *usuario, co
     novo->proximo = th->tabela[idx];
     th->tabela[idx] = novo;
 
-    printf("[CADASTRO] %s (@%s) -> Bucket %2d | HashSenha: %lu %s\n",
-           email, usuario, idx, novo->senhaHash,
+    printf("[CADASTRO] %s (@%s) -> Bucket %2d | Senha protegida (DJB2) %s\n",
+           email, usuario, idx,
            colisoesNoBucket > 0 ? "[COLISAO TRATADA POR ENCADEAMENTO]" : "");
 }
 
@@ -143,7 +143,7 @@ void listarUsuarios(TabelaHash *th) {
         printf("[Bucket %2d] -> ", i);
         int contBucket = 0;
         while (aux != NULL) {
-            printf("@%s (%s, hash=%lu) -> ", aux->usuario, aux->email, aux->senhaHash);
+            printf("@%s (%s) -> ", aux->usuario, aux->email);
             total++;
             contBucket++;
             aux = aux->proximo;
@@ -207,7 +207,7 @@ void executarSimulacao(TabelaHash *th) {
            autenticar(th, "carla.alves@empresa.com", "Senha#03") ? "SUCESSO" : "FALHA (Conta removida)");
 }
 
-int main() {
+int main(void) {
     TabelaHash th;
     inicializar(&th);
     int op;

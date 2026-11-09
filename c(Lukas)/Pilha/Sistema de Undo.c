@@ -98,7 +98,7 @@ int desempilhar(Pilha *p, Acao *acao) {
 }
 
 // Lista todo o histórico de ações ativas na pilha
-void listar(Pilha *p, char *nomePilha) {
+void listar(Pilha *p, const char *nomePilha) {
     int i;
     if (vazia(p)) {
         printf("\n[%s] Vazia.\n", nomePilha);
@@ -181,7 +181,7 @@ void executarSimulacao(Pilha *undo, Pilha *redo) {
     printf("======================================================\n");
 }
 
-int main() {
+int main(void) {
     Pilha undo, redo;
     Acao acao;
     int opcao;

@@ -164,16 +164,16 @@ void executarSimulacaoArtigo(TabelaFrequencia *tf) {
         "Por isso, escolher uma boa estrutura de dados e uma boa funcao hash garante eficiencia e "
         "escalabilidade no processamento de dados reais.";
 
-    printf("\n====================================================================\n");
-    printf("   SIMULACAO: PROCESSAMENTO DE ARTIGO TECNICO (TABELA HASH)         \n");
-    printf("====================================================================\n");
+    printf("\n==============================================================================\n");
+    printf("   SIMULACAO: PROCESSAMENTO DE TEXTO TECNICO DE DEMONSTRACAO (TABELA HASH)    \n");
+    printf("==============================================================================\n");
     printf("\nTexto analisado:\n\"%s\"\n", artigo);
 
     processarTexto(tf, artigo);
     exibirRelatorioFrequencia(tf, 12);
 }
 
-int main() {
+int main(void) {
     TabelaFrequencia tf;
     inicializar(&tf);
     int op;
@@ -182,7 +182,7 @@ int main() {
     do {
         printf("\n=== CONTAGEM DE FREQUENCIA DE PALAVRAS (SITUACAO 14) ===\n");
         printf("1. Digitar Texto para Analise\n");
-        printf("2. Executar Simulacao com Artigo Tecnico Real\n");
+        printf("2. Executar Simulacao com Texto Tecnico de Demonstracao\n");
         printf("0. Sair\nEscolha: ");
         if (scanf("%d", &op) != 1) break;
         getchar();

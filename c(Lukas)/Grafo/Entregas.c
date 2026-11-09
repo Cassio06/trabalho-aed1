@@ -171,12 +171,12 @@ void dijkstra(GrafoDelivery *g, const char *nomeOrig, const char *nomeDest) {
     }
 }
 
-// Simulação com pelo menos 10 vértices e demonstração de rotas entre diferentes pares de pontos
+// Simulação com 10 bairros + CD Central (11 vértices) e demonstração de rotas entre diferentes pares de pontos
 void executarSimulacao(GrafoDelivery *g) {
     liberarGrafo(g);
-    printf("\n================================================================\n");
-    printf("   SIMULACAO DE DELIVERY: 10 BAIRROS E CAMINHO MINIMO (DIJKSTRA)\n");
-    printf("================================================================\n");
+    printf("\n========================================================================\n");
+    printf("   SIMULACAO DE DELIVERY: 10 BAIRROS + CD CENTRAL (11 VERTICES - DIJKSTRA)\n");
+    printf("========================================================================\n");
 
     adicionarRota(g, "CD Central", "Centro", 4);
     adicionarRota(g, "CD Central", "Distrito Industrial", 3);
@@ -202,7 +202,7 @@ void executarSimulacao(GrafoDelivery *g) {
     dijkstra(g, "Centro", "Santa Cecilia");
 }
 
-int main() {
+int main(void) {
     GrafoDelivery g;
     inicializar(&g);
     int op, peso;
@@ -213,7 +213,7 @@ int main() {
         printf("1. Cadastrar Rota Ponderada\n");
         printf("2. Calcular Rota Minima (Dijkstra)\n");
         printf("3. Exibir Lista de Adjacencia do Mapa\n");
-        printf("4. Executar Simulacao com 10 Bairros\n");
+        printf("4. Executar Simulacao (10 Bairros + CD Central = 11 Vertices)\n");
         printf("0. Sair\nEscolha: ");
         if (scanf("%d", &op) != 1) break;
         getchar();

@@ -112,7 +112,7 @@ int validarExpressao(const char *exp) {
     return 1;
 }
 
-int main() {
+int main(void) {
     char expressao[100];
     int opcao;
     int i;

@@ -23,10 +23,10 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 | 8 | **BST** | Sistema de Autocomplete de Nomes de Produtos (30 produtos) | Java | `bst.AutocompleteProdutos` (`java(Cássio)/bst/AutocompleteProdutos.java`) |
 | 9 | **AVL** | Índice de CPF para Sistema de RH (25 funcionários) | Java | `avl.IndiceCpf` (`java(Cássio)/avl/IndiceCpf.java`) |
 | 10 | **AVL** | Ranking de Jogadores em Jogo Online (30 jogadores + Top-K) | Java | `avl.RankingJogadores` (`java(Cássio)/avl/RankingJogadores.java`) |
-| 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 11 pontos/bairros) | C | `c(Lukas)/Grafo/Entregas.c` |
+| 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 10 bairros + CD Central = 11 vértices) | C | `c(Lukas)/Grafo/Entregas.c` |
 | 12 | **Grafo** | Rede de Amizades em Rede Social (15 usuários + BFS graus de separação) | C | `c(Lukas)/Grafo/rede_social.c` |
 | 13 | **Tabela Hash** | Cadastro de Usuários com Login Rápido (20 usuários + hash de senha) | C | `c(Lukas)/Tabela_Hash/login.c` |
-| 14 | **Tabela Hash** | Contagem de Frequência de Palavras em um Texto Real | C | `c(Lukas)/Tabela_Hash/frequencia.c` |
+| 14 | **Tabela Hash** | Contagem de Frequência de Palavras em Texto Técnico de Demonstração | C | `c(Lukas)/Tabela_Hash/frequencia.c` |
 | 15 | **Bubble Sort** | Ordenação de Notas de uma Turma Pequena (20 alunos + estatísticas) | Java | `bubblesort.NotasTurma` (`java(Cássio)/bubblesort/NotasTurma.java`) |
 | 16 | **Bubble Sort** | Ordenação de Produtos por Preço em Vitrine Pequena (12 produtos) | Java | `bubblesort.ProdutosPreco` (`java(Cássio)/bubblesort/ProdutosPreco.java`) |
 | 17 | **Selection Sort** | Seleção dos Melhores Candidatos em Processo Seletivo (15 candidatos) | C | `c(Lukas)/Selection_Sort/processo_seletivo.c` |
@@ -36,7 +36,7 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 | 21 | **Merge Sort** | Ordenação de Histórico de Transações Bancárias (50 transações) | Java | `mergesort.TransacoesBancarias` (`java(Cássio)/mergesort/TransacoesBancarias.java`) |
 | 22 | **Merge Sort** | Mesclagem de Duas Listas de Contatos Ordenadas (20+20 -> 30 únicos) | Java | `mergesort.MesclagemContatos` (`java(Cássio)/mergesort/MesclagemContatos.java`) |
 | 23 | **Quick Sort** | Catálogo de E-commerce (100 produtos, Mediana-de-3 vs Merge Sort) | C | `c(Lukas)/Quick_Sort/ecommerce.c` |
-| 24 | **Quick Sort** | Classificação de Resultados de Competição Esportiva (30 atletas, Top 3) | C | `c(Lukas)/Quick_Sort/competicao.c` |
+| 24 | **Quick Sort** | Classificação de Resultados de Competição Esportiva (Lomuto, 30 atletas, Top 3) | C | `c(Lukas)/Quick_Sort/competicao.c` |
 
 ---
 
@@ -87,7 +87,7 @@ find 'java(Cássio)' -name '*.java' -print0 | xargs -0 javac -encoding UTF-8 --r
 java -cp out fila.Clinica
 ```
 
-| Suíte de Teste Java | Casos Aprovados (02/11/2026) |
+| Suíte de Teste Java | Casos Aprovados (08/11/2026) |
 |---|---:|
 | `apoio.TesteApoio` | 21 OK |
 | `fila.TesteFila` | 16 OK |
@@ -100,21 +100,21 @@ java -cp out fila.Clinica
 
 ### 2. Parte C (Situações 3, 4, 5, 6, 11, 12, 13, 14, 17, 18, 23 e 24)
 
-Requisito: **Compilador C (GCC / Clang)**. Todos os programas possuem menu interativo e uma opção dedicada para rodar a **simulação completa exigida pelo enunciado**:
+Requisito: **Compilador C padrão C11 (GCC / Clang)**. Todos os programas possuem menu interativo e uma opção dedicada para rodar a **simulação completa exigida pelo enunciado**:
 
 ```bash
-gcc "c(Lukas)/Pilha/Sistema de Undo.c" -o undo && ./undo
-gcc "c(Lukas)/Pilha/Verificação de Sistemas.c" -o expressoes && ./expressoes
-gcc "c(Lukas)/Lista_Encadeada/playlist.c" -o playlist && ./playlist
-gcc "c(Lukas)/Lista_Encadeada/estoque.c" -o estoque && ./estoque
-gcc "c(Lukas)/Grafo/Entregas.c" -o entregas && ./entregas
-gcc "c(Lukas)/Grafo/rede_social.c" -o rede_social && ./rede_social
-gcc "c(Lukas)/Tabela_Hash/login.c" -o login && ./login
-gcc "c(Lukas)/Tabela_Hash/frequencia.c" -o frequencia && ./frequencia
-gcc "c(Lukas)/Selection_Sort/processo_seletivo.c" -o seletivo && ./seletivo
-gcc "c(Lukas)/Selection_Sort/tarefas.c" -o tarefas && ./tarefas
-gcc "c(Lukas)/Quick_Sort/ecommerce.c" -o ecommerce && ./ecommerce
-gcc "c(Lukas)/Quick_Sort/competicao.c" -o competicao && ./competicao
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Pilha/Sistema de Undo.c" -o undo && ./undo
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Pilha/Verificação de Sistemas.c" -o expressoes && ./expressoes
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Lista_Encadeada/playlist.c" -o playlist && ./playlist
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Lista_Encadeada/estoque.c" -o estoque && ./estoque
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Grafo/Entregas.c" -o entregas && ./entregas
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Grafo/rede_social.c" -o rede_social && ./rede_social
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Tabela_Hash/login.c" -o login && ./login
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Tabela_Hash/frequencia.c" -o frequencia && ./frequencia
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Selection_Sort/processo_seletivo.c" -o seletivo && ./seletivo
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Selection_Sort/tarefas.c" -o tarefas && ./tarefas
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Quick_Sort/ecommerce.c" -o ecommerce && ./ecommerce
+gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Quick_Sort/competicao.c" -o competicao && ./competicao
 ```
 
 ---

@@ -89,7 +89,7 @@ void executarSimulacao(Candidato candidatos[], int *total) {
     exibirClassificacao(candidatos, *total, 5, comp, trocas);
 }
 
-int main() {
+int main(void) {
     Candidato candidatos[MAX];
     int total = 0, op, topN, comp = 0, trocas = 0;
 

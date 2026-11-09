@@ -245,7 +245,7 @@ void executarSimulacaoSemana(Estoque *e) {
     listarEstoqueBaixo(e, 10);
 }
 
-int main() {
+int main(void) {
     Estoque e;
     inicializar(&e);
     int op, cod, qtd, min;

@@ -54,7 +54,7 @@ Musica* novaMusicaDados(const char *titulo, const char *artista, float duracao) 
     return nova;
 }
 
-Musica* lerMusicaConsole() {
+Musica* lerMusicaConsole(void) {
     char titulo[50], artista[50];
     float duracao;
     printf("Titulo da musica: ");
@@ -65,6 +65,10 @@ Musica* lerMusicaConsole() {
     artista[strcspn(artista, "\n")] = '\0';
     printf("Duracao (minutos, ex: 3.45): ");
     while (scanf("%f", &duracao) != 1 || duracao <= 0.0f) {
+        if (feof(stdin)) {
+            duracao = 1.0f;
+            break;
+        }
         limparBufferEntrada();
         printf("Valor invalido. Informe uma duracao positiva (ex: 3.45): ");
     }
@@ -239,7 +243,7 @@ void executarSimulacao(Playlist *p) {
     listar(p);
 }
 
-int main() {
+int main(void) {
     Playlist p;
     inicializar(&p);
     int op, pos, orig, dest;

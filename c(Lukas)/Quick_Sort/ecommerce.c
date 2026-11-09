@@ -183,7 +183,7 @@ void executarSimulacao100Produtos(Produto catalogo[], int *total) {
     exibirAmostraCatalogo(copiaQuick, *total, "ORDENADO POR POPULARIDADE DECRESCENTE");
 }
 
-int main() {
+int main(void) {
     Produto catalogo[MAX];
     int total = 0, op, criterio;
 

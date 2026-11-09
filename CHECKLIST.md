@@ -23,11 +23,11 @@ Este checklist consolida as **12 categorias e 24 situações-problema** exigidas
   - [x] **Situação 9 — Índice de CPF para RH (`avl.IndiceCpf`):** inserção com rotações, busca, remoção, verificação de altura/fator de balanceamento e demonstração com 25 funcionários.
   - [x] **Situação 10 — Ranking de Jogadores (`avl.RankingJogadores`):** AVL ordenada por pontuação + nome, atualização de pontuação, consulta Top-K e simulação com 30 jogadores.
 - [x] **3.3 Grafos (C — Lukas — `c(Lukas)/Grafo/`):**
-  - [x] **Situação 11 — Roteamento de Entregas (`c(Lukas)/Grafo/Entregas.c`):** grafo ponderado em lista de adjacência, algoritmo de Dijkstra e simulação com 10 bairros/pontos de entrega.
+  - [x] **Situação 11 — Roteamento de Entregas (`c(Lukas)/Grafo/Entregas.c`):** grafo ponderado em lista de adjacência, algoritmo de Dijkstra e simulação com 10 bairros + CD Central = 11 vértices.
   - [x] **Situação 12 — Rede de Amizades (`c(Lukas)/Grafo/rede_social.c`):** grafo não-direcionado com 15 usuários, adicionar amizade, listar amigos, amigos em comum, sugerir conexões e BFS para graus de separação.
 - [x] **3.4 Tabela Hash (C — Lukas — `c(Lukas)/Tabela_Hash/`):**
-  - [x] **Situação 13 — Cadastro e Login Rápido (`c(Lukas)/Tabela_Hash/login.c`):** tabela hash com tratamento de colisões por encadeamento, senha armazenada em hash (DJB2), busca/remoção O(1) médio e simulação com 20 usuários.
-  - [x] **Situação 14 — Frequência de Palavras (`c(Lukas)/Tabela_Hash/frequencia.c`):** processamento de texto/artigo real, contagem por palavra na tabela hash, exibição das palavras mais frequentes e total de palavras distintas.
+  - [x] **Situação 13 — Cadastro e Login Rápido (`c(Lukas)/Tabela_Hash/login.c`):** tabela hash com tratamento de colisões por encadeamento, senha armazenada em hash (DJB2, sem expor o valor numérico nas saídas), busca/remoção O(1) médio e simulação com 20 usuários.
+  - [x] **Situação 14 — Frequência de Palavras (`c(Lukas)/Tabela_Hash/frequencia.c`):** processamento de texto técnico de demonstração, contagem por palavra na tabela hash, exibição das palavras mais frequentes e total de palavras distintas.
 
 ## 3. Algoritmos de Ordenação (20% da nota)
 
@@ -45,11 +45,11 @@ Este checklist consolida as **12 categorias e 24 situações-problema** exigidas
   - [x] **Situação 22 — Mesclagem de Contatos (`mergesort.MesclagemContatos`):** etapa de merge combinando duas listas ordenadas de 20 contatos com remoção de duplicatas (30 únicos).
 - [x] **4.5 Quick Sort (C — Lukas — `c(Lukas)/Quick_Sort/`):**
   - [x] **Situação 23 — Catálogo de E-commerce (`c(Lukas)/Quick_Sort/ecommerce.c`):** Quick Sort com pivô mediana-de-três, ordenação por preço, nome ou popularidade, teste com 100 produtos e comparação com Merge Sort.
-  - [x] **Situação 24 — Competição Esportiva (`c(Lukas)/Quick_Sort/competicao.c`):** Quick Sort por tempo de prova, identificação do pódio (Top 3) e simulação com 30 atletas.
+  - [x] **Situação 24 — Competição Esportiva (`c(Lukas)/Quick_Sort/competicao.c`):** Quick Sort com particionamento de Lomuto (último elemento como pivô) por tempo de prova, identificação do pódio (Top 3) e simulação com 30 atletas.
 
 ## 4. Verificação, Relatório e Entrega Final
 
-- [x] Executar `bash verificar.sh` e confirmar **107/107 casos aprovados** nas 7 suítes da parte Java.
+- [x] Executar `bash verificar.sh` e confirmar **107/107 casos aprovados** nas 7 suítes da parte Java (verificado em `08/11/2026`).
 - [x] Unificar as branches `Cassio` e `Lukas` na branch `main`.
 - [x] Consolidar o relatório técnico completo das 12 categorias e 24 aplicações em `relatorio/MODELO_RELATORIO.md`.
 - [x] Preencher os números de matrícula dos dois alunos (Cássio: `0031236` | Lukas: `0031163`) e o nome da turma (`SNYDER`) na Ficha Obrigatória (página 2 do PDF) e no cabeçalho do relatório.

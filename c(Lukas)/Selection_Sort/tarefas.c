@@ -84,7 +84,7 @@ void executarSimulacao(Tarefa lista[], int *total) {
     printf("\nEstatisticas: %d comparacoes e %d trocas realizadas.\n", comp, trocas);
 }
 
-int main() {
+int main(void) {
     Tarefa lista[MAX];
     int total = 0, op, comp = 0, trocas = 0;
 

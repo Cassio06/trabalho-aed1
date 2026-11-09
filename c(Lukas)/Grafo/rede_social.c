@@ -209,7 +209,7 @@ void executarSimulacao(RedeSocial *r) {
     grauSeparacaoBFS(r, "Bruno", "Nicolas");
 }
 
-int main() {
+int main(void) {
     RedeSocial r;
     inicializar(&r);
     int op;
