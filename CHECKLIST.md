@@ -27,7 +27,7 @@ Este checklist consolida as **12 categorias e 24 situações-problema** exigidas
   - [x] **Situação 12 — Rede de Amizades (`c(Lukas)/Grafo/rede_social.c`):** grafo não-direcionado com 15 usuários, adicionar amizade, listar amigos, amigos em comum, sugerir conexões e BFS para graus de separação.
 - [x] **3.4 Tabela Hash (C — Lukas — `c(Lukas)/Tabela_Hash/`):**
   - [x] **Situação 13 — Cadastro e Login Rápido (`c(Lukas)/Tabela_Hash/login.c`):** tabela hash com tratamento de colisões por encadeamento, senha armazenada em hash (DJB2, sem expor o valor numérico nas saídas), busca/remoção O(1) médio e simulação com 20 usuários.
-  - [x] **Situação 14 — Frequência de Palavras (`c(Lukas)/Tabela_Hash/frequencia.c`):** processamento de texto técnico de demonstração, contagem por palavra na tabela hash, exibição das palavras mais frequentes e total de palavras distintas.
+  - [x] **Situação 14 — Frequência de Palavras (`c(Lukas)/Tabela_Hash/frequencia.c`):** trecho real de *Dom Casmurro*, capítulo I (Machado de Assis, 1899), com fonte citada; 89 palavras e 69 distintas; UTF-8 português e hash com base 33/módulo 31.
 
 ## 3. Algoritmos de Ordenação (20% da nota)
 
@@ -49,8 +49,9 @@ Este checklist consolida as **12 categorias e 24 situações-problema** exigidas
 
 ## 4. Verificação, Relatório e Entrega Final
 
-- [x] Executar `bash verificar.sh` e confirmar **107/107 casos aprovados** nas 7 suítes da parte Java (verificado em `08/11/2026`).
+- [x] Executar `bash verificar.sh` e confirmar **107/107 casos aprovados** nas 7 suítes da parte Java (verificado novamente em `11/11/2026`).
+- [x] Compilar os 12 programas C11 sem avisos, executar as 12 simulações e verificar regressões com `node verificar-c.mjs`: **48 verificações aprovadas** em `11/11/2026` (opção `--cc` para escolher compilador).
 - [x] Unificar as branches `Cassio` e `Lukas` na branch `main`.
 - [x] Consolidar o relatório técnico completo das 12 categorias e 24 aplicações em `relatorio/MODELO_RELATORIO.md`.
-- [x] Preencher os números de matrícula dos dois alunos (Cássio: `0031236` | Lukas: `0031163`) e o nome da turma (`SNYDER`) na Ficha Obrigatória (página 2 do PDF) e no cabeçalho do relatório.
+- [x] Preencher os números de matrícula dos dois alunos (Cássio: `0031236` | Lukas: `0031163`) e o nome da turma (`SNYDER`) na ficha do relatório e em `FICHA_OBRIGATORIA_PREENCHIDA.pdf`, extraída da página 2 do enunciado original, que foi preservado.
 - [ ] Enviar o pacote final (código + relatório + ficha obrigatória) pela plataforma **iCEV Digital** até o dia da P2.

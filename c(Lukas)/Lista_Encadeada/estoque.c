@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct Produto {
     int codigo;
@@ -92,7 +93,7 @@ void cadastrarConsole(Estoque *e) {
     limparBufferEntrada();
 
     printf("Preco unitario (ex: 12.40): ");
-    if (scanf("%f", &preco) != 1 || preco < 0.0f) {
+    if (scanf("%f", &preco) != 1 || !isfinite(preco) || preco < 0.0f) {
         limparBufferEntrada();
         printf("[ERRO] Preco invalido!\n");
         return;

@@ -9,7 +9,7 @@
 - **Nome da Turma:** SNYDER
 - **Aluno 1:** Cássio Filipe Meireles De Carvalho Braga — **Matrícula 1:** 0031236
 - **Aluno 2:** Lukas Souza Melo — **Matrícula 2:** 0031163
-- **Data:** 08/11/2026
+- **Data da revisão final:** 11/11/2026
 
 ---
 
@@ -255,7 +255,7 @@ Altura: 6 | Fator da raiz: -1 | Todos os nós balanceados: true
 
 - **Justificativa de Escolha:** Grafos modelam diretamente redes de conexões e rotas. Na logística de entregas, um grafo ponderado em lista de adjacência associado ao algoritmo de **Dijkstra** determina o caminho de menor custo entre bairros. Em redes sociais, um grafo não-direcionado associado à **Busca em Largura (BFS)** determina amigos em comum, sugestões de amizade e o menor grau de separação entre duas pessoas.
 - **Funcionamento Interno:**
-  - Em [`c(Lukas)/Grafo/Entregas.c`](../c(Lukas)/Grafo/Entregas.c), cada bairro possui uma lista encadeada de adjacência (`NoAdj`) com o vértice destino e o peso em km; `dijkstra` relaxa as arestas escolhendo iterativamente o vértice não visitado de menor distância acumulada e reconstrói a rota ótima pelo vetor `anterior[]`.
+  - Em [`c(Lukas)/Grafo/Entregas.c`](../c(Lukas)/Grafo/Entregas.c), cada bairro possui uma lista encadeada de adjacência (`NoAdj`) com o vértice destino e o peso em km; `dijkstra` relaxa as arestas escolhendo iterativamente o vértice não visitado de menor distância acumulada e reconstrói a rota ótima pelo vetor `anterior[]`. As distâncias usam `long long`, infinito `LLONG_MAX` e proteção na soma, permitindo caminhos com custo superior a `INT_MAX`.
   - Em [`c(Lukas)/Grafo/rede_social.c`](../c(Lukas)/Grafo/rede_social.c), conexões simétricas são registradas em `matriz[u][v] = matriz[v][u] = 1`; `grauSeparacaoBFS` utiliza uma fila FIFO para explorar os níveis de amizade em largura, garantindo a menor distância em número de arestas.
 - **Complexidade:**
   - **Tempo:** Dijkstra: $O(V^2 + E)$; BFS (graus de separação): $O(V^2)$ em matriz de adjacência; Amigos em comum: $O(V)$.
@@ -316,10 +316,10 @@ Sugestoes de amizade para Ana (amigos de amigos):
 ### 3.4 Tabela Hash (Hash Table) — `c(Lukas)/Tabela_Hash/`
 
 - **Justificativa de Escolha:** A tabela hash oferece inserção, busca e remoção em tempo constante médio $O(1)$ a partir de uma chave textual (e-mail de usuário ou palavra de um texto), sem necessitar manter os dados ordenados.
-- **Funcionamento Interno:** Ambos os programas utilizam função de espalhamento polinomial modular de base 31 (`funcaoHash`, módulo `TAM_HASH = 11` em `login.c` e `TAM_HASH = 31` em `frequencia.c`) e **tratamento de colisões por encadeamento externo** (listas simplesmente encadeadas em cada bucket). Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em resumo numérico via algoritmo não criptográfico DJB2 (`gerarHashSenha`, utilizado para fins estritamente didáticos, sem expor o valor numérico do hash nas saídas do console ou na listagem de usuários, visto que sistemas reais em produção exigem algoritmos criptográficos lentos com *salt* como bcrypt, PBKDF2 ou Argon2), cadastros com e-mail duplicado são bloqueados e tanto `autenticar` quanto `removerUsuario` calculam `idx = funcaoHash(email)` para acessar diretamente o bucket correspondente em $O(1)$ médio. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), cada palavra é normalizada para minúsculas sem pontuação e sua contagem é incrementada no bucket correspondente.
+- **Funcionamento Interno:** Os programas utilizam espalhamento polinomial modular e **tratamento de colisões por encadeamento externo**. Em `login.c`, a base é 31 e `TAM_HASH = 11`; em `frequencia.c`, a base é 33 e `TAM_HASH = 31`, evitando que o módulo anule o prefixo da chave. Em [`c(Lukas)/Tabela_Hash/login.c`](../c(Lukas)/Tabela_Hash/login.c), a senha é convertida em resumo numérico via DJB2 (uso estritamente didático, inadequado para proteção real de senhas), cadastros duplicados são bloqueados e autenticação/remoção acessam diretamente o bucket do e-mail. Em [`c(Lukas)/Tabela_Hash/frequencia.c`](../c(Lukas)/Tabela_Hash/frequencia.c), letras ASCII e latinas precompostas, incluindo acentos portugueses em UTF-8, são normalizadas para minúsculas sem perder os acentos. Pontuação, hífens e espaços separam termos; palavras e linhas são alocadas dinamicamente para evitar truncamento.
 - **Complexidade:**
-  - **Tempo:** Inserção, busca/autenticação e remoção: $O(1)$ no caso médio e $O(n)$ no pior caso (colisão total); processamento de texto com $N$ palavras: $O(N)$ médio.
-  - **Espaço:** $O(M + N)$, onde $M$ é o número de buckets e $N$ o número de chaves distintas armazenadas.
+  - **Tempo:** Operações por chave: $O(1 + \alpha)$ médio com fator de carga $\alpha = U/M$ e comprimento das chaves limitado; pior caso $O(U)$. A leitura/tokenização é $O(B)$ nos bytes de entrada; a contagem é linear esperada com distribuição adequada e fator de carga controlado. A ordenação do ranking por seleção custa $O(U^2)$ comparações.
+  - **Espaço:** $O(M + S + B)$, com $M$ buckets, $S$ bytes das palavras distintas e $B$ bytes do texto/buffer de tokenização; o ranking usa $O(U)$ ponteiros para $U$ palavras distintas.
 
 #### Situação Problema 13 – Cadastro de Usuários com Login Rápido (`c(Lukas)/Tabela_Hash/login.c`)
 - **Cenário e Entrada:** Opção `5` — Simulação com 20 usuários cadastrados em 11 buckets (gerando colisões tratadas por encadeamento), listagem da tabela sem exposição do hash numérico das senhas, testes de autenticação válida, senha incorreta, usuário inexistente e remoção de conta (além de bloqueio de cadastro duplicado para e-mail já existente na Opção `1`).
@@ -339,26 +339,26 @@ Total de usuarios ativos: 20 | Buckets com colisao encadeada: 5
 ```
 
 #### Situação Problema 14 – Contagem de Frequência de Palavras em um Texto (`c(Lukas)/Tabela_Hash/frequencia.c`)
-- **Cenário e Entrada:** Opção `2` — Processamento de um texto técnico de demonstração sobre estruturas de dados e tabelas hash.
+- **Cenário e Entrada:** Opção `2` — Primeiro parágrafo de *Dom Casmurro*, capítulo I, de Machado de Assis (1899), transcrito da [Wikisource](https://pt.wikisource.org/wiki/Dom_Casmurro/I), acesso em 11/11/2026. A grafia original foi preservada (por exemplo, `chapéo`, `cançado` e `Succedeu`). Hífens separam palavras; maiúsculas viram minúsculas, mantendo os acentos.
 - **Saída Observada:**
 ```text
 --- RELATORIO DE FREQUENCIA DE PALAVRAS ---
-Total de palavras processadas : 103
-Total de palavras distintas   : 67
+Total de palavras processadas : 89
+Total de palavras distintas   : 69
 
 Top 12 palavras mais frequentes:
-   1º de                 -> 12 ocorrencia(s)
-   2º e                  -> 6 ocorrencia(s)
-   3º dados              -> 4 ocorrencia(s)
-   4º hash               -> 4 ocorrencia(s)
-   5º a                  -> 3 ocorrencia(s)
-   6º em                 -> 3 ocorrencia(s)
-   7º na                 -> 3 ocorrencia(s)
-   8º tabela             -> 3 ocorrencia(s)
-   9º uma                -> 3 ocorrencia(s)
-  10º boa                -> 2 ocorrencia(s)
-  11º chaves             -> 2 ocorrencia(s)
-  12º estrutura          -> 2 ocorrencia(s)
+   1º e                  -> 5 ocorrencia(s)
+   2º que                -> 4 ocorrencia(s)
+   3º da                 -> 3 ocorrencia(s)
+   4º de                 -> 3 ocorrencia(s)
+   5º os                 -> 3 ocorrencia(s)
+   6º versos             -> 3 ocorrencia(s)
+   7º a                  -> 2 ocorrencia(s)
+   8º eu                 -> 2 ocorrencia(s)
+   9º me                 -> 2 ocorrencia(s)
+  10º no                 -> 2 ocorrencia(s)
+  11º para               -> 2 ocorrencia(s)
+  12º acabou             -> 1 ocorrencia(s)
 ```
 
 ---
@@ -534,6 +534,12 @@ Estatisticas do Quick Sort: 121 comparacoes e 88 particionamentos/trocas.
 2. **Empates de pontuação na Árvore AVL:** Como árvores de busca não duplicam chaves, o ranking de jogadores combinou a pontuação formatada em 10 dígitos com o nome do jogador (`%010d:%s`), preservando todos os jogadores empatados.
 3. **Colisões, busca $O(1)$ e uso didático do DJB2 na Tabela Hash:** Na autenticação de usuários, garantiu-se que o login e a remoção calculem diretamente `funcaoHash(email)` para percorrer apenas a lista encadeada do bucket correspondente, além de armazenar um resumo numérico da senha via função DJB2 (adotada de forma didática, visto não ser uma função hash criptográfica).
 4. **Estabilidade e escolha de pivô nas ordenações:** No Merge Sort e no Insertion Sort, o uso de `<= 0` preservou a ordem relativa de transações no mesmo minuto; no Quick Sort aplicado ao e-commerce, a escolha de pivô por mediana-de-três reduziu significativamente a probabilidade de partições degeneradas em listas previamente ordenadas, embora não elimine o pior caso teórico $O(n^2)$.
+5. **UTF-8 e espalhamento na contagem de palavras:** A revisão final substituiu o texto didático por trecho real de *Dom Casmurro*, preservou os acentos portugueses, removeu os limites fixos de tamanho e alterou a base do hash de 31 para 33 no módulo 31. Assim, palavras como `avó` e `avô` mantêm identidades distintas e o prefixo participa do espalhamento.
+6. **Limites numéricos:** As distâncias do Dijkstra passaram a usar `long long`, com proteção de soma, e as entradas de preço, nota, tempo e duração rejeitam `NaN` e infinito por `isfinite`.
+
+### Verificação final — 11/11/2026
+
+`bash verificar.sh`: **107 testes Java aprovados, 0 pendentes e 0 falhas**. `node verificar-c.mjs`: **48 verificações C aprovadas**, incluindo compilação C11 sem avisos dos 12 programas, as 12 simulações e regressões; o teste do contador contém oito casos internos. A execução C foi conferida com Zig/Clang usando `-Wall -Wextra -pedantic -Werror`. Uma contagem independente confirmou as **89 palavras e 69 distintas** do texto real. A ficha original preenchida acompanha o relatório em `FICHA_OBRIGATORIA_PREENCHIDA.pdf`.
 
 ### Conclusão
 O desenvolvimento das 24 situações-problema demonstrou na prática que nenhuma estrutura de dados ou algoritmo de ordenação é universalmente superior: a escolha técnica correta depende do padrão de acesso (FIFO, LIFO, busca por chave exata, busca por prefixo/intervalo ou travessia de caminhos), do volume de dados e das garantias exigidas de estabilidade, memória e tempo no pior caso.
@@ -543,6 +549,7 @@ O desenvolvimento das 24 situações-problema demonstrou na prática que nenhuma
 
 ## 6. Referências Bibliográficas
 
+- ASSIS, Machado de. *Dom Casmurro*. Rio de Janeiro: H. Garnier, 1899. Capítulo I, primeiro parágrafo. Disponível em: https://pt.wikisource.org/wiki/Dom_Casmurro/I. Acesso em: 11 nov. 2026.
 - CELES, Waldemar; CERQUEIRA, Renato; RANGEL, José Lucas. *Introdução a Estruturas de Dados: com Técnicas de Programação em C*. 2. ed. Rio de Janeiro: Elsevier, 2016.
 - CORMEN, Thomas H.; LEISERSON, Charles E.; RIVEST, Ronald L.; STEIN, Clifford. *Algoritmos: Teoria e Prática*. 3. ed. Rio de Janeiro: Elsevier, 2012.
 - GOODRICH, Michael T.; TAMASSIA, Roberto; GOLDWASSER, Michael H. *Estruturas de Dados e Algoritmos em Java*. 6. ed. Porto Alegre: Bookman, 2015.

@@ -15,9 +15,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #define MAX_VERTICES 25
-#define INF 999999
+#define INF LLONG_MAX
 
 typedef struct NoAdj {
     int destino;
@@ -129,7 +130,8 @@ void dijkstra(GrafoDelivery *g, const char *nomeOrig, const char *nomeDest) {
         return;
     }
 
-    int dist[MAX_VERTICES], visitado[MAX_VERTICES], anterior[MAX_VERTICES];
+    long long dist[MAX_VERTICES];
+    int visitado[MAX_VERTICES], anterior[MAX_VERTICES];
     for (int i = 0; i < g->numVertices; i++) {
         dist[i] = INF;
         visitado[i] = 0;
@@ -138,7 +140,8 @@ void dijkstra(GrafoDelivery *g, const char *nomeOrig, const char *nomeDest) {
     dist[orig] = 0;
 
     for (int count = 0; count < g->numVertices - 1; count++) {
-        int min = INF, u = -1;
+        long long min = INF;
+        int u = -1;
         for (int v = 0; v < g->numVertices; v++) {
             if (!visitado[v] && dist[v] < min) {
                 min = dist[v];
@@ -152,7 +155,10 @@ void dijkstra(GrafoDelivery *g, const char *nomeOrig, const char *nomeDest) {
         while (aresta != NULL) {
             int v = aresta->destino;
             int peso = aresta->peso;
-            if (!visitado[v] && dist[u] + peso < dist[v]) {
+            // Cada peso e int positivo e ha no maximo 25 vertices; a soma
+            // de um caminho simples cabe em long long, inclusive acima de INT_MAX.
+            if (!visitado[v] && dist[u] <= LLONG_MAX - peso
+                && dist[u] + peso < dist[v]) {
                 dist[v] = dist[u] + peso;
                 anterior[v] = u;
             }
@@ -166,7 +172,7 @@ void dijkstra(GrafoDelivery *g, const char *nomeOrig, const char *nomeDest) {
     }
 
     printf("\n[DIJKSTRA] Menor rota de '%s' ate '%s':\n", nomeOrig, nomeDest);
-    printf("  -> Custo minimo total: %d km\n  -> Caminho: ", dist[dest]);
+    printf("  -> Custo minimo total: %lld km\n  -> Caminho: ", dist[dest]);
     int caminho[MAX_VERTICES], tam = 0, curr = dest;
     while (curr != -1) {
         caminho[tam++] = curr;

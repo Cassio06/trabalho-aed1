@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 #define MAX 150
 
@@ -202,14 +203,16 @@ int main(void) {
             fgets(catalogo[total].nome, 50, stdin);
             catalogo[total].nome[strcspn(catalogo[total].nome, "\n")] = '\0';
             printf("Preco (ex: 120.50): ");
-            if (scanf("%f", &catalogo[total].preco) != 1 || catalogo[total].preco < 0.0f) {
+            if (scanf("%f", &catalogo[total].preco) != 1 ||
+                !isfinite(catalogo[total].preco) || catalogo[total].preco < 0.0f) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF) {}
                 printf("[ERRO] Preco invalido!\n");
                 continue;
             }
             printf("Popularidade (0 a 1000): ");
-            if (scanf("%d", &catalogo[total].popularidade) != 1 || catalogo[total].popularidade < 0) {
+            if (scanf("%d", &catalogo[total].popularidade) != 1 ||
+                catalogo[total].popularidade < 0 || catalogo[total].popularidade > 1000) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF) {}
                 printf("[ERRO] Popularidade invalida!\n");

@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 typedef struct Musica {
     char titulo[50];
@@ -64,7 +65,7 @@ Musica* lerMusicaConsole(void) {
     fgets(artista, 50, stdin);
     artista[strcspn(artista, "\n")] = '\0';
     printf("Duracao (minutos, ex: 3.45): ");
-    while (scanf("%f", &duracao) != 1 || duracao <= 0.0f) {
+    while (scanf("%f", &duracao) != 1 || !isfinite(duracao) || duracao <= 0.0f) {
         if (feof(stdin)) {
             duracao = 1.0f;
             break;

@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #define MAX 50
 
@@ -115,7 +116,8 @@ int main(void) {
             fgets(atletas[total].nome, 50, stdin);
             atletas[total].nome[strcspn(atletas[total].nome, "\n")] = '\0';
             printf("Tempo (segundos, ex: 10.45): ");
-            if (scanf("%f", &atletas[total].tempo) != 1 || atletas[total].tempo <= 0.0f) {
+            if (scanf("%f", &atletas[total].tempo) != 1 ||
+                !isfinite(atletas[total].tempo) || atletas[total].tempo <= 0.0f) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF) {}
                 printf("[ERRO] Tempo invalido! Informe um tempo positivo.\n");

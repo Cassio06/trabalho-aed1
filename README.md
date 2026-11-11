@@ -26,7 +26,7 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 | 11 | **Grafo** | Roteamento de Entrega de Mercadorias (Lista Adj. + Dijkstra, 10 bairros + CD Central = 11 vértices) | C | `c(Lukas)/Grafo/Entregas.c` |
 | 12 | **Grafo** | Rede de Amizades em Rede Social (15 usuários + BFS graus de separação) | C | `c(Lukas)/Grafo/rede_social.c` |
 | 13 | **Tabela Hash** | Cadastro de Usuários com Login Rápido (20 usuários + hash de senha) | C | `c(Lukas)/Tabela_Hash/login.c` |
-| 14 | **Tabela Hash** | Contagem de Frequência de Palavras em Texto Técnico de Demonstração | C | `c(Lukas)/Tabela_Hash/frequencia.c` |
+| 14 | **Tabela Hash** | Frequência de palavras em trecho real de *Dom Casmurro* (89 palavras, 69 distintas) | C | `c(Lukas)/Tabela_Hash/frequencia.c` |
 | 15 | **Bubble Sort** | Ordenação de Notas de uma Turma Pequena (20 alunos + estatísticas) | Java | `bubblesort.NotasTurma` (`java(Cássio)/bubblesort/NotasTurma.java`) |
 | 16 | **Bubble Sort** | Ordenação de Produtos por Preço em Vitrine Pequena (12 produtos) | Java | `bubblesort.ProdutosPreco` (`java(Cássio)/bubblesort/ProdutosPreco.java`) |
 | 17 | **Selection Sort** | Seleção dos Melhores Candidatos em Processo Seletivo (15 candidatos) | C | `c(Lukas)/Selection_Sort/processo_seletivo.c` |
@@ -100,7 +100,20 @@ java -cp out fila.Clinica
 
 ### 2. Parte C (Situações 3, 4, 5, 6, 11, 12, 13, 14, 17, 18, 23 e 24)
 
-Requisito: **Compilador C padrão C11 (GCC / Clang)**. Todos os programas possuem menu interativo e uma opção dedicada para rodar a **simulação completa exigida pelo enunciado**:
+Requisito: **Compilador C padrão C11 (GCC / Clang)**. Todos os programas possuem menu interativo e uma opção dedicada para rodar a **simulação completa exigida pelo enunciado**.
+
+Para compilar os 12 programas sem avisos, executar as 12 simulações e as regressões da auditoria, use **Node.js 18+** e um compilador C11:
+
+```bash
+node verificar-c.mjs
+# Outro compilador (inclusive Zig, para o qual o script acrescenta "cc"):
+node verificar-c.mjs --cc clang
+node verificar-c.mjs --cc /caminho/para/zig
+```
+
+A verificação usa uma pasta temporária e retorna código diferente de zero se houver falhas. O teste do contador cobre acentos portugueses em UTF-8, maiúsculas/minúsculas, pontuação, palavras e linhas longas e espalhamento hash; os demais testes incluem distâncias acima de `INT_MAX` e rejeição de `NaN`/infinito. Os programas não dependem do Node.js para uso normal.
+
+Compilação e execução individuais:
 
 ```bash
 gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Pilha/Sistema de Undo.c" -o undo && ./undo
@@ -121,4 +134,8 @@ gcc -std=c11 -Wall -Wextra -pedantic "c(Lukas)/Quick_Sort/competicao.c" -o compe
 
 ## Relatório Técnico
 
-O relatório técnico completo contendo justificativas de escolha, funcionamento interno, análises de complexidade de tempo e espaço, exemplos de entrada/saída, dificuldades encontradas e conclusão para todas as **12 categorias e 24 situações-problema** encontra-se em [`relatorio/MODELO_RELATORIO.md`](relatorio/MODELO_RELATORIO.md).
+O relatório técnico completo contendo justificativas de escolha, funcionamento interno, análises de complexidade de tempo e espaço, exemplos de entrada/saída, dificuldades encontradas e conclusão para todas as **12 categorias e 24 situações-problema** encontra-se em [`relatorio/MODELO_RELATORIO.md`](relatorio/MODELO_RELATORIO.md), com as versões finais DOCX e PDF na raiz.
+
+A situação 14 usa o primeiro parágrafo de **Machado de Assis, *Dom Casmurro*, capítulo I (1899)**, conferido na [Wikisource](https://pt.wikisource.org/wiki/Dom_Casmurro/I), com grafia original preservada. A normalização aceita letras ASCII e letras latinas precompostas (incluindo os acentos portugueses em UTF-8), converte maiúsculas em minúsculas e separa palavras por pontuação, hífen ou espaços. A demonstração resulta em **89 palavras, 69 distintas**. O ranking das palavras usa desempate pela ordem dos bytes UTF-8.
+
+A ficha original preenchida está em [`FICHA_OBRIGATORIA_PREENCHIDA.pdf`](FICHA_OBRIGATORIA_PREENCHIDA.pdf). O enunciado original foi preservado. Para a entrega, envie código-fonte, relatório final e ficha pela plataforma **iCEV Digital**; a submissão no portal não é realizada pelos scripts de verificação.

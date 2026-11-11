@@ -2,6 +2,11 @@
 .idea/
 .codex/
 .vscode/
+*.iml
+
+# Arquivos internos de planejamento dos agentes
+.superpowers/
+/docs/superpowers/
 
 # Artefatos Java
 out/
@@ -11,7 +16,17 @@ out/
 *.exe
 *.out
 *.o
+*.obj
+*.pdb
+*.ilk
 *.app
 bin/
 build/
 output/
+
+# Arquivos temporários e de bloqueio do Word / LibreOffice
+~$*
+.~lock.*#
+
+# Pacotes de entrega gerados a partir dos fontes e documentos
+/TRABALHO_AED1_*.zip

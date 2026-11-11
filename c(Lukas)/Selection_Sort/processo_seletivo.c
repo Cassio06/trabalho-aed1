@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #define MAX 40
 
@@ -108,6 +109,7 @@ int main(void) {
             candidatos[total].nome[strcspn(candidatos[total].nome, "\n")] = '\0';
             printf("Pontuacao (0 a 100): ");
             if (scanf("%f", &candidatos[total].nota) != 1 ||
+                !isfinite(candidatos[total].nota) ||
                 candidatos[total].nota < 0.0f || candidatos[total].nota > 100.0f) {
                 int c;
                 while ((c = getchar()) != '\n' && c != EOF) {}
