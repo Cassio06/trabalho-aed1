@@ -4,6 +4,8 @@ Implementação completa das **12 estruturas de dados e algoritmos de ordenaçã
 
 ## Equipe (Dupla)
 
+**Curso / Período:** Engenharia de Software — **2º Período (2026.2)** — Turma **SNYDER**.
+
 - **Cássio Filipe Meireles De Carvalho Braga** (Matrícula: `0031236`) — 6 categorias / 12 aplicações em **Java** (`java(Cássio)/`)
 - **Lukas Souza Melo** (Matrícula: `0031163`) — 6 categorias / 12 aplicações em **C** (`c(Lukas)/`)
 

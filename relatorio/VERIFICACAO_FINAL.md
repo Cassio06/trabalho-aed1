@@ -1,6 +1,6 @@
 # Verificação final para entrega — 11/11/2026
 
-**Dupla:** Cássio Filipe Meireles De Carvalho Braga (0031236) e Lukas Souza Melo (0031163), turma SNYDER.
+**Dupla:** Cássio Filipe Meireles De Carvalho Braga (0031236) e Lukas Souza Melo (0031163), turma SNYDER, **2º Período de Engenharia de Software (2026.2)**.
 
 ## Código
 

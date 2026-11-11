@@ -3,7 +3,7 @@
 ## Ficha Obrigatória de Identificação
 
 - **Instituição:** Instituto de Ensino Superior iCEV
-- **Curso / Período:** Engenharia de Software — 1º Período (2026-2)
+- **Curso / Período:** Engenharia de Software — 2º Período (2026-2)
 - **Disciplina:** Algoritmo e Estrutura de Dados I (Tipo: P2)
 - **Professor:** Hilson Silva
 - **Nome da Turma:** SNYDER
